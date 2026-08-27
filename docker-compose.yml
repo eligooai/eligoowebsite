@@ -1,0 +1,9 @@
+services:
+  eligoo-website:
+    build: .
+    image: eligoo-website:latest
+    container_name: eligoo-website
+    restart: unless-stopped
+    # host nginx (eligoo.in vhost) proxies / -> 127.0.0.1:3002
+    ports:
+      - "127.0.0.1:3002:80"
