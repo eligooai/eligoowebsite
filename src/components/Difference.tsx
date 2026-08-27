@@ -19,7 +19,7 @@ const NEW = ['You define the role.', 'You define the goal.', 'Your AI Employee d
 
 export function Difference() {
   return (
-    <section className="relative px-5 sm:px-10" style={{ backgroundColor: '#041A17', borderRadius: '40px 40px 0 0', marginTop: -40, paddingTop: 'clamp(80px, 12vh, 150px)', paddingBottom: 'clamp(80px, 12vh, 150px)' }}>
+    <section className="relative px-5 sm:px-10" style={{ backgroundColor: '#041A17', borderRadius: '40px 40px 0 0', marginTop: -40, paddingTop: 'clamp(56px, 9vh, 150px)', paddingBottom: 'clamp(56px, 9vh, 150px)' }}>
       <div className="absolute inset-0 dots opacity-40 pointer-events-none" />
       <div className="relative mx-auto" style={{ maxWidth: 1100 }}>
         <Reveal><Eyebrow light>Software gives you features. Eligoo gives you workers.</Eyebrow></Reveal>
@@ -147,7 +147,7 @@ export function HowItWorks() {
   const lineScale = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
-    <section id="how" className="relative bg-white px-5 sm:px-10" style={{ paddingTop: 'clamp(80px, 12vh, 150px)', paddingBottom: 'clamp(80px, 12vh, 150px)' }}>
+    <section id="how" className="relative bg-white px-5 sm:px-10" style={{ paddingTop: 'clamp(56px, 9vh, 150px)', paddingBottom: 'clamp(56px, 9vh, 150px)' }}>
       <div className="mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16" style={{ maxWidth: 1100 }}>
         <div className="lg:col-span-5">
           <div className="lg:sticky lg:top-28">

@@ -13,7 +13,7 @@ const SOMEONE = ['research', 'plan', 'create', 'follow up', 'monitor performance
 
 export default function Statement() {
   return (
-    <section className="relative bg-white px-5 sm:px-10" style={{ paddingTop: 'clamp(80px, 12vh, 120px)', paddingBottom: 'clamp(80px, 12vh, 120px)' }}>
+    <section className="relative bg-white px-5 sm:px-10" style={{ paddingTop: 'clamp(56px, 9vh, 120px)', paddingBottom: 'clamp(56px, 9vh, 120px)' }}>
       <div className="mx-auto" style={{ maxWidth: 1180 }}>
         {/* category statement */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">

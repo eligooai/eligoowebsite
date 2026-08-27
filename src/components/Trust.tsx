@@ -34,7 +34,7 @@ function Toggle({ delay }: { delay: number }) {
 
 export function Control() {
   return (
-    <section className="relative bg-white px-5 sm:px-10" style={{ paddingTop: 'clamp(80px, 12vh, 150px)', paddingBottom: 'clamp(80px, 12vh, 150px)' }}>
+    <section className="relative bg-white px-5 sm:px-10" style={{ paddingTop: 'clamp(56px, 9vh, 150px)', paddingBottom: 'clamp(56px, 9vh, 150px)' }}>
       <div className="mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16" style={{ maxWidth: 1100 }}>
         <div className="lg:col-span-5">
           <div className="lg:sticky lg:top-28">
@@ -107,7 +107,7 @@ function Row({ items, reverse = false }: { items: string[]; reverse?: boolean })
 
 export function Integrations() {
   return (
-    <section className="relative px-0 overflow-hidden" style={{ backgroundColor: '#F3F6F4', paddingTop: 'clamp(80px, 12vh, 150px)', paddingBottom: 'clamp(80px, 12vh, 150px)' }}>
+    <section className="relative px-0 overflow-hidden" style={{ backgroundColor: '#F3F6F4', paddingTop: 'clamp(56px, 9vh, 150px)', paddingBottom: 'clamp(56px, 9vh, 150px)' }}>
       <div className="mx-auto px-5 sm:px-10 text-center" style={{ maxWidth: 900 }}>
         <Reveal><div className="flex justify-center"><Eyebrow>Works where your business works</Eyebrow></div></Reveal>
         <h2 className="font-display m-0 mt-4" style={{ fontSize: 'clamp(34px, 5vw, 64px)', lineHeight: 1.0, fontWeight: 900, color: '#041A17' }}>
@@ -142,7 +142,7 @@ const PLANS = [
 
 export function Plans() {
   return (
-    <section id="plans" className="relative bg-white px-5 sm:px-10" style={{ paddingTop: 'clamp(80px, 12vh, 150px)', paddingBottom: 'clamp(80px, 12vh, 150px)' }}>
+    <section id="plans" className="relative bg-white px-5 sm:px-10" style={{ paddingTop: 'clamp(56px, 9vh, 150px)', paddingBottom: 'clamp(56px, 9vh, 150px)' }}>
       <div className="mx-auto" style={{ maxWidth: 1100 }}>
         <div className="text-center">
           <Reveal><div className="flex justify-center"><Eyebrow>Simple AI resourcing</Eyebrow></div></Reveal>

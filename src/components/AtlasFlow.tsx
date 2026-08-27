@@ -25,7 +25,7 @@ export default function AtlasFlow() {
     <section id="atlas" ref={ref} className="relative" style={{ height: `${TOTAL * 60 + 100}vh`, backgroundColor: '#F3F6F4' }}>
       <div className="sticky top-0 h-screen overflow-hidden flex flex-col">
         <div className="absolute inset-0 dots-dark opacity-60 pointer-events-none" />
-        <div className="relative mx-auto w-full px-5 sm:px-10 flex-1 flex flex-col justify-center" style={{ maxWidth: 1180, paddingTop: 90, paddingBottom: 24 }}>
+        <div className="relative mx-auto w-full px-5 sm:px-10 flex-1 flex flex-col justify-center" style={{ maxWidth: 1180, paddingTop: 90, paddingBottom: 64 }}>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center">
             {/* left */}
             <div className="lg:col-span-5">
@@ -152,7 +152,7 @@ export default function AtlasFlow() {
           </div>
 
           {/* closing line */}
-          <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4" style={{ minHeight: 56 }}>
+          <div className="mt-5 sm:mt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3" style={{ minHeight: 56 }}>
             <motion.p
               className="font-display m-0"
               style={{ fontSize: 'clamp(18px, 2.4vw, 30px)', fontWeight: 900, color: '#041A17', lineHeight: 1.2 }}
@@ -168,7 +168,7 @@ export default function AtlasFlow() {
         </div>
 
         {/* progress */}
-        <div className="absolute bottom-5 inset-x-0 flex justify-center gap-1.5">
+        <div className="absolute bottom-2 inset-x-0 flex justify-center gap-1.5">
           {Array.from({ length: TOTAL }).map((_, i) => (
             <span key={i} className="h-1 rounded-full transition-all duration-300" style={{ width: i === stage ? 22 : 8, backgroundColor: i <= stage ? '#FF5A36' : '#D5DDD9' }} />
           ))}

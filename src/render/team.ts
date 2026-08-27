@@ -6,7 +6,8 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
 const PORTRAIT = new URLSearchParams(location.search).has('portrait');
 const W = PORTRAIT ? 1152 : 2048, H = PORTRAIT ? 2048 : 1152;
-const ZK = PORTRAIT ? 1.75 : 1;
+const ZK = PORTRAIT ? 1.9 : 1;
+const PX = PORTRAIT ? 0.5 : 1; // portrait squeezes the line-up into a tight group photo
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
 renderer.setSize(W, H); renderer.setPixelRatio(1);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -100,6 +101,8 @@ const draco = new DRACOLoader().setDecoderPath('https://www.gstatic.com/draco/ve
 const gltf = new GLTFLoader().setDRACOLoader(draco);
 const loadModel = (url: string) => new Promise<THREE.Group>((res) => gltf.load(url, (g) => res(g.scene as unknown as THREE.Group)));
 
+if (PORTRAIT) TEAM.forEach((m) => { m.x *= PX; });
+
 async function build() {
   await document.fonts.load('900 84px Nunito'); await document.fonts.load('700 19px Inter'); await document.fonts.load('600 26px Inter');
   const markImg = new Image(); markImg.src = '/brand/mark.png'; await markImg.decode();
@@ -132,15 +135,15 @@ build();
 const look = new THREE.Vector3();
 function setFrame(t: number) {
   const a1 = sm(0, 0.24, t), a2 = io(0.24, 0.58, t), a3 = io(0.58, 0.82, t), a4 = io(0.82, 1, t);
-  let cx = lerp(-1.2, 0, a1), cy = lerp(3.2, 3.0, a1), cz = lerp(12.5, 11, a1);
-  cx = lerp(cx, lerp(-6, 6, a2), sm(0.2, 0.3, t) * (1 - sm(0.55, 0.66, t)));
+  let cx = lerp(PORTRAIT ? -0.3 : -1.2, 0, a1), cy = lerp(3.2, 3.0, a1), cz = lerp(12.5, 11, a1);
+  cx = lerp(cx, lerp(-6 * PX, 6 * PX, a2), sm(0.2, 0.3, t) * (1 - sm(0.55, 0.66, t)));
   cz = lerp(cz, 10.5, sm(0.2, 0.3, t) * (1 - sm(0.55, 0.66, t)));
   cy = lerp(cy, 2.9, sm(0.2, 0.3, t) * (1 - sm(0.55, 0.66, t)));
   cz = lerp(cz, 14.5, sm(0.55, 0.7, t)); cx = lerp(cx, 0, sm(0.55, 0.7, t));
   cy = lerp(cy, 2.6, sm(0.55, 0.7, t)); cy = lerp(cy, 2.8, a4); cz = lerp(cz, 12.6, a4);
   camera.position.set(cx * (PORTRAIT ? 0.8 : 1), cy + (PORTRAIT ? 0.6 : 0), cz * ZK);
   const ly = lerp(lerp(4.3, 4.0, a1), 2.7, sm(0.2, 0.3, t));
-  look.set(lerp(cx * 0.6, 0, sm(0.55, 0.7, t)), lerp(lerp(ly, 3.3, a3), 4.6, a4), lerp(0, -1.5, a4));
+  look.set(lerp(cx * 0.6, 0, sm(0.55, 0.7, t)), lerp(lerp(ly, PORTRAIT ? 4.6 : 3.3, a3), 4.6, a4), lerp(0, -1.5, a4));
   if (PORTRAIT) look.y += lerp(1.5, 0, sm(0.2, 0.3, t));
   camera.lookAt(look);
 
@@ -157,17 +160,17 @@ function setFrame(t: number) {
     const at = 0.26 + i * 0.045; const k = io(at, at + 0.07, t);
     const side = c.m.x < 0 ? 1 : -1;
     const restX = c.m.x + side * 0.15, restY = c.m.h + 1.0 + (i % 2) * 0.5, restZ = c.m.z + 0.6;
-    const gx = c.m.grid[0] * 2.0, gy = 3.5 + c.m.grid[1] * 0.78, gz = 4.2;
+    const gx = c.m.grid[0] * 2.0 * (PORTRAIT ? 0.78 : 1), gy = (PORTRAIT ? 5.3 : 3.5) + c.m.grid[1] * (PORTRAIT ? 1.6 : 0.78), gz = 4.2;
     const ex = c.m.x * 0.88, ey = c.m.h + 0.68 + (i % 2) * 0.38, ez = c.m.z + 1.5;
     let x = lerp(restX, gx, a3), y = lerp(restY, gy, a3), z = lerp(restZ, gz, a3);
     x = lerp(x, ex, a4); y = lerp(y, ey, a4); z = lerp(z, ez, a4);
     c.mesh.position.set(x, y, z);
     c.mesh.visible = k > 0.001;
-    const s = lerp(0.6, 0.86, k) * lerp(1, 0.78 / 0.86, a3) * lerp(1, 0.55 / 0.78, a4);
+    const s = lerp(0.6, 0.86, k) * lerp(1, (PORTRAIT ? 0.6 : 0.78) / 0.86, a3) * lerp(1, 0.55 / (PORTRAIT ? 0.6 : 0.78), a4);
     c.mesh.scale.setScalar(s);
     c.mesh.quaternion.copy(camera.quaternion);
     c.mesh.rotateY(lerp(-Math.PI / 2, 0, k) + side * 0.12 * (1 - a3));
-    c.mat.opacity = k;
+    c.mat.opacity = PORTRAIT ? k * (1 - a4) : k;
   });
   (glow.material as THREE.MeshBasicMaterial).opacity = lerp(lerp(0.5, 1, a1) * (1 - a3 * 0.4), 1.2, a4);
   renderer.render(scene, camera);

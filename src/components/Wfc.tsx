@@ -7,7 +7,7 @@ const BIG = ['Always available.', 'Connected to your tools.', 'Built around your
 
 export function WfcSection() {
   return (
-    <section id="wfc" className="relative overflow-hidden px-5 sm:px-10" style={{ backgroundColor: '#041A17', borderRadius: '40px 40px 0 0',  paddingTop: 'clamp(90px, 14vh, 170px)', paddingBottom: 'clamp(90px, 14vh, 170px)' }}>
+    <section id="wfc" className="relative overflow-hidden px-5 sm:px-10" style={{ backgroundColor: '#041A17', borderRadius: '40px 40px 0 0',  paddingTop: 'clamp(60px, 10vh, 170px)', paddingBottom: 'clamp(60px, 10vh, 170px)' }}>
       <div className="absolute inset-0 dots opacity-50 pointer-events-none" />
       <motion.div
         className="absolute pointer-events-none"
@@ -54,7 +54,7 @@ const OUTCOMES = [
 
 export function Outcomes() {
   return (
-    <section className="relative bg-white px-5 sm:px-10" style={{ paddingTop: 'clamp(80px, 12vh, 150px)', paddingBottom: 'clamp(80px, 12vh, 150px)' }}>
+    <section className="relative bg-white px-5 sm:px-10" style={{ paddingTop: 'clamp(56px, 9vh, 150px)', paddingBottom: 'clamp(56px, 9vh, 150px)' }}>
       <div className="mx-auto" style={{ maxWidth: 1100 }}>
         <Reveal><Eyebrow>Don't measure AI by how smart it sounds</Eyebrow></Reveal>
         <h2 className="font-display m-0 mt-4" style={{ fontSize: 'clamp(36px, 5.4vw, 72px)', lineHeight: 1.0, fontWeight: 900, color: '#041A17' }}>
@@ -100,7 +100,7 @@ const AI = ['Repetitive work', 'Research-heavy tasks', 'Operational execution', 
 
 export function HumanAI() {
   return (
-    <section className="relative px-5 sm:px-10" style={{ backgroundColor: '#F3F6F4', paddingTop: 'clamp(80px, 12vh, 150px)', paddingBottom: 'clamp(80px, 12vh, 150px)' }}>
+    <section className="relative px-5 sm:px-10" style={{ backgroundColor: '#F3F6F4', paddingTop: 'clamp(56px, 9vh, 150px)', paddingBottom: 'clamp(56px, 9vh, 150px)' }}>
       <div className="mx-auto" style={{ maxWidth: 1100 }}>
         <Reveal><Eyebrow>Not human or AI</Eyebrow></Reveal>
         <h2 className="font-display m-0 mt-4" style={{ fontSize: 'clamp(36px, 5.4vw, 72px)', lineHeight: 1.0, fontWeight: 900, color: '#041A17' }}>

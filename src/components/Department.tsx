@@ -192,7 +192,7 @@ export default function Department() {
   const [selected, setSelected] = useState<Employee | null>(null);
 
   return (
-    <section id="team" className="relative px-5 sm:px-10" style={{ backgroundColor: '#ffffff', paddingTop: 'clamp(80px, 12vh, 120px)', paddingBottom: 'clamp(80px, 12vh, 120px)' }}>
+    <section id="team" className="relative px-5 sm:px-10" style={{ backgroundColor: '#ffffff', paddingTop: 'clamp(56px, 9vh, 120px)', paddingBottom: 'clamp(56px, 9vh, 120px)' }}>
       <div className="mx-auto" style={{ maxWidth: 1180 }}>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
           <div className="lg:col-span-7">

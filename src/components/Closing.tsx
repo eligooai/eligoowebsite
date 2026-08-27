@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, Plus, ArrowRight } from 'lucide-react';
 import { Eyebrow, Reveal, Words, Button, Mark, EASE, BOOK_URL } from './ui';
@@ -9,7 +9,7 @@ const THEN = ['More campaigns required more marketers.', 'More leads required mo
 
 export function WhyNow() {
   return (
-    <section className="relative overflow-hidden px-5 sm:px-10" style={{ backgroundColor: '#041A17', paddingTop: 'clamp(90px, 14vh, 170px)', paddingBottom: 'clamp(90px, 14vh, 170px)' }}>
+    <section className="relative overflow-hidden px-5 sm:px-10" style={{ backgroundColor: '#041A17', paddingTop: 'clamp(60px, 10vh, 170px)', paddingBottom: 'clamp(60px, 10vh, 170px)' }}>
       <div className="absolute inset-0 dots opacity-50 pointer-events-none" />
       <div className="absolute pointer-events-none" style={{ right: '-20%', bottom: '-30%', width: 900, height: 900, background: 'radial-gradient(circle, rgba(255,90,54,0.25), transparent 60%)' }} />
       <div className="relative mx-auto" style={{ maxWidth: 1100 }}>
@@ -68,7 +68,7 @@ const FIT = ['A clear product or service.', 'A repeatable sales or marketing pro
 
 export function WhoFor() {
   return (
-    <section className="relative bg-white px-5 sm:px-10" style={{ paddingTop: 'clamp(80px, 12vh, 150px)', paddingBottom: 'clamp(80px, 12vh, 150px)' }}>
+    <section className="relative bg-white px-5 sm:px-10" style={{ paddingTop: 'clamp(56px, 9vh, 150px)', paddingBottom: 'clamp(56px, 9vh, 150px)' }}>
       <div className="mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start" style={{ maxWidth: 1100 }}>
         <div>
           <Reveal><Eyebrow>Built for companies that have more work than people</Eyebrow></Reveal>
@@ -131,7 +131,7 @@ const FAQ = [
 export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section className="relative px-5 sm:px-10" style={{ backgroundColor: '#F3F6F4', paddingTop: 'clamp(80px, 12vh, 150px)', paddingBottom: 'clamp(80px, 12vh, 150px)' }}>
+    <section className="relative px-5 sm:px-10" style={{ backgroundColor: '#F3F6F4', paddingTop: 'clamp(56px, 9vh, 150px)', paddingBottom: 'clamp(56px, 9vh, 150px)' }}>
       <div className="mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10" style={{ maxWidth: 1100 }}>
         <div className="lg:col-span-4">
           <div className="lg:sticky lg:top-28">
@@ -190,6 +190,14 @@ const FOOT_LINKS = ['AI Growth Department', 'AI Employees', 'How It Works', 'WFC
 const FOOT_HREF: Record<string, string> = { 'AI Growth Department': '#team', 'AI Employees': '#team', 'How It Works': '#how', WFC: '#wfc', Pricing: '#plans', Security: '#top', 'About Eligoo': '#top' };
 
 export function FinalCta() {
+  const [vw, setVw] = useState(1200);
+  useEffect(() => {
+    const f = () => setVw(window.innerWidth);
+    f();
+    window.addEventListener('resize', f);
+    return () => window.removeEventListener('resize', f);
+  }, []);
+  const narrow = vw < 640;
   // V formation — Atlas front and center, wings receding
   const V = [
     { id: 'pixel', h: 0.58 }, { id: 'maven', h: 0.72 }, { id: 'sage', h: 0.87 },
@@ -200,7 +208,7 @@ export function FinalCta() {
     <section id="hire" className="relative overflow-hidden" style={{ backgroundColor: '#041A17' }}>
       <div className="absolute inset-0 dots opacity-50 pointer-events-none" />
       <div className="absolute inset-x-0 bottom-0 pointer-events-none" style={{ height: '70%', background: 'radial-gradient(ellipse at 50% 100%, rgba(255,90,54,0.4), transparent 60%)' }} />
-      <div className="relative mx-auto px-5 sm:px-10 text-center" style={{ maxWidth: 1100, paddingTop: 'clamp(90px, 14vh, 170px)' }}>
+      <div className="relative mx-auto px-5 sm:px-10 text-center" style={{ maxWidth: 1100, paddingTop: 'clamp(60px, 10vh, 170px)' }}>
         <Reveal><div className="flex justify-center"><Eyebrow light>Your next hire could be WFC</Eyebrow></div></Reveal>
         <h2 className="font-display m-0 mt-4 text-white" style={{ fontSize: 'clamp(42px, 7.5vw, 104px)', lineHeight: 0.96, fontWeight: 900 }}>
           <Words text="Build the team" />
@@ -220,8 +228,10 @@ export function FinalCta() {
           <p className="eyebrow m-0" style={{ color: 'rgba(255,255,255,0.45)' }}>Eligoo — AI Employees. Work From Cloud.</p>
         </Reveal>
 
-        <div className="relative mt-12 flex items-end justify-center" style={{ height: 'clamp(230px, 38vh, 400px)' }}>
-          {V.map((v, i) => (
+        <div className="relative mt-12 flex items-end justify-center" style={{ height: 'clamp(190px, 32vh, 400px)' }}>
+          {(narrow ? V.slice(1, 6) : V).map((v, i0) => {
+            const i = narrow ? i0 + 1 : i0;
+            return (
             <motion.img
               key={v.id}
               src={v.e.image}
@@ -230,18 +240,18 @@ export function FinalCta() {
               style={{
                 height: `${v.h * 100}%`,
                 width: 'auto',
-                marginLeft: i === 0 ? 0 : 'clamp(-26px, -1.6vw, -10px)',
+                marginLeft: i === 0 ? 0 : narrow ? -Math.round(vw * 0.055) : 'clamp(-26px, -1.6vw, -10px)',
                 marginBottom: `${(1 - v.h) * 46}px`,
                 zIndex: 10 - Math.abs(i - 3),
                 filter: `drop-shadow(0 24px 30px rgba(0,0,0,0.5)) brightness(${1 - Math.abs(i - 3) * 0.06})`,
               }}
-              className={Math.abs(i - 3) > 2 ? 'hidden sm:block' : ''}
               initial={{ opacity: 0, y: 70 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: Math.abs(i - 3) * 0.12, ease: EASE }}
             />
-          ))}
+            );
+          })}
         </div>
       </div>
 

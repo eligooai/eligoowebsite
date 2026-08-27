@@ -4,8 +4,9 @@ const fs = require('fs');
 const ts = process.argv.slice(2).map(Number);
 (async () => {
   const b = await chromium.launch({ channel: 'chrome', headless: true, args: ['--use-angle=swiftshader-webgl', '--enable-unsafe-swiftshader'] });
-  const p = await b.newPage({ viewport: { width: 2048, height: 1152 } });
-  await p.goto('http://localhost:5173/render.html');
+  const portrait = process.env.PV_PORTRAIT === '1';
+  const p = await b.newPage({ viewport: portrait ? { width: 1152, height: 2048 } : { width: 2048, height: 1152 } });
+  await p.goto('http://localhost:5173/render.html' + (portrait ? '?portrait=1' : ''));
   await p.waitForFunction(() => window.__ready === true, null, { timeout: 30000 });
   for (let i = 0; i < ts.length; i++) {
     const url = await p.evaluate((t) => window.renderFrame(t), ts[i]);
