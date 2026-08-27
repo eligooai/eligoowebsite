@@ -1,0 +1,28 @@
+# dependencies
+node_modules
+
+# build output
+dist
+dist-ssr
+*.local
+
+# editor
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea
+
+# logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# raw source assets (50-100MB each — optimized copies live in public/models)
+ai employees/
+AI Employees/
+cyberpunk_character.glb
+eligo-logo (1).svg
+Eligoo - favi.svg
