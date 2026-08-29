@@ -26,3 +26,6 @@ AI Employees/
 cyberpunk_character.glb
 eligo-logo (1).svg
 Eligoo - favi.svg
+
+# server-side secrets
+.env

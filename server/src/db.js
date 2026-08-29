@@ -54,11 +54,20 @@ const secretPath = path.join(DATA_DIR, 'jwt-secret');
 if (!fs.existsSync(secretPath)) fs.writeFileSync(secretPath, crypto.randomBytes(48).toString('hex'));
 export const JWT_SECRET = fs.readFileSync(secretPath, 'utf8').trim();
 
-const userCount = db.prepare('SELECT COUNT(*) c FROM users').get().c;
-if (userCount === 0) {
-  const pw = process.env.ADMIN_PASSWORD || crypto.randomBytes(9).toString('base64url');
+// Admin credentials: ADMIN_EMAIL / ADMIN_PASSWORD env are authoritative when set —
+// the user is created or its password reset to match on every boot.
+const envEmail = (process.env.ADMIN_EMAIL || '').toLowerCase().trim();
+const envPw = process.env.ADMIN_PASSWORD || '';
+if (envEmail && envPw) {
+  const existing = db.prepare('SELECT id FROM users WHERE email=?').get(envEmail);
+  const hash = bcrypt.hashSync(envPw, 10);
+  if (existing) db.prepare('UPDATE users SET password_hash=? WHERE id=?').run(hash, existing.id);
+  else db.prepare('INSERT INTO users (email, password_hash) VALUES (?, ?)').run(envEmail, hash);
+  console.log('[seed] admin credentials synced from env for', envEmail);
+} else if (db.prepare('SELECT COUNT(*) c FROM users').get().c === 0) {
+  const pw = crypto.randomBytes(9).toString('base64url');
   db.prepare('INSERT INTO users (email, password_hash) VALUES (?, ?)')
-    .run(process.env.ADMIN_EMAIL || 'admin@eligoo.in', bcrypt.hashSync(pw, 10));
+    .run('admin@eligoo.in', bcrypt.hashSync(pw, 10));
   fs.writeFileSync(path.join(DATA_DIR, 'admin-initial-password.txt'), pw + '\n', { mode: 0o600 });
   console.log('[seed] admin user created; initial password written to /data/admin-initial-password.txt');
 }

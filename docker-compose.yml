@@ -20,6 +20,9 @@ services:
     environment:
       - SITE_URL=https://eligoo.in
       - WEBSITE_ORIGIN=http://eligoo-website
+      # values come from the server-side .env file (gitignored)
+      - ADMIN_EMAIL=${ADMIN_EMAIL:-}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-}
     volumes:
       - eligoo-data:/data
     # host nginx (admin.eligoo.in vhost) proxies -> 127.0.0.1:3004
