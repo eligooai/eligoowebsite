@@ -32,7 +32,7 @@ export default function Footer() {
     <footer className="relative" style={{ borderTop: '1px solid rgba(255,255,255,0.1)', backgroundColor: '#03140F' }}>
       <div className="mx-auto px-5 sm:px-10 py-12 grid grid-cols-1 md:grid-cols-12 gap-8" style={{ maxWidth: 1100 }}>
         <div className="md:col-span-5">
-          <img src="/brand/logo-white.svg" alt="Eligoo" style={{ height: 34 }} />
+          <img src="/brand/logo-white.svg" alt="Eligoo" width={82} height={34} style={{ height: 34, width: 'auto' }} />
           <p className="m-0 mt-4 text-sm" style={{ color: 'rgba(255,255,255,0.55)', lineHeight: 1.7, maxWidth: 360 }}>
             AI Employees. Work From Cloud. Role-based AI systems configured around your business — transparently AI, resourced like a team.
           </p>
@@ -79,7 +79,7 @@ export default function Footer() {
           )}
         </div>
         <div className="md:col-span-3 flex flex-col items-start md:items-end">
-          <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 no-underline rounded-full px-5 py-3 text-sm font-semibold" style={{ backgroundColor: '#FF5A36', color: '#fff' }}>
+          <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 no-underline rounded-full px-5 py-3 text-sm font-semibold" style={{ backgroundColor: '#FF5A36', color: '#041A17', fontWeight: 700 }}>
             Build Your AI Team <ArrowRight size={15} strokeWidth={2.5} />
           </a>
         </div>

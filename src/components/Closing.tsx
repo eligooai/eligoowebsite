@@ -235,6 +235,8 @@ export function FinalCta() {
               key={v.id}
               src={v.e.image}
               alt={v.e.name}
+              width={v.e.imgW}
+              height={v.e.imgH}
               draggable={false}
               style={{
                 height: `${v.h * 100}%`,

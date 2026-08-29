@@ -1,23 +1,10 @@
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, lazy, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, ContactShadows } from '@react-three/drei';
 import { X, Cloud, ArrowRight, Compass, Hammer, PackageCheck, Gauge, ShieldCheck } from 'lucide-react';
 import { Eyebrow, Reveal, Button, Words, EASE, BOOK_URL } from './ui';
 import { EMPLOYEES } from '../data/employees';
 import type { Employee } from '../data/employees';
-import EmployeeModel from './three/EmployeeModel';
-
-/* ---------- shared-canvas 3D card stage ---------- */
-function StageLights() {
-  return (
-    <>
-      <ambientLight intensity={1.1} />
-      <directionalLight position={[2, 4, 4]} intensity={2.2} />
-      <directionalLight position={[-3, 2, -2]} intensity={1.2} color="#FF5A36" />
-    </>
-  );
-}
+const ProfileViewer = lazy(() => import('./three/ProfileViewer'));
 
 function Card({ e, onOpen }: { e: Employee; onOpen: () => void }) {
   const [hover, setHover] = useState(false);
@@ -132,16 +119,9 @@ function Profile({ e, onClose }: { e: Employee; onClose: () => void }) {
         <div className="relative sm:w-[40%] shrink-0 overflow-hidden" style={{ backgroundColor: '#041A17', minHeight: 300 }}>
           <div className="absolute inset-0 dots opacity-50" />
           <div className="absolute inset-0" style={{ background: 'radial-gradient(circle at 50% 100%, rgba(255,90,54,0.4), transparent 60%)' }} />
-          <Canvas dpr={[1, 2]} camera={{ position: [0, 0.7, 2.6], fov: 32 }} style={{ position: 'absolute', inset: 0 }}>
-            <Suspense fallback={null}>
-              <StageLights />
-              <group position={[0, -0.62, 0]}>
-                <EmployeeModel url={e.model} height={1.15} idle />
-                <ContactShadows position={[0, 0, 0]} opacity={0.5} scale={3.4} blur={2.2} far={1.4} resolution={256} frames={Infinity} />
-              </group>
-              <OrbitControls enablePan={false} enableZoom={false} autoRotate autoRotateSpeed={1.4} minPolarAngle={Math.PI / 3} maxPolarAngle={Math.PI / 1.9} target={[0, 0, 0]} />
-            </Suspense>
-          </Canvas>
+          <Suspense fallback={<img src={e.image} alt={e.name} width={e.imgW} height={e.imgH} className="absolute left-1/2 bottom-6" style={{ height: '70%', width: 'auto', transform: 'translateX(-50%)' }} />}>
+            <ProfileViewer model={e.model} />
+          </Suspense>
           <p className="absolute bottom-3 inset-x-0 text-center eyebrow m-0 pointer-events-none" style={{ color: 'rgba(255,255,255,0.45)', fontSize: 9 }}>Drag to rotate</p>
         </div>
 

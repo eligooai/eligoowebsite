@@ -59,7 +59,7 @@ export default function Nav() {
           }}
         >
           <Link to="/" className="flex items-center">
-            <img src={dark ? '/brand/logo.svg' : '/brand/logo-white.svg'} alt="Eligoo" style={{ height: 30 }} />
+            <img src={dark ? '/brand/logo.svg' : '/brand/logo-white.svg'} alt="Eligoo" width={73} height={30} style={{ height: 30, width: 'auto' }} />
           </Link>
           <nav className="hidden lg:flex items-center gap-7">
             {LINKS.map((l) => l.href === '/blog' ? (
@@ -81,7 +81,7 @@ export default function Nav() {
               target="_blank"
               rel="noopener noreferrer"
               className="hidden sm:inline-flex items-center gap-2 no-underline rounded-full px-5 py-2.5 text-[13px] font-semibold"
-              style={{ backgroundColor: '#FF5A36', color: '#fff' }}
+              style={{ backgroundColor: '#FF5A36', color: '#041A17', fontWeight: 700 }}
             >
               Build Your AI Team <ArrowRight size={14} strokeWidth={2.5} />
             </a>
@@ -128,7 +128,7 @@ export default function Nav() {
               rel="noopener noreferrer"
               onClick={() => setOpen(false)}
               className="mt-6 inline-flex w-fit items-center gap-2 no-underline rounded-full px-6 py-3.5 text-sm font-semibold"
-              style={{ backgroundColor: '#FF5A36', color: '#fff' }}
+              style={{ backgroundColor: '#FF5A36', color: '#041A17', fontWeight: 700 }}
             >
               Build Your AI Team <ArrowRight size={16} />
             </a>

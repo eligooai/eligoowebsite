@@ -2,7 +2,6 @@ import { useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
-import { EMPLOYEES } from '../../data/employees';
 
 /** Normalized clone of an employee model: height 1, feet at y=0, centered. */
 export function useEmployeeScene(url: string) {
@@ -59,4 +58,3 @@ export default function EmployeeModel({ url, height = 1, idle = true, followPoin
   );
 }
 
-EMPLOYEES.forEach((e) => useGLTF.preload(e.model));

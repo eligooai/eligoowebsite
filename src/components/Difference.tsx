@@ -121,10 +121,10 @@ const STEPS = [
 function Step({ s, i }: { s: (typeof STEPS)[number]; i: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const scrollYProgress = useScrollProgress({ target: ref, offset: ['start 75%', 'start 40%'] });
-  const opacity = useTransform(scrollYProgress, [0, 1], [0.3, 1]);
-  const scale = useTransform(scrollYProgress, [0, 1], [0.96, 1]);
+  const scale = useTransform(scrollYProgress, [0, 1], [0.97, 1]);
+  const x = useTransform(scrollYProgress, [0, 1], [14, 0]);
   return (
-    <motion.div ref={ref} className="relative pl-16 sm:pl-20 pb-12" style={{ opacity, scale, transformOrigin: 'left center' }}>
+    <motion.div ref={ref} className="relative pl-16 sm:pl-20 pb-12" style={{ x, scale, transformOrigin: 'left center' }}>
       <motion.span
         className="absolute left-0 top-0 w-11 h-11 rounded-full flex items-center justify-center font-display text-sm"
         style={{ backgroundColor: '#041A17', color: '#fff', fontWeight: 900, boxShadow: '0 0 0 6px #fff' }}

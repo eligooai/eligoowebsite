@@ -40,7 +40,7 @@ function LeadForm({ sourcePath }: { sourcePath: string }) {
       <textarea placeholder="What do you want to automate?" rows={3} value={f.message} onChange={(e) => setF({ ...f, message: e.target.value })}
         className="w-full mt-3 rounded-xl px-4 py-3 text-sm outline-none box-border"
         style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', resize: 'vertical' }} />
-      <button type="submit" disabled={state === 'busy'} className="w-full mt-4 rounded-full py-3.5 text-sm font-bold cursor-pointer border-0" style={{ backgroundColor: '#FF5A36', color: '#fff' }}>
+      <button type="submit" disabled={state === 'busy'} className="w-full mt-4 rounded-full py-3.5 text-sm font-bold cursor-pointer border-0" style={{ backgroundColor: '#FF5A36', color: '#041A17' }}>
         {state === 'busy' ? 'Sending…' : 'Get in touch'}
       </button>
       {state === 'error' && <p className="m-0 mt-2 text-xs" style={{ color: '#FF9A7E' }}>Something went wrong — try again.</p>}

@@ -85,6 +85,8 @@ export default function AtlasFlow() {
                 <motion.img
                   src={atlas.image}
                   alt="Atlas"
+                  width={atlas.imgW}
+                  height={atlas.imgH}
                   style={{ height: '100%', width: 'auto', filter: 'drop-shadow(0 24px 30px rgba(4,26,23,0.25))' }}
                   animate={{ y: [0, -6, 0] }}
                   transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
@@ -116,7 +118,7 @@ export default function AtlasFlow() {
                         transition={{ duration: 0.45, ease: EASE }}
                       >
                         <motion.div
-                          className="relative w-[38px] h-[38px] sm:w-11 sm:h-11 rounded-full overflow-hidden shrink-0 flex items-start justify-center"
+                          className="relative w-[38px] h-[38px] sm:w-11 sm:h-11 rounded-full overflow-hidden shrink-0"
                           style={{ backgroundColor: active ? '#FF5A36' : '#E1E8E5', boxShadow: '0 0 0 4px #F3F6F4' }}
                           animate={{ scale: current ? 1.12 : 1 }}
                           transition={{ type: 'spring', stiffness: 300, damping: 16 }}

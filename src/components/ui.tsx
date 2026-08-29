@@ -146,7 +146,7 @@ export function Button({
   onClick?: () => void;
 }) {
   const styles: Record<string, CSSProperties> = {
-    coral: { backgroundColor: '#FF5A36', color: '#ffffff' },
+    coral: { backgroundColor: '#FF5A36', color: '#041A17', fontWeight: 700 },
     ink: { backgroundColor: '#041A17', color: '#ffffff' },
     ghost: { backgroundColor: 'transparent', color: '#ffffff', border: '1.5px solid rgba(255,255,255,0.35)' },
     'ghost-dark': { backgroundColor: 'transparent', color: '#041A17', border: '1.5px solid rgba(4,26,23,0.2)' },
@@ -179,6 +179,8 @@ export function Mark({ size = 64, variant = 'dark', className, style }: { size?:
       aria-hidden
       draggable={false}
       className={className}
+      width={size}
+      height={Math.round((size * 641) / 1191)}
       style={{ width: size, height: 'auto', display: 'block', ...style }}
     />
   );

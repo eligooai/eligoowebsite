@@ -41,37 +41,81 @@ export default function FrameScrubber({ src, count, length = 3, fit = 'contain',
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imagesRef = useRef<HTMLImageElement[]>([]);
   const frameRef = useRef(0);
+  const loadedRef = useRef<Set<number>>(new Set());
   const [loaded, setLoaded] = useState(0);
   const [progress, setProgress] = useState(0);
 
-  // preload every frame
+  // Progressive loading: frame 0 first (paint ASAP), then sparse keyframes so
+  // scrubbing works coarsely, then the rest in the background after page load.
   useEffect(() => {
     let alive = true;
-    const imgs: HTMLImageElement[] = [];
-    let done = 0;
-    for (let i = 0; i < count; i++) {
+    const imgs: HTMLImageElement[] = new Array(count);
+    imagesRef.current = imgs;
+    const loadedSet = loadedRef.current;
+    loadedSet.clear();
+
+    const loadOne = (i: number) => new Promise<void>((resolve) => {
+      if (imgs[i]) return resolve();
       const img = new Image();
       img.decoding = 'async';
       img.src = src(i);
-      img.onload = img.onerror = () => {
-        if (!alive) return;
-        done += 1;
-        setLoaded(done);
-        if (i === 0) draw(0);
+      img.onload = () => {
+        if (!alive) return resolve();
+        loadedSet.add(i);
+        setLoaded(loadedSet.size);
+        if (i === 0 || Math.round(frameRef.current) === i) draw(frameRef.current);
+        resolve();
       };
-      imgs.push(img);
-    }
-    imagesRef.current = imgs;
-    return () => {
-      alive = false;
+      img.onerror = () => resolve();
+      imgs[i] = img;
+    });
+
+    const pool = async (indices: number[], concurrency: number) => {
+      const queue = indices.filter((i) => !imgs[i]);
+      const workers = Array.from({ length: concurrency }, async () => {
+        while (alive && queue.length) await loadOne(queue.shift()!);
+      });
+      await Promise.all(workers);
     };
+
+    (async () => {
+      await loadOne(0);
+      const keys: number[] = [];
+      for (let i = 0; i < count; i += 6) keys.push(i);
+      keys.push(count - 1);
+      await pool(keys, 4);
+      if (!alive) return;
+      // remaining frames: wait for full page load + idle so they never compete
+      // with critical resources
+      await new Promise<void>((r) => {
+        if (document.readyState === 'complete') r();
+        else window.addEventListener('load', () => r(), { once: true });
+      });
+      await new Promise((r) => setTimeout(r, 800));
+      const rest: number[] = [];
+      for (let i = 0; i < count; i++) if (!imgs[i]) rest.push(i);
+      await pool(rest, 3);
+    })();
+
+    return () => { alive = false; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [count]);
 
+  const nearestLoaded = (index: number) => {
+    const want = Math.round(index);
+    const imgs = imagesRef.current;
+    if (imgs[want]?.complete && imgs[want]?.naturalWidth) return imgs[want];
+    for (let d = 1; d < imgs.length; d++) {
+      for (const j of [want - d, want + d]) {
+        if (j >= 0 && j < imgs.length && imgs[j]?.complete && imgs[j]?.naturalWidth) return imgs[j];
+      }
+    }
+    return null;
+  };
   const draw = (index: number) => {
     const canvas = canvasRef.current;
-    const img = imagesRef.current[Math.round(index)];
-    if (!canvas || !img || !img.complete || !img.naturalWidth) return;
+    const img = nearestLoaded(index);
+    if (!canvas || !img) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -134,13 +178,13 @@ export default function FrameScrubber({ src, count, length = 3, fit = 'contain',
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [count, scrub]);
 
-  // once enough frames are in, make sure frame 0 is drawn
+  // as frames stream in, refresh the displayed frame with a sharper neighbour
   useEffect(() => {
     if (loaded > 0) draw(frameRef.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loaded]);
 
-  const ready = loaded >= Math.min(count, 12);
+  const ready = loaded >= 1;
 
   return (
     <div ref={sectionRef} className={`relative ${className}`} style={{ height: `${length * 100}vh`, backgroundColor: background }}>
