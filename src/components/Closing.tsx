@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check, Plus, ArrowRight } from 'lucide-react';
-import { Eyebrow, Reveal, Words, Button, Mark, EASE, BOOK_URL } from './ui';
+import { Check, Plus } from 'lucide-react';
+import { Eyebrow, Reveal, Words, Button, EASE, BOOK_URL } from './ui';
+import Footer from './Footer';
 import { byId } from '../data/employees';
 
 /* ---------- 14. Why now ---------- */
@@ -186,8 +187,6 @@ export function Faq() {
 }
 
 /* ---------- 17 + 18. Final CTA + footer ---------- */
-const FOOT_LINKS = ['AI Growth Department', 'AI Employees', 'How It Works', 'WFC', 'Pricing', 'Security', 'About Eligoo'];
-const FOOT_HREF: Record<string, string> = { 'AI Growth Department': '#team', 'AI Employees': '#team', 'How It Works': '#how', WFC: '#wfc', Pricing: '#plans', Security: '#top', 'About Eligoo': '#top' };
 
 export function FinalCta() {
   const [vw, setVw] = useState(1200);
@@ -255,39 +254,7 @@ export function FinalCta() {
         </div>
       </div>
 
-      <footer className="relative" style={{ borderTop: '1px solid rgba(255,255,255,0.1)', backgroundColor: '#03140F' }}>
-        <div className="mx-auto px-5 sm:px-10 py-12 grid grid-cols-1 md:grid-cols-12 gap-8" style={{ maxWidth: 1100 }}>
-          <div className="md:col-span-5">
-            <img src="/brand/logo-white.svg" alt="Eligoo" style={{ height: 34 }} />
-            <p className="m-0 mt-4 text-sm" style={{ color: 'rgba(255,255,255,0.55)', lineHeight: 1.7, maxWidth: 360 }}>
-              AI Employees. Work From Cloud. Role-based AI systems configured around your business — transparently AI, resourced like a team.
-            </p>
-            <div className="mt-5 flex items-center gap-2" style={{ color: 'rgba(255,255,255,0.5)' }}>
-              <Mark size={34} variant="white" style={{ opacity: 0.6 }} />
-              <span className="eyebrow">WFC · Work From Cloud</span>
-            </div>
-          </div>
-          <div className="md:col-span-4">
-            <p className="eyebrow m-0" style={{ color: 'rgba(255,255,255,0.4)' }}>Eligoo</p>
-            <ul className="m-0 mt-4 p-0 grid grid-cols-2 gap-x-6 gap-y-2.5" style={{ listStyle: 'none' }}>
-              {FOOT_LINKS.map((l) => (
-                <li key={l}>
-                  <a href={FOOT_HREF[l]} className="text-sm no-underline" style={{ color: 'rgba(255,255,255,0.75)' }}>{l}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="md:col-span-3 flex flex-col items-start md:items-end">
-            <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 no-underline rounded-full px-5 py-3 text-sm font-semibold" style={{ backgroundColor: '#FF5A36', color: '#fff' }}>
-              Build Your AI Team <ArrowRight size={15} strokeWidth={2.5} />
-            </a>
-          </div>
-        </div>
-        <div className="mx-auto px-5 sm:px-10 pb-8 flex flex-col sm:flex-row justify-between gap-2 text-xs" style={{ maxWidth: 1100, color: 'rgba(255,255,255,0.35)' }}>
-          <span>© {new Date().getFullYear()} Eligoo. All rights reserved.</span>
-          <span>Every Eligoo employee is an AI system — transparently.</span>
-        </div>
-      </footer>
+      <Footer />
     </section>
   );
 }

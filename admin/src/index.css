@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+body { margin: 0; font-family: 'Inter', sans-serif; background: #F3F6F4; color: #041A17; -webkit-font-smoothing: antialiased; }
+.font-display { font-family: 'Nunito', 'Inter', sans-serif; letter-spacing: -0.02em; }
+.eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+
+.card { background: #fff; border: 1px solid #E1E8E5; border-radius: 18px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; border-radius: 999px; padding: 10px 20px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; transition: opacity .15s, transform .15s; }
+.btn:hover { opacity: .9; transform: translateY(-1px); }
+.btn-coral { background: #FF5A36; color: #fff; }
+.btn-ink { background: #041A17; color: #fff; }
+.btn-ghost { background: #F3F6F4; color: #041A17; border: 1px solid #E1E8E5; }
+.input { width: 100%; box-sizing: border-box; border: 1px solid #E1E8E5; border-radius: 12px; padding: 10px 14px; font-size: 14px; font-family: 'Inter', sans-serif; background: #fff; color: #041A17; outline: none; }
+.input:focus { border-color: #FF5A36; }
+label.lbl { display: block; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #9AA8A4; margin: 14px 0 6px; }
+table.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+table.tbl th { text-align: left; padding: 10px 12px; color: #9AA8A4; font-size: 11px; text-transform: uppercase; letter-spacing: .1em; border-bottom: 1px solid #E1E8E5; }
+table.tbl td { padding: 10px 12px; border-bottom: 1px solid #F0F3F1; vertical-align: top; }
+table.tbl tr:hover td { background: #FAFBFA; }
+
+/* TipTap */
+.tiptap { min-height: 420px; padding: 20px 24px; outline: none; font-size: 15px; line-height: 1.75; }
+.tiptap p { margin: 0 0 14px; }
+.tiptap h2 { font-family: 'Nunito'; font-weight: 900; font-size: 26px; margin: 26px 0 10px; }
+.tiptap h3 { font-family: 'Nunito'; font-weight: 800; font-size: 20px; margin: 22px 0 8px; }
+.tiptap ul, .tiptap ol { padding-left: 24px; margin: 0 0 14px; }
+.tiptap blockquote { border-left: 3px solid #FF5A36; margin: 16px 0; padding: 4px 18px; color: #5C6B67; }
+.tiptap img { max-width: 100%; border-radius: 12px; margin: 12px 0; }
+.tiptap a { color: #FF5A36; }
+.tiptap pre { background: #041A17; color: #E8EFEC; border-radius: 12px; padding: 14px 18px; font-size: 13px; overflow-x: auto; }
+.tiptap code { background: #F3F6F4; border-radius: 4px; padding: 1px 5px; font-size: .9em; }
+.tiptap pre code { background: transparent; padding: 0; }
+.tiptap p.is-editor-empty:first-child::before { content: attr(data-placeholder); color: #B9C4C0; float: left; height: 0; pointer-events: none; }
+.tt-btn { width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; border: none; background: transparent; color: #041A17; cursor: pointer; }
+.tt-btn:hover { background: #F3F6F4; }
+.tt-btn.on { background: #041A17; color: #fff; }

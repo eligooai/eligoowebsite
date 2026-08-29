@@ -77,3 +77,24 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .marquee-track { animation: none; }
 }
+
+/* blog / page content */
+.prose-eligoo { font-size: 16px; line-height: 1.8; color: #26332F; }
+.prose-eligoo > :first-child { margin-top: 0; }
+.prose-eligoo h1, .prose-eligoo h2, .prose-eligoo h3, .prose-eligoo h4 { font-family: 'Nunito', 'Inter', sans-serif; color: #041A17; letter-spacing: -0.02em; line-height: 1.15; }
+.prose-eligoo h1 { font-size: 32px; font-weight: 900; margin: 36px 0 14px; }
+.prose-eligoo h2 { font-size: 27px; font-weight: 900; margin: 34px 0 12px; }
+.prose-eligoo h3 { font-size: 21px; font-weight: 800; margin: 28px 0 10px; }
+.prose-eligoo p { margin: 0 0 18px; }
+.prose-eligoo a { color: #FF5A36; font-weight: 600; }
+.prose-eligoo ul, .prose-eligoo ol { margin: 0 0 18px; padding-left: 26px; }
+.prose-eligoo li { margin-bottom: 6px; }
+.prose-eligoo img { max-width: 100%; border-radius: 16px; margin: 22px 0; }
+.prose-eligoo blockquote { border-left: 3px solid #FF5A36; margin: 22px 0; padding: 6px 22px; color: #5C6B67; font-style: italic; }
+.prose-eligoo pre { background: #041A17; color: #E8EFEC; border-radius: 14px; padding: 18px 22px; font-size: 13.5px; overflow-x: auto; margin: 22px 0; }
+.prose-eligoo code { background: #F3F6F4; border-radius: 5px; padding: 2px 6px; font-size: .9em; }
+.prose-eligoo pre code { background: transparent; padding: 0; }
+.prose-eligoo hr { border: none; border-top: 1px solid #E1E8E5; margin: 30px 0; }
+.prose-eligoo table { width: 100%; border-collapse: collapse; margin: 22px 0; font-size: 14px; }
+.prose-eligoo th, .prose-eligoo td { border: 1px solid #E1E8E5; padding: 10px 14px; text-align: left; }
+.prose-eligoo th { background: #F3F6F4; font-weight: 700; }

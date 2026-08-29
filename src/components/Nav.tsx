@@ -1,20 +1,24 @@
 import { useScrollProgress } from './ui';
 import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence, useSpring } from 'framer-motion';
 import { Menu, X, ArrowRight } from 'lucide-react';
 
 const LINKS = [
-  { label: 'AI Employees', href: '#team' },
-  { label: 'How It Works', href: '#how' },
-  { label: 'Atlas', href: '#atlas' },
-  { label: 'WFC', href: '#wfc' },
-  { label: 'Plans', href: '#plans' },
+  { label: 'AI Employees', href: '/#team' },
+  { label: 'How It Works', href: '/#how' },
+  { label: 'Atlas', href: '/#atlas' },
+  { label: 'WFC', href: '/#wfc' },
+  { label: 'Plans', href: '/#plans' },
+  { label: 'Blog', href: '/blog' },
 ];
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [overHero, setOverHero] = useState(true);
   const [open, setOpen] = useState(false);
+  const { pathname } = useLocation();
+  const isLanding = pathname === '/';
   const scrollYProgress = useScrollProgress({});
   const bar = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });
 
@@ -22,7 +26,8 @@ export default function Nav() {
     const onScroll = () => {
       setScrolled(window.scrollY > 40);
       const hero = document.getElementById('top');
-      setOverHero(!hero || window.scrollY < hero.offsetHeight - 120);
+      // non-landing pages have a short dark header instead of the full hero
+      setOverHero(hero ? window.scrollY < hero.offsetHeight - 120 : window.scrollY < 260);
     };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -39,7 +44,7 @@ export default function Nav() {
         style={{ zIndex: 90 }}
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 2.6, duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+        transition={{ delay: isLanding ? 2.6 : 0.1, duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
       >
         <div
           className="mx-auto mt-3 sm:mt-4 flex items-center justify-between rounded-full px-4 sm:px-5 py-2.5 transition-all duration-500"
@@ -53,11 +58,13 @@ export default function Nav() {
             border: dark ? '1px solid rgba(4,26,23,0.06)' : glass ? '1px solid rgba(255,255,255,0.1)' : '1px solid transparent',
           }}
         >
-          <a href="#top" className="flex items-center">
+          <Link to="/" className="flex items-center">
             <img src={dark ? '/brand/logo.svg' : '/brand/logo-white.svg'} alt="Eligoo" style={{ height: 30 }} />
-          </a>
+          </Link>
           <nav className="hidden lg:flex items-center gap-7">
-            {LINKS.map((l) => (
+            {LINKS.map((l) => l.href === '/blog' ? (
+              <Link key={l.href} to={l.href} className="text-[13px] font-semibold no-underline transition-colors" style={{ color: dark ? '#041A17' : 'rgba(255,255,255,0.85)' }}>{l.label}</Link>
+            ) : (
               <a
                 key={l.href}
                 href={l.href}

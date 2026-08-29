@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/api.ts","./src/main.tsx","./src/components/editor.tsx","./src/pages/blogeditor.tsx","./src/pages/blogs.tsx","./src/pages/dashboard.tsx","./src/pages/leads.tsx","./src/pages/login.tsx","./src/pages/pageeditor.tsx","./src/pages/pages.tsx","./src/pages/settings.tsx","./src/pages/visitors.tsx"],"version":"5.8.3"}

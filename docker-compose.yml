@@ -4,6 +4,27 @@ services:
     image: eligoo-website:latest
     container_name: eligoo-website
     restart: unless-stopped
+    depends_on:
+      - api
     # host nginx (eligoo.in vhost) proxies / -> 127.0.0.1:3002
     ports:
       - "127.0.0.1:3002:80"
+
+  api:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    image: eligoo-api:latest
+    container_name: eligoo-api
+    restart: unless-stopped
+    environment:
+      - SITE_URL=https://eligoo.in
+      - WEBSITE_ORIGIN=http://eligoo-website
+    volumes:
+      - eligoo-data:/data
+    # host nginx (admin.eligoo.in vhost) proxies -> 127.0.0.1:3004
+    ports:
+      - "127.0.0.1:3004:4000"
+
+volumes:
+  eligoo-data:
