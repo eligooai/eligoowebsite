@@ -116,7 +116,7 @@ export default function BlogPost() {
                   {post.more.map((m) => (
                     <Link key={m.id} to={`/blog/${m.slug}`} className="group no-underline">
                       <p className="font-display m-0 group-hover:text-[#FF5A36] transition-colors" style={{ fontSize: 15, fontWeight: 800, color: '#041A17', lineHeight: 1.3 }}>{m.title}</p>
-                      <p className="m-0 mt-1 text-xs" style={{ color: '#9AA8A4' }}>{fmtDate(m.published_at)}</p>
+                      <p className="m-0 mt-1 text-xs" style={{ color: '#64736F' }}>{fmtDate(m.published_at)}</p>
                     </Link>
                   ))}
                 </div>

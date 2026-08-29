@@ -33,7 +33,7 @@ export default function Footer() {
       <div className="mx-auto px-5 sm:px-10 py-12 grid grid-cols-1 md:grid-cols-12 gap-8" style={{ maxWidth: 1100 }}>
         <div className="md:col-span-5">
           <img src="/brand/logo-white.svg" alt="Eligoo" width={82} height={34} style={{ height: 34, width: 'auto' }} />
-          <p className="m-0 mt-4 text-sm" style={{ color: 'rgba(255,255,255,0.55)', lineHeight: 1.7, maxWidth: 360 }}>
+          <p className="m-0 mt-4 text-sm" style={{ color: 'rgba(255,255,255,0.68)', lineHeight: 1.7, maxWidth: 360 }}>
             AI Employees. Work From Cloud. Role-based AI systems configured around your business — transparently AI, resourced like a team.
           </p>
           <div className="mt-5 flex items-center gap-2" style={{ color: 'rgba(255,255,255,0.5)' }}>
@@ -55,7 +55,7 @@ export default function Footer() {
           )}
         </div>
         <div className="md:col-span-4">
-          <p className="eyebrow m-0" style={{ color: 'rgba(255,255,255,0.4)' }}>Eligoo</p>
+          <p className="eyebrow m-0" style={{ color: 'rgba(255,255,255,0.65)' }}>Eligoo</p>
           <ul className="m-0 mt-4 p-0 grid grid-cols-2 gap-x-6 gap-y-2.5" style={{ listStyle: 'none' }}>
             {NAV_LINKS.map((l) => (
               <li key={l.label}>
@@ -67,7 +67,7 @@ export default function Footer() {
           </ul>
           {pages.length > 0 && (
             <>
-              <p className="eyebrow m-0 mt-6" style={{ color: 'rgba(255,255,255,0.4)' }}>Legal</p>
+              <p className="eyebrow m-0 mt-6" style={{ color: 'rgba(255,255,255,0.65)' }}>Legal</p>
               <ul className="m-0 mt-3 p-0 flex flex-col gap-2" style={{ listStyle: 'none' }}>
                 {pages.map((p) => (
                   <li key={p.slug}>
@@ -84,7 +84,7 @@ export default function Footer() {
           </a>
         </div>
       </div>
-      <div className="mx-auto px-5 sm:px-10 pb-8 flex flex-col sm:flex-row justify-between gap-2 text-xs" style={{ maxWidth: 1100, color: 'rgba(255,255,255,0.35)' }}>
+      <div className="mx-auto px-5 sm:px-10 pb-8 flex flex-col sm:flex-row justify-between gap-2 text-xs" style={{ maxWidth: 1100, color: 'rgba(255,255,255,0.6)' }}>
         <span>© {new Date().getFullYear()} Eligoo. All rights reserved.</span>
         <span>Every Eligoo employee is an AI system — transparently.</span>
       </div>

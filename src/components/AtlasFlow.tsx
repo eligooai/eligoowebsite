@@ -123,14 +123,14 @@ export default function AtlasFlow() {
                           animate={{ scale: current ? 1.12 : 1 }}
                           transition={{ type: 'spring', stiffness: 300, damping: 16 }}
                         >
-                          <img src={e.image} alt={e.name} style={{ height: '330%', width: 'auto', marginTop: '-2%' }} />
+                          <img src={e.image} alt={e.name} width={88} height={88} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: '50% 0%', transform: 'scale(1.55)', transformOrigin: '50% 12%' }} />
                         </motion.div>
                         <div className="flex-1 min-w-0">
                           <p className="m-0 text-sm sm:text-base" style={{ color: '#041A17', lineHeight: 1.3 }}>
                             <span className="font-display font-black">{e.name}</span>{' '}
                             <span style={{ color: '#5C6B67' }}>{c.task}</span>
                           </p>
-                          <p className="m-0 text-[11px] font-semibold hidden sm:block" style={{ color: '#9AA8A4' }}>{e.role}</p>
+                          <p className="m-0 text-[11px] font-semibold hidden sm:block" style={{ color: '#64736F' }}>{e.role}</p>
                         </div>
                         <AnimatePresence>
                           {active && !current && (

@@ -27,7 +27,7 @@ function Card({ b, i, featured = false }: { b: BlogCard; i: number; featured?: b
           {b.topic && <span className="absolute top-4 left-4 rounded-full px-3 py-1 text-[10px] font-bold uppercase" style={{ letterSpacing: '0.12em', backgroundColor: '#FF5A36', color: '#fff' }}>{b.topic}</span>}
         </div>
         <div className={`p-6 ${featured ? 'lg:p-10 flex flex-col justify-center' : ''}`}>
-          <p className="m-0 text-xs font-semibold flex items-center gap-2" style={{ color: '#9AA8A4' }}>
+          <p className="m-0 text-xs font-semibold flex items-center gap-2" style={{ color: '#64736F' }}>
             {fmtDate(b.published_at)} <span>·</span> <Clock size={11} /> {Math.max(1, Math.round((b.excerpt.length + 800) / 500))} min read
           </p>
           <h3 className="font-display m-0 mt-2 transition-colors group-hover:text-[#FF5A36]" style={{ fontSize: featured ? 'clamp(24px, 2.6vw, 36px)' : 20, fontWeight: 900, color: '#041A17', lineHeight: 1.15 }}>{b.title}</h3>

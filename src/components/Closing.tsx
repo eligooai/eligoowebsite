@@ -30,7 +30,7 @@ export function WhyNow() {
                 <motion.p
                   key={t}
                   className="m-0 text-base sm:text-lg"
-                  style={{ color: 'rgba(255,255,255,0.45)', textDecoration: 'line-through', textDecorationColor: '#FF5A36', lineHeight: 1.5 }}
+                  style={{ color: 'rgba(255,255,255,0.65)', textDecoration: 'line-through', textDecorationColor: '#FF5A36', lineHeight: 1.5 }}
                   initial={{ opacity: 0, x: -16 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
@@ -86,7 +86,7 @@ export function WhoFor() {
           </Reveal>
         </div>
         <div className="rounded-[28px] p-6 sm:p-8" style={{ backgroundColor: '#F3F6F4' }}>
-          <p className="eyebrow m-0" style={{ color: '#9AA8A4' }}>Eligoo is best suited for businesses that already have</p>
+          <p className="eyebrow m-0" style={{ color: '#64736F' }}>Eligoo is best suited for businesses that already have</p>
           <ul className="m-0 mt-5 p-0 flex flex-col gap-3" style={{ listStyle: 'none' }}>
             {FIT.map((f, i) => (
               <motion.li
@@ -224,7 +224,7 @@ export function FinalCta() {
           <Button href="#team" variant="ghost">Meet the AI Employees</Button>
         </Reveal>
         <Reveal delay={0.5} className="mt-5">
-          <p className="eyebrow m-0" style={{ color: 'rgba(255,255,255,0.45)' }}>Eligoo — AI Employees. Work From Cloud.</p>
+          <p className="eyebrow m-0" style={{ color: 'rgba(255,255,255,0.65)' }}>Eligoo — AI Employees. Work From Cloud.</p>
         </Reveal>
 
         <div className="relative mt-12 flex items-end justify-center" style={{ height: 'clamp(190px, 32vh, 400px)' }}>

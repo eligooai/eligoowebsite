@@ -54,7 +54,7 @@ function Card({ e, onOpen }: { e: Employee; onOpen: () => void }) {
         <p className="m-0 mt-1 text-sm font-semibold" style={{ color: '#FF5A36' }}>{e.role}</p>
         <p className="m-0 mt-3 text-[13px]" style={{ color: '#5C6B67', lineHeight: 1.55, height: 60, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{e.tagline}</p>
         <div className="mt-4 pt-4 flex items-center justify-between" style={{ borderTop: '1px solid #E1E8E5' }}>
-          <span className="text-[11px] font-bold uppercase" style={{ letterSpacing: '0.14em', color: '#9AA8A4' }}>KPI-managed</span>
+          <span className="text-[11px] font-bold uppercase" style={{ letterSpacing: '0.14em', color: '#64736F' }}>KPI-managed</span>
           <span className="flex items-center gap-2 text-[12px] font-semibold" style={{ color: '#041A17' }}>
             <motion.span animate={{ opacity: hover ? 1 : 0, x: hover ? 0 : 6 }} transition={{ duration: 0.25 }}>View profile</motion.span>
             <motion.span className="w-8 h-8 rounded-full flex items-center justify-center" animate={{ backgroundColor: hover ? '#FF5A36' : '#F3F6F4', color: hover ? '#ffffff' : '#041A17' }} transition={{ duration: 0.25 }}>
@@ -71,7 +71,7 @@ function Card({ e, onOpen }: { e: Employee; onOpen: () => void }) {
 function SpecBlock({ icon: Icon, title, items }: { icon: typeof Compass; title: string; items: string[] }) {
   return (
     <div>
-      <p className="eyebrow m-0 flex items-center gap-1.5" style={{ color: '#9AA8A4' }}>
+      <p className="eyebrow m-0 flex items-center gap-1.5" style={{ color: '#64736F' }}>
         <Icon size={12} strokeWidth={2.5} style={{ color: '#FF5A36' }} /> {title}
       </p>
       <ul className="m-0 mt-2 p-0 flex flex-col gap-1.5" style={{ listStyle: 'none' }}>
@@ -142,7 +142,7 @@ function Profile({ e, onClose }: { e: Employee; onClose: () => void }) {
           <div className="mt-6 rounded-2xl p-4 flex items-start gap-3" style={{ backgroundColor: '#F3F6F4' }}>
             <Gauge size={16} strokeWidth={2.5} style={{ color: '#FF5A36', marginTop: 2, flexShrink: 0 }} />
             <div>
-              <p className="eyebrow m-0" style={{ color: '#9AA8A4' }}>Measured by</p>
+              <p className="eyebrow m-0" style={{ color: '#64736F' }}>Measured by</p>
               <p className="m-0 mt-1 text-[13px]" style={{ color: '#041A17', lineHeight: 1.55 }}>{e.kpi}</p>
             </div>
           </div>
@@ -158,7 +158,7 @@ function Profile({ e, onClose }: { e: Employee; onClose: () => void }) {
             <Button href={BOOK_URL} onClick={onClose}>Hire {e.name}</Button>
             <Button href="#plans" variant="ghost-dark" onClick={onClose} arrow={false}>See plans</Button>
           </div>
-          <p className="m-0 mt-4 text-[11px]" style={{ color: '#9AA8A4', lineHeight: 1.6 }}>
+          <p className="m-0 mt-4 text-[11px]" style={{ color: '#64736F', lineHeight: 1.6 }}>
             {e.name} is a role-based AI system with defined inputs, decisions, outputs, KPIs and approval boundaries — not a person.
           </p>
         </div>

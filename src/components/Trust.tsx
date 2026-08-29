@@ -75,7 +75,7 @@ export function Control() {
               </div>
               <div className="flex flex-col items-end gap-1.5 shrink-0">
                 <Toggle delay={0.4 + i * 0.15} />
-                <span className="text-[10px] font-bold uppercase hidden sm:block" style={{ letterSpacing: '0.1em', color: '#9AA8A4' }}>{r.mode}</span>
+                <span className="text-[10px] font-bold uppercase hidden sm:block" style={{ letterSpacing: '0.1em', color: '#64736F' }}>{r.mode}</span>
               </div>
             </motion.div>
           ))}
