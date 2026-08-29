@@ -26,6 +26,10 @@ function Landing() {
 
 export default function App() {
   const loc = useLocation();
+  useEffect(() => {
+    const el = document.getElementById('prepaint');
+    if (el) requestAnimationFrame(() => requestAnimationFrame(() => el.remove()));
+  }, []);
   useEffect(() => { trackPageView(loc.pathname); }, [loc.pathname]);
   useEffect(() => { if (!loc.hash) window.scrollTo(0, 0); }, [loc.pathname, loc.hash]);
   return (
