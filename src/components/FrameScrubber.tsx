@@ -1,9 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import type { ReactNode } from 'react';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export interface Overlay {
   /** progress window [start, end] in which the overlay is fully visible */
@@ -138,12 +134,11 @@ export default function FrameScrubber({ src, count, length = 3, fit = 'contain',
     ctx.drawImage(img, dx, dy, dw, dh);
   };
 
-  // scroll-scrub → frame
+  // scroll-scrub → frame (plain rAF smoothing; no animation library needed)
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const proxy = { f: 0 };
     const onResize = () => draw(frameRef.current);
     window.addEventListener('resize', onResize);
     if (reduce) {
@@ -152,27 +147,28 @@ export default function FrameScrubber({ src, count, length = 3, fit = 'contain',
       setProgress(1);
       return () => { clearTimeout(t); window.removeEventListener('resize', onResize); };
     }
-    const tween = gsap.to(proxy, {
-      f: count - 1,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: section,
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub,
-        onUpdate: (self) => setProgress(self.progress),
-      },
-      onUpdate: () => {
-        const idx = Math.round(proxy.f);
-        if (idx !== frameRef.current) {
-          frameRef.current = idx;
-          draw(idx);
-        }
-      },
-    });
+    let raf = 0;
+    let current = 0;
+    let running = true;
+    const tick = () => {
+      if (!running) return;
+      const rect = section.getBoundingClientRect();
+      const total = rect.height - window.innerHeight;
+      const p = total > 0 ? Math.min(1, Math.max(0, -rect.top / total)) : 0;
+      const target = p * (count - 1);
+      // exponential smoothing ≈ the old scrub feel
+      current += (target - current) * (1 - Math.pow(0.001, 1 / (scrub * 60)));
+      if (Math.abs(target - current) < 0.05) current = target;
+      const idx = Math.round(current);
+      if (idx !== Math.round(frameRef.current)) { frameRef.current = current; draw(idx); }
+      else frameRef.current = current;
+      setProgress(p);
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
     return () => {
-      tween.scrollTrigger?.kill();
-      tween.kill();
+      running = false;
+      cancelAnimationFrame(raf);
       window.removeEventListener('resize', onResize);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps

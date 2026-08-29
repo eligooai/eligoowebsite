@@ -9,7 +9,7 @@ export default function Loader() {
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
-    const minTime = new Promise((r) => setTimeout(r, 3000));
+    const minTime = new Promise((r) => setTimeout(r, 2600));
     const loaded = new Promise<void>((r) => {
       if (document.readyState === 'complete') r();
       else window.addEventListener('load', () => r(), { once: true });

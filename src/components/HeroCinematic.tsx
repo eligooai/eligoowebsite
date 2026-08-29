@@ -12,23 +12,23 @@ const portrait = (i: number) => `/frames/team-m/frame_${String(i).padStart(3, '0
 function Act1() {
   return (
     <div className="mx-auto flex flex-col items-center text-center px-5" style={{ maxWidth: 1000 }}>
-      <motion.p className="eyebrow m-0" style={{ color: '#FF7A5C' }} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.8, duration: 0.7 }}>
+      <motion.p className="eyebrow m-0" style={{ color: '#FF7A5C' }} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.7 }}>
         AI Employees. Work From Cloud.
       </motion.p>
       <h1 className="font-display m-0 mt-4 text-white" style={{ fontSize: 'clamp(38px, 5.6vw, 80px)', lineHeight: 0.98, fontWeight: 900 }}>
         {['Hire AI Employees.', 'Build Your AI Workforce.'].map((line, li) => (
           <span key={line} className="block overflow-hidden">
-            <motion.span className="block" style={{ color: li === 1 ? '#FF5A36' : '#fff' }} initial={{ y: '105%' }} animate={{ y: 0 }} transition={{ delay: 2.9 + li * 0.12, duration: 0.9, ease: EASE }}>
+            <motion.span className="block" style={{ color: li === 1 ? '#FF5A36' : '#fff' }} initial={{ y: '105%' }} animate={{ y: 0 }} transition={{ delay: 0.3 + li * 0.12, duration: 0.9, ease: EASE }}>
               {line}
             </motion.span>
           </span>
         ))}
       </h1>
-      <motion.p className="m-0 mt-4 text-base sm:text-lg" style={{ color: 'rgba(255,255,255,0.74)', lineHeight: 1.6, maxWidth: 620 }} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 3.2, duration: 0.8 }}>
+      <motion.p className="m-0 mt-4 text-base sm:text-lg" style={{ color: 'rgba(255,255,255,0.74)', lineHeight: 1.6, maxWidth: 620 }} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.55, duration: 0.8 }}>
         Seven AI employees for strategy, content, creative, pipeline, outbound and revenue — led by Atlas, your AI COO.
         They work from the cloud, use your tools and work toward the goals you give them.
       </motion.p>
-      <motion.div className="mt-6 flex flex-wrap items-center justify-center gap-3" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 3.35, duration: 0.8 }}>
+      <motion.div className="mt-6 flex flex-wrap items-center justify-center gap-3" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7, duration: 0.8 }}>
         <Button href={BOOK_URL}>Build Your AI Team</Button>
         <Button href="#team" variant="ghost">Meet the AI Employees</Button>
       </motion.div>
@@ -70,7 +70,7 @@ export default function HeroCinematic() {
         overlays={[
           { from: 0, to: 0.18, interactive: true, className: 'inset-x-0 top-[12vh] sm:top-[13vh]', node: <Act1 /> },
           { from: 0, to: 0.06, className: 'inset-x-0 bottom-5 flex justify-center', node: (
-            <motion.span className="flex items-center gap-2 eyebrow text-white" initial={{ opacity: 0 }} animate={{ opacity: 0.7 }} transition={{ delay: 4 }}>Scroll <ArrowDown size={13} strokeWidth={2.5} /></motion.span>
+            <motion.span className="flex items-center gap-2 eyebrow text-white" initial={{ opacity: 0 }} animate={{ opacity: 0.7 }} transition={{ delay: 1.2 }}>Scroll <ArrowDown size={13} strokeWidth={2.5} /></motion.span>
           ) },
           { from: 0.27, to: 0.54, className: 'left-5 sm:left-16 bottom-[8vh]', node: <Caption kicker="Meet your AI team" title="Every growth role," accent="covered." text="Strategy, content, creative, prospect intelligence, outbound and revenue — one coordinated team, 24/7, working toward the goals you set." /> },
           { from: 0.6, to: 0.8, className: 'inset-x-0 bottom-[7vh] px-5', node: <Caption align="center" kicker="Your AI Growth Department" title="Hire for the role." accent="Not the software." text="Every employee has defined decisions, deliverables, KPIs and approval boundaries." /> },

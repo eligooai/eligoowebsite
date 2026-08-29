@@ -44,7 +44,7 @@ export default function Nav() {
         style={{ zIndex: 90 }}
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: isLanding ? 2.6 : 0.1, duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+        transition={{ delay: isLanding ? 0.5 : 0.1, duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
       >
         <div
           className="mx-auto mt-3 sm:mt-4 flex items-center justify-between rounded-full px-4 sm:px-5 py-2.5 transition-all duration-500"
