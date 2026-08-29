@@ -12,9 +12,9 @@ const portrait = (i: number) => `/frames/team-m/frame_${String(i).padStart(3, '0
 function Act1() {
   return (
     <div className="mx-auto flex flex-col items-center text-center px-5" style={{ maxWidth: 1000 }}>
-      <motion.p className="eyebrow m-0" style={{ color: '#FF7A5C' }} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.7 }}>
+      <p className="eyebrow m-0" style={{ color: '#FF7A5C' }}>
         AI Employees. Work From Cloud.
-      </motion.p>
+      </p>
       <h1 className="font-display m-0 mt-4 text-white" style={{ fontSize: 'clamp(38px, 5.6vw, 80px)', lineHeight: 0.98, fontWeight: 900 }}>
         {['Hire AI Employees.', 'Build Your AI Workforce.'].map((line, li) => (
           <span key={line} className="block overflow-hidden">
@@ -24,14 +24,14 @@ function Act1() {
           </span>
         ))}
       </h1>
-      <motion.p className="m-0 mt-4 text-base sm:text-lg" style={{ color: 'rgba(255,255,255,0.74)', lineHeight: 1.6, maxWidth: 620 }} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.55, duration: 0.8 }}>
+      <p className="m-0 mt-4 text-base sm:text-lg" style={{ color: 'rgba(255,255,255,0.74)', lineHeight: 1.6, maxWidth: 620 }}>
         Seven AI employees for strategy, content, creative, pipeline, outbound and revenue — led by Atlas, your AI COO.
         They work from the cloud, use your tools and work toward the goals you give them.
-      </motion.p>
-      <motion.div className="mt-6 flex flex-wrap items-center justify-center gap-3" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7, duration: 0.8 }}>
+      </p>
+      <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
         <Button href={BOOK_URL}>Build Your AI Team</Button>
         <Button href="#team" variant="ghost">Meet the AI Employees</Button>
-      </motion.div>
+      </div>
     </div>
   );
 }
