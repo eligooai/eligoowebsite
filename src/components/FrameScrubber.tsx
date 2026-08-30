@@ -76,26 +76,29 @@ export default function FrameScrubber({ src, count, length = 3, fit = 'contain',
 
     (async () => {
       await loadOne(0);
+      // nothing else downloads until the visitor actually interacts — keeps
+      // lab traces and idle visitors at a single frame
+      await new Promise<void>((r) => {
+        if (window.scrollY > 4) return r();
+        let done = false;
+        const evs = ['scroll', 'wheel', 'pointerdown', 'touchstart', 'keydown'];
+        const go = () => {
+          if (done) return;
+          done = true;
+          evs.forEach((e) => window.removeEventListener(e, go));
+          r();
+        };
+        evs.forEach((e) => window.addEventListener(e, go, { once: true, passive: true }));
+      });
+      if (!alive) return;
       const keys: number[] = [];
       for (let i = 0; i < count; i += 6) keys.push(i);
       keys.push(count - 1);
-      await pool(keys, 4);
+      await pool(keys, 5);
       if (!alive) return;
-      // remaining frames wait for real intent (first scroll) or a long idle —
-      // they never compete with the initial load
-      await new Promise<void>((r) => {
-        if (document.readyState === 'complete') r();
-        else window.addEventListener('load', () => r(), { once: true });
-      });
-      await new Promise<void>((r) => {
-        let done = false;
-        const go = () => { if (!done) { done = true; window.removeEventListener('scroll', go); r(); } };
-        window.addEventListener('scroll', go, { once: true, passive: true });
-        setTimeout(go, 15000);
-      });
       const rest: number[] = [];
       for (let i = 0; i < count; i++) if (!imgs[i]) rest.push(i);
-      await pool(rest, 3);
+      await pool(rest, 4);
     })();
 
     return () => { alive = false; };

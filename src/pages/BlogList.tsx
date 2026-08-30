@@ -22,7 +22,7 @@ function Card({ b, i, featured = false }: { b: BlogCard; i: number; featured?: b
           {b.cover
             ? <img src={b.cover} alt="" className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
             : <div className="absolute inset-0 flex items-center justify-center dots" style={{ background: 'radial-gradient(circle at 50% 120%, rgba(255,90,54,0.4), #041A17 70%)' }}>
-                <img src="/brand/mark-white.png" alt="" style={{ width: '55%', opacity: 0.85 }} />
+                <img src="/brand/mark-white-md.webp" alt="" style={{ width: '55%', opacity: 0.85 }} />
               </div>}
           {b.topic && <span className="absolute top-4 left-4 rounded-full px-3 py-1 text-[10px] font-bold uppercase" style={{ letterSpacing: '0.12em', backgroundColor: '#FF5A36', color: '#fff' }}>{b.topic}</span>}
         </div>
@@ -86,7 +86,7 @@ export default function BlogList() {
           {!d && <p style={{ color: '#5C6B67' }}>Loading…</p>}
           {d && !d.items.length && (
             <div className="text-center py-20">
-              <img src="/brand/mark.png" alt="" style={{ width: 120, opacity: 0.3, margin: '0 auto' }} />
+              <img src="/brand/mark-sm.png" alt="" style={{ width: 120, opacity: 0.3, margin: '0 auto' }} />
               <p className="font-display mt-6" style={{ fontSize: 22, fontWeight: 900, color: '#041A17' }}>First stories coming soon.</p>
             </div>
           )}

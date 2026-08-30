@@ -174,7 +174,7 @@ export function Button({
 export function Mark({ size = 64, variant = 'dark', className, style }: { size?: number; variant?: 'dark' | 'white'; className?: string; style?: CSSProperties }) {
   return (
     <img
-      src={variant === 'white' ? (size <= 96 ? '/brand/mark-white-sm.png' : '/brand/mark-white.png') : (size <= 96 ? '/brand/mark-sm.png' : '/brand/mark.png')}
+      src={`/brand/${variant === 'white' ? 'mark-white' : 'mark'}${size <= 96 ? '-sm.png' : size <= 820 ? '-md.webp' : '.png'}`}
       alt=""
       aria-hidden
       draggable={false}

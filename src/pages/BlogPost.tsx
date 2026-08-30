@@ -63,7 +63,7 @@ export default function BlogPost() {
   if (missing) return (
     <main className="min-h-screen flex flex-col" style={{ backgroundColor: '#F3F6F4' }}>
       <div className="flex-1 flex flex-col items-center justify-center text-center px-5 pt-24 pb-16">
-        <img src="/brand/mark.png" alt="" style={{ width: 130, opacity: 0.35 }} />
+        <img src="/brand/mark-sm.png" alt="" style={{ width: 130, opacity: 0.35 }} />
         <h1 className="font-display mt-6 m-0" style={{ fontSize: 30, fontWeight: 900, color: '#041A17' }}>Post not found</h1>
         <Link to="/blog" className="mt-5 inline-flex items-center gap-2 no-underline rounded-full px-6 py-3 text-sm font-bold" style={{ backgroundColor: '#041A17', color: '#fff' }}><ArrowLeft size={15} /> Back to blog</Link>
       </div>

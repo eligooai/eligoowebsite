@@ -124,11 +124,16 @@ function Profile({ e, onClose }: { e: Employee; onClose: () => void }) {
           <div className="absolute inset-0 dots opacity-50" />
           <div className="absolute inset-0" style={{ background: 'radial-gradient(circle at 50% 100%, rgba(255,90,54,0.4), transparent 60%)' }} />
           <ErrorBoundary fallback={<img src={e.image} alt={e.name} width={e.imgW} height={e.imgH} className="absolute left-1/2 bottom-6" style={{ height: '70%', width: 'auto', transform: 'translateX(-50%)' }} />}>
-            <Suspense fallback={<img src={e.image} alt={e.name} width={e.imgW} height={e.imgH} className="absolute left-1/2 bottom-6" style={{ height: '70%', width: 'auto', transform: 'translateX(-50%)' }} />}>
+            <Suspense fallback={
+              <div className="absolute inset-0 flex flex-col items-center justify-end pb-6">
+                <img src={e.image} alt={e.name} width={e.imgW} height={e.imgH} style={{ height: '70%', width: 'auto' }} />
+                <p className="eyebrow m-0 mt-3" style={{ color: 'rgba(255,255,255,0.45)', fontSize: 9 }}>Loading 3D…</p>
+              </div>
+            }>
               <ProfileViewer model={e.model} />
+              <p className="absolute bottom-3 inset-x-0 text-center eyebrow m-0 pointer-events-none" style={{ color: 'rgba(255,255,255,0.45)', fontSize: 9 }}>Drag to rotate</p>
             </Suspense>
           </ErrorBoundary>
-          <p className="absolute bottom-3 inset-x-0 text-center eyebrow m-0 pointer-events-none" style={{ color: 'rgba(255,255,255,0.45)', fontSize: 9 }}>Drag to rotate</p>
         </div>
 
         <div className="p-6 sm:p-8 overflow-y-auto">

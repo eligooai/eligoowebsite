@@ -7,7 +7,7 @@ import EmployeeModel from './EmployeeModel';
 
 export default function ProfileViewer({ model }: { model: string }) {
   return (
-    <Canvas dpr={[1, 2]} camera={{ position: [0, 0.7, 2.6], fov: 32 }} style={{ position: 'absolute', inset: 0 }}>
+    <Canvas dpr={[1, 2]} camera={{ position: [0, 0.7, 2.6], fov: 32 }} style={{ position: 'absolute', inset: 0, touchAction: 'none' }} onCreated={({ gl }) => { gl.domElement.style.touchAction = 'none'; }}>
       <Suspense fallback={null}>
         <ambientLight intensity={1.1} />
         <directionalLight position={[2, 4, 4]} intensity={2.2} />
