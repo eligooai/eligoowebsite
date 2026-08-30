@@ -44,10 +44,22 @@ CREATE TABLE IF NOT EXISTS visits (
   ip TEXT, country TEXT DEFAULT '', region TEXT DEFAULT '', city TEXT DEFAULT '',
   device TEXT DEFAULT 'desktop', browser TEXT DEFAULT '', os TEXT DEFAULT '', screen_w INTEGER
 );
+CREATE TABLE IF NOT EXISTS redirects (
+  id INTEGER PRIMARY KEY, old_slug TEXT UNIQUE NOT NULL, new_slug TEXT NOT NULL,
+  created_at TEXT DEFAULT (datetime('now'))
+);
 CREATE INDEX IF NOT EXISTS idx_visits_ts ON visits(ts);
 CREATE INDEX IF NOT EXISTS idx_visits_visitor ON visits(visitor_id);
 CREATE INDEX IF NOT EXISTS idx_blogs_status ON blogs(status);
 `);
+
+// --- migrations (idempotent) ---
+const addColumn = (table, col, def) => {
+  const has = db.prepare(`PRAGMA table_info(${table})`).all().some((c) => c.name === col);
+  if (!has) db.exec(`ALTER TABLE ${table} ADD COLUMN ${col} ${def}`);
+};
+addColumn('blogs', 'indexable', 'INTEGER NOT NULL DEFAULT 1');
+addColumn('pages', 'indexable', 'INTEGER NOT NULL DEFAULT 1');
 
 // --- one-time seeds ---
 const secretPath = path.join(DATA_DIR, 'jwt-secret');

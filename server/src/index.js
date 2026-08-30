@@ -82,7 +82,12 @@ app.get('/eapi/blogs', (req, res) => {
 });
 app.get('/eapi/blogs/:slug', (req, res) => {
   const b = db.prepare(`SELECT ${PUB_BLOG},html FROM blogs WHERE slug=? AND status='published'`).get(req.params.slug);
-  if (!b) return res.status(404).json({ error: 'not found' });
+  if (!b) {
+    const r = db.prepare('SELECT new_slug FROM redirects WHERE old_slug=?').get(req.params.slug);
+    if (r && db.prepare("SELECT 1 FROM blogs WHERE slug=? AND status='published'").get(r.new_slug))
+      return res.status(404).json({ error: 'moved', redirectTo: r.new_slug });
+    return res.status(404).json({ error: 'not found' });
+  }
   db.prepare('UPDATE blogs SET views=views+1 WHERE id=?').run(b.id);
   const more = db.prepare(`SELECT ${PUB_BLOG} FROM blogs WHERE status='published' AND id!=? ORDER BY published_at DESC LIMIT 3`).all(b.id);
   res.json({ ...b, more });
@@ -157,26 +162,33 @@ app.get('/eapi/admin/blogs/:id', auth, (req, res) => {
   res.json(b);
 });
 const upsertBlog = (body, id = 0) => {
-  const { title = '', slug = '', html = '', excerpt = '', topic = '', tags = '', cover = '', seo_title = '', seo_desc = '', canonical = '', status = 'draft' } = body;
+  const { title = '', slug = '', html = '', excerpt = '', topic = '', tags = '', cover = '', seo_title = '', seo_desc = '', canonical = '', status = 'draft', indexable = 1 } = body;
   const finalSlug = uniqueSlug(slug || title, 'blogs', id);
   const publishedAt = status === 'published'
     ? (id ? (db.prepare('SELECT published_at FROM blogs WHERE id=?').get(id)?.published_at || new Date().toISOString()) : new Date().toISOString())
     : null;
-  return { title, slug: finalSlug, html, excerpt: excerpt || stripHtml(html).slice(0, 200), topic, tags, cover, seo_title, seo_desc, canonical, status, publishedAt };
+  return { title, slug: finalSlug, html, excerpt: excerpt || stripHtml(html).slice(0, 200), topic, tags, cover, seo_title, seo_desc, canonical, status, publishedAt, indexable: indexable ? 1 : 0 };
 };
 app.post('/eapi/admin/blogs', auth, (req, res) => {
   const b = upsertBlog(req.body);
   if (!b.title) return res.status(400).json({ error: 'title required' });
-  const r = db.prepare(`INSERT INTO blogs (title,slug,html,excerpt,topic,tags,cover,seo_title,seo_desc,canonical,status,published_at)
-    VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`).run(b.title, b.slug, b.html, b.excerpt, b.topic, b.tags, b.cover, b.seo_title, b.seo_desc, b.canonical, b.status, b.publishedAt);
+  const r = db.prepare(`INSERT INTO blogs (title,slug,html,excerpt,topic,tags,cover,seo_title,seo_desc,canonical,status,published_at,indexable)
+    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)`).run(b.title, b.slug, b.html, b.excerpt, b.topic, b.tags, b.cover, b.seo_title, b.seo_desc, b.canonical, b.status, b.publishedAt, b.indexable);
   res.json({ id: r.lastInsertRowid, slug: b.slug });
 });
 app.put('/eapi/admin/blogs/:id', auth, (req, res) => {
   const id = Number(req.params.id);
   if (!db.prepare('SELECT id FROM blogs WHERE id=?').get(id)) return res.status(404).json({ error: 'not found' });
   const b = upsertBlog(req.body, id);
-  db.prepare(`UPDATE blogs SET title=?,slug=?,html=?,excerpt=?,topic=?,tags=?,cover=?,seo_title=?,seo_desc=?,canonical=?,status=?,published_at=?,updated_at=datetime('now') WHERE id=?`)
-    .run(b.title, b.slug, b.html, b.excerpt, b.topic, b.tags, b.cover, b.seo_title, b.seo_desc, b.canonical, b.status, b.publishedAt, id);
+  // slug change → 301 the old URL to the new one, and re-point any older redirects
+  const prev = db.prepare('SELECT slug FROM blogs WHERE id=?').get(id);
+  if (prev && prev.slug !== b.slug) {
+    db.prepare('INSERT INTO redirects (old_slug,new_slug) VALUES (?,?) ON CONFLICT(old_slug) DO UPDATE SET new_slug=excluded.new_slug').run(prev.slug, b.slug);
+    db.prepare('UPDATE redirects SET new_slug=? WHERE new_slug=?').run(b.slug, prev.slug);
+    db.prepare('DELETE FROM redirects WHERE old_slug=?').run(b.slug);
+  }
+  db.prepare(`UPDATE blogs SET title=?,slug=?,html=?,excerpt=?,topic=?,tags=?,cover=?,seo_title=?,seo_desc=?,canonical=?,status=?,published_at=?,indexable=?,updated_at=datetime('now') WHERE id=?`)
+    .run(b.title, b.slug, b.html, b.excerpt, b.topic, b.tags, b.cover, b.seo_title, b.seo_desc, b.canonical, b.status, b.publishedAt, b.indexable, id);
   res.json({ ok: true, slug: b.slug });
 });
 app.delete('/eapi/admin/blogs/:id', auth, (req, res) => {
@@ -197,17 +209,17 @@ app.get('/eapi/admin/pages/:id', auth, (req, res) => {
   res.json(p);
 });
 app.post('/eapi/admin/pages', auth, (req, res) => {
-  const { title = '', html = '', slug = '', show_in_footer = 1 } = req.body || {};
+  const { title = '', html = '', slug = '', show_in_footer = 1, indexable = 1 } = req.body || {};
   if (!title) return res.status(400).json({ error: 'title required' });
   const s = uniqueSlug(slug || title, 'pages');
-  const r = db.prepare('INSERT INTO pages (title,slug,html,show_in_footer) VALUES (?,?,?,?)').run(title, s, html, show_in_footer ? 1 : 0);
+  const r = db.prepare('INSERT INTO pages (title,slug,html,show_in_footer,indexable) VALUES (?,?,?,?,?)').run(title, s, html, show_in_footer ? 1 : 0, indexable ? 1 : 0);
   res.json({ id: r.lastInsertRowid, slug: s });
 });
 app.put('/eapi/admin/pages/:id', auth, (req, res) => {
   const id = Number(req.params.id);
-  const { title = '', html = '', slug = '', show_in_footer = 1 } = req.body || {};
+  const { title = '', html = '', slug = '', show_in_footer = 1, indexable = 1 } = req.body || {};
   const s = uniqueSlug(slug || title, 'pages', id);
-  db.prepare("UPDATE pages SET title=?,slug=?,html=?,show_in_footer=?,updated_at=datetime('now') WHERE id=?").run(title, s, html, show_in_footer ? 1 : 0, id);
+  db.prepare("UPDATE pages SET title=?,slug=?,html=?,show_in_footer=?,indexable=?,updated_at=datetime('now') WHERE id=?").run(title, s, html, show_in_footer ? 1 : 0, indexable ? 1 : 0, id);
   res.json({ ok: true, slug: s });
 });
 app.delete('/eapi/admin/pages/:id', auth, (req, res) => {
@@ -307,6 +319,11 @@ app.get(['/render/blog', '/render/blog/'], async (_req, res) => {
 app.get('/render/blog/:slug', async (req, res) => {
   try {
     const b = db.prepare("SELECT * FROM blogs WHERE slug=? AND status='published'").get(req.params.slug);
+    if (!b) {
+      const r = db.prepare('SELECT new_slug FROM redirects WHERE old_slug=?').get(req.params.slug);
+      if (r && db.prepare("SELECT 1 FROM blogs WHERE slug=? AND status='published'").get(r.new_slug))
+        return res.redirect(301, `/blog/${r.new_slug}`);
+    }
     const base = await siteIndex();
     if (!b) return res.type('html').status(404).send(base);
     const img = b.cover ? (b.cover.startsWith('http') ? b.cover : SITE_URL + b.cover) : '';
@@ -320,12 +337,54 @@ app.get('/render/blog/:slug', async (req, res) => {
   } catch { res.status(503).send('unavailable'); }
 });
 
-/* ---------------- sitemap for blogs ---------------- */
+/* ---------------- sitemap ----------------
+ * Content-type agnostic: each provider yields { loc, lastmod? } for content that
+ * is published AND indexable. Future types (ai-employees, solutions, industries)
+ * plug in as new providers — never a hand-maintained list.
+ */
+const xmlEsc = (u) => u.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, '&apos;').replace(/"/g, '&quot;');
+const day = (ts) => (ts ? String(ts).slice(0, 10) : null);
+const sitemapProviders = [
+  function core() {
+    const latestBlog = db.prepare("SELECT MAX(updated_at) m FROM blogs WHERE status='published' AND indexable=1").get().m;
+    return [{ loc: `${SITE_URL}/` }, { loc: `${SITE_URL}/blog`, lastmod: day(latestBlog) }];
+  },
+  function blogs() {
+    return db.prepare("SELECT slug, updated_at FROM blogs WHERE status='published' AND indexable=1").all()
+      .map((b) => ({ loc: `${SITE_URL}/blog/${b.slug}`, lastmod: day(b.updated_at) }));
+  },
+  function pages() {
+    return db.prepare('SELECT slug, updated_at FROM pages WHERE indexable=1').all()
+      .map((p) => ({ loc: `${SITE_URL}/p/${p.slug}`, lastmod: day(p.updated_at) }));
+  },
+];
+function sitemapEntries() {
+  const seen = new Set();
+  const out = [];
+  for (const provider of sitemapProviders) {
+    for (const e of provider()) {
+      if (!e.loc.startsWith('https://') || seen.has(e.loc)) continue;
+      seen.add(e.loc);
+      out.push(e);
+    }
+  }
+  return out;
+}
 app.get('/eapi/sitemap.xml', (_req, res) => {
-  const blogs = db.prepare("SELECT slug, updated_at FROM blogs WHERE status='published'").all();
-  const urls = [`<url><loc>${SITE_URL}/</loc></url>`, `<url><loc>${SITE_URL}/blog</loc></url>`,
-    ...blogs.map(b => `<url><loc>${SITE_URL}/blog/${b.slug}</loc><lastmod>${b.updated_at.slice(0, 10)}</lastmod></url>`)];
+  const urls = sitemapEntries().map((e) =>
+    `<url><loc>${xmlEsc(e.loc)}</loc>${e.lastmod ? `<lastmod>${e.lastmod}</lastmod>` : ''}</url>`);
   res.type('application/xml').send(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls.join('')}</urlset>`);
+});
+app.get('/eapi/admin/sitemap-report', auth, (_req, res) => {
+  const included = new Set(sitemapEntries().map((e) => e.loc));
+  const rows = [];
+  rows.push({ type: 'core', title: 'Home', url: `${SITE_URL}/`, status: 'published', indexable: 1, lastmod: null, included: true });
+  rows.push({ type: 'core', title: 'Blog index', url: `${SITE_URL}/blog`, status: 'published', indexable: 1, lastmod: null, included: true });
+  for (const b of db.prepare('SELECT title, slug, status, indexable, updated_at FROM blogs ORDER BY updated_at DESC').all())
+    rows.push({ type: 'blog', title: b.title, url: `${SITE_URL}/blog/${b.slug}`, status: b.status, indexable: b.indexable, lastmod: day(b.updated_at), included: included.has(`${SITE_URL}/blog/${b.slug}`) });
+  for (const p of db.prepare('SELECT title, slug, indexable, updated_at FROM pages ORDER BY id').all())
+    rows.push({ type: 'page', title: p.title, url: `${SITE_URL}/p/${p.slug}`, status: 'published', indexable: p.indexable, lastmod: day(p.updated_at), included: included.has(`${SITE_URL}/p/${p.slug}`) });
+  res.json({ count: included.size, rows });
 });
 
 /* ---------------- admin SPA (admin.eligoo.in) ---------------- */

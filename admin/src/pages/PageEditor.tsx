@@ -7,7 +7,7 @@ import { api } from '../api'
 export default function PageEditor() {
   const { id } = useParams()
   const nav = useNavigate()
-  const [p, setP] = useState<any>({ title: '', slug: '', html: '', show_in_footer: 1 })
+  const [p, setP] = useState<any>({ title: '', slug: '', html: '', show_in_footer: 1, indexable: 1 })
   const [busy, setBusy] = useState(false)
   const [msg, setMsg] = useState('')
   useEffect(() => { if (id) api(`/eapi/admin/pages/${id}`).then(setP).catch(() => nav('/pages')) }, [id])
@@ -28,6 +28,9 @@ export default function PageEditor() {
           {msg && <span className="text-sm" style={{ color: msg.includes('✓') ? '#1D7A3E' : '#D0451B' }}>{msg}</span>}
           <label className="flex items-center gap-2 text-sm font-semibold cursor-pointer">
             <input type="checkbox" checked={!!p.show_in_footer} onChange={e => setP({ ...p, show_in_footer: e.target.checked ? 1 : 0 })} /> Show in footer
+          </label>
+          <label className="flex items-center gap-2 text-sm font-semibold cursor-pointer">
+            <input type="checkbox" checked={!!p.indexable} onChange={e => setP({ ...p, indexable: e.target.checked ? 1 : 0 })} /> Indexable
           </label>
           <button className="btn btn-coral" disabled={busy} onClick={save}>Save</button>
         </div>

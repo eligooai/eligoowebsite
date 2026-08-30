@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Clock, Check } from 'lucide-react';
 import Footer from '../components/Footer';
 import { Eyebrow, EASE, BOOK_URL } from '../components/ui';
-import { get, fmtDate, readingTime, type BlogCard } from '../lib/api';
+import { fmtDate, readingTime, type BlogCard } from '../lib/api';
 
 type Post = BlogCard & { html: string; more: BlogCard[] };
 
@@ -51,14 +51,20 @@ function LeadForm({ sourcePath }: { sourcePath: string }) {
 
 export default function BlogPost() {
   const { slug } = useParams();
+  const nav = useNavigate();
   const [post, setPost] = useState<Post | null>(null);
   const [missing, setMissing] = useState(false);
   useEffect(() => {
     setPost(null); setMissing(false);
-    get<Post>(`/eapi/blogs/${slug}`)
-      .then((p) => { setPost(p); document.title = `${p.seo_title || p.title} — Eligoo Blog`; })
+    fetch(`/eapi/blogs/${slug}`)
+      .then(async (r) => {
+        const data = await r.json();
+        if (r.ok) { setPost(data); document.title = `${data.seo_title || data.title} — Eligoo Blog`; }
+        else if (data.redirectTo) nav(`/blog/${data.redirectTo}`, { replace: true });
+        else setMissing(true);
+      })
       .catch(() => setMissing(true));
-  }, [slug]);
+  }, [slug, nav]);
 
   if (missing) return (
     <main className="min-h-screen flex flex-col" style={{ backgroundColor: '#F3F6F4' }}>

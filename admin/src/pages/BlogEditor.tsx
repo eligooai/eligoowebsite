@@ -4,7 +4,7 @@ import { ArrowLeft, UploadCloud } from 'lucide-react'
 import Editor from '../components/Editor'
 import { api } from '../api'
 
-const empty = { title: '', slug: '', html: '', excerpt: '', topic: '', tags: '', cover: '', seo_title: '', seo_desc: '', canonical: '', status: 'draft' }
+const empty = { title: '', slug: '', html: '', excerpt: '', topic: '', tags: '', cover: '', seo_title: '', seo_desc: '', canonical: '', status: 'draft', indexable: 1 }
 const slugify = (s: string) => s.toLowerCase().trim().replace(/[^a-z0-9\s-]/g, '').replace(/[\s_]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
 
 export default function BlogEditor() {
@@ -71,6 +71,11 @@ export default function BlogEditor() {
             <input className="input" placeholder={b.title} value={b.seo_title} onChange={e => set('seo_title', e.target.value)} />
             <label className="lbl">Meta description <span style={{ color: b.seo_desc.length > 160 ? '#D0451B' : '#9AA8A4' }}>({b.seo_desc.length}/160)</span></label>
             <textarea className="input" rows={3} value={b.seo_desc} onChange={e => set('seo_desc', e.target.value)} />
+            <label className="flex items-center gap-2 text-sm font-semibold mt-4 cursor-pointer">
+              <input type="checkbox" checked={!!b.indexable} onChange={e => set('indexable', e.target.checked ? 1 : 0)} />
+              Allow search engine indexing
+            </label>
+            <p className="m-0 mt-1 text-[11px]" style={{ color: '#64736F' }}>When off, this post is left out of sitemap.xml.</p>
             <label className="lbl">Canonical URL (optional)</label>
             <input className="input" placeholder={`https://eligoo.in/blog/${b.slug || '…'}`} value={b.canonical} onChange={e => set('canonical', e.target.value)} />
             <div className="mt-4 p-3 rounded-xl" style={{ background: '#F8FAF9' }}>

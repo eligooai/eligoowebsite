@@ -11,9 +11,10 @@ export default function Settings() {
   const [social, setSocial] = useState<any>({})
   const [keys, setKeys] = useState<any[]>([])
   const [pw, setPw] = useState({ current: '', next: '' })
+  const [sitemap, setSitemap] = useState<any>(null)
   const [msg, setMsg] = useState<{ [k: string]: string }>({})
   const loadKeys = () => api<any[]>('/eapi/admin/api-keys').then(setKeys).catch(() => {})
-  useEffect(() => { api('/eapi/admin/social').then(setSocial).catch(() => {}); loadKeys() }, [])
+  useEffect(() => { api('/eapi/admin/social').then(setSocial).catch(() => {}); loadKeys(); api('/eapi/admin/sitemap-report').then(setSitemap).catch(() => {}) }, [])
   const say = (k: string, v: string) => { setMsg(m => ({ ...m, [k]: v })); setTimeout(() => setMsg(m => ({ ...m, [k]: '' })), 3000) }
 
   return (
@@ -57,6 +58,35 @@ export default function Settings() {
           <button className="btn btn-ink" onClick={async () => { const name = prompt('Key name (e.g. n8n, zapier)') || 'default'; await api('/eapi/admin/api-keys', { method: 'POST', body: JSON.stringify({ name }) }); loadKeys() }}><Plus size={15} /> Generate key</button>
           {msg.key && <span className="text-sm" style={{ color: '#1D7A3E' }}>{msg.key}</span>}
         </div>
+      </div>
+
+      <div className="card p-6 mb-5">
+        <h2 className="font-display m-0" style={{ fontSize: 18, fontWeight: 900 }}>Sitemap</h2>
+        <p className="m-0 mt-1 text-sm" style={{ color: '#5C6B67' }}>
+          <a href="https://eligoo.in/sitemap.xml" target="_blank" rel="noreferrer" style={{ color: '#FF5A36' }}>sitemap.xml</a> regenerates automatically from published, indexable content — {sitemap ? `${sitemap.count} URLs included` : 'loading…'}.
+        </p>
+        {sitemap && (
+          <div className="overflow-x-auto mt-3" style={{ maxHeight: 320, overflowY: 'auto' }}>
+            <table className="tbl">
+              <thead><tr><th>Type</th><th>Title</th><th>URL</th><th>Status</th><th>Indexable</th><th>Lastmod</th><th>In sitemap</th></tr></thead>
+              <tbody>
+                {sitemap.rows.map((r: any, i: number) => (
+                  <tr key={i}>
+                    <td>{r.type}</td>
+                    <td className="max-w-[180px] truncate font-semibold">{r.title}</td>
+                    <td className="max-w-[240px] truncate" style={{ color: '#5C6B67' }}>{r.url}</td>
+                    <td>{r.status}</td>
+                    <td>{r.indexable ? 'Yes' : 'No'}</td>
+                    <td className="whitespace-nowrap">{r.lastmod || '—'}</td>
+                    <td>{r.included
+                      ? <span className="text-[11px] font-bold uppercase px-2 py-1 rounded-full" style={{ background: '#E8F5EC', color: '#1D7A3E' }}>Included</span>
+                      : <span className="text-[11px] font-bold uppercase px-2 py-1 rounded-full" style={{ background: '#F3F6F4', color: '#5C6B67' }}>Excluded</span>}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
 
       <div className="card p-6">
