@@ -1,6 +1,24 @@
 @import "tailwindcss";
 
 @font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial');
+  size-adjust: 107.12%;
+  ascent-override: 90.44%;
+  descent-override: 22.52%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Nunito Fallback';
+  src: local('Arial');
+  size-adjust: 101.4%;
+  ascent-override: 100.9%;
+  descent-override: 35.2%;
+  line-gap-override: 0%;
+}
+
+
+@font-face {
   font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
@@ -58,8 +76,8 @@
   --color-mist: #F3F6F4;
   --color-line: #E1E8E5;
   --color-muted: #5C6B67;
-  --font-display: 'Nunito', 'Inter', sans-serif;
-  --font-body: 'Inter', sans-serif;
+  --font-display: 'Nunito', 'Nunito Fallback', 'Inter', sans-serif;
+  --font-body: 'Inter', 'Inter Fallback', sans-serif;
 }
 
 html {

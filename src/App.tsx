@@ -36,7 +36,7 @@ export default function App() {
   return (
     <ErrorBoundary
       fallback={
-        <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 16, background: '#041A17', color: '#fff', fontFamily: 'Inter, sans-serif', textAlign: 'center', padding: 20 }}>
+        <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 16, background: '#041A17', color: '#fff', fontFamily: 'Inter, Inter Fallback, sans-serif', textAlign: 'center', padding: 20 }}>
           <img src="/brand/mark-white-sm.png" alt="" style={{ width: 120 }} />
           <p style={{ margin: 0, fontSize: 18, fontWeight: 700 }}>Something went wrong — a quick refresh fixes it.</p>
           <button onClick={() => window.location.reload()} style={{ background: '#FF5A36', color: '#041A17', fontWeight: 700, border: 'none', borderRadius: 999, padding: '12px 28px', fontSize: 14, cursor: 'pointer' }}>Refresh</button>
