@@ -7,6 +7,6 @@ export interface BlogCard {
   id: number; title: string; slug: string; excerpt: string; topic: string; tags: string;
   cover: string; published_at: string; views: number; seo_title: string; seo_desc: string;
 }
-export const readingTime = (html: string) => Math.max(1, Math.round(html.replace(/<[^>]*>/g, ' ').split(/\s+/).length / 220));
+export const readingTime = (html: string) => Math.max(1, Math.round(html.replace(/<style[\s\S]*?<\/style>/gi, ' ').replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<[^>]*>/g, ' ').split(/\s+/).length / 220));
 export const fmtDate = (s?: string | null) =>
   s ? new Date(s).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : '';

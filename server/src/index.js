@@ -27,7 +27,7 @@ const uniqueSlug = (base, table, ignoreId = 0) => {
   return slug;
 };
 const esc = (s = '') => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-const stripHtml = (h = '') => h.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+const stripHtml = (h = '') => h.replace(/<style[\s\S]*?<\/style>/gi, ' ').replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
 
 const auth = (req, res, next) => {
   const h = req.headers.authorization || '';
