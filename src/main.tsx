@@ -1,5 +1,5 @@
 import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { createRoot, hydrateRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import App from './App.tsx'
@@ -13,10 +13,19 @@ window.addEventListener('vite:preloadError', () => {
   window.location.reload();
 });
 
-createRoot(document.getElementById('root')!).render(
+const rootEl = document.getElementById('root')!
+const app = (
   <StrictMode>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </StrictMode>,
+  </StrictMode>
 )
+// the prerendered markup is the landing page — only hydrate there;
+// deep links (blog, legal pages) clear it and client-render
+if (rootEl.hasChildNodes() && window.location.pathname === '/') {
+  hydrateRoot(rootEl, app)
+} else {
+  rootEl.innerHTML = ''
+  createRoot(rootEl).render(app)
+}

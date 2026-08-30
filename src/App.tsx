@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect } from 'react';
+import { Suspense, lazy, useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Loader from './components/Loader';
 import Nav from './components/Nav';
@@ -12,14 +12,20 @@ const BlogPost = lazy(() => import('./pages/BlogPost'));
 const LegalPage = lazy(() => import('./pages/LegalPage'));
 
 function Landing() {
+  // below-the-fold sections mount after hydration so the prerendered HTML and
+  // the client's first frame match exactly (hero only)
+  const [ready, setReady] = useState(false);
+  useEffect(() => setReady(true), []);
   return (
     <>
       <Loader />
       <main>
         <HeroCinematic />
-        <Suspense fallback={null}>
-          <LandingRest />
-        </Suspense>
+        {ready && (
+          <Suspense fallback={null}>
+            <LandingRest />
+          </Suspense>
+        )}
       </main>
     </>
   );
