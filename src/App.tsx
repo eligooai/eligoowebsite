@@ -4,6 +4,7 @@ import Loader from './components/Loader';
 import Nav from './components/Nav';
 import HeroCinematic from './components/HeroCinematic';
 import { trackPageView } from './lib/track';
+import ErrorBoundary from './components/ErrorBoundary';
 
 const LandingRest = lazy(() => import('./components/LandingRest'));
 const BlogList = lazy(() => import('./pages/BlogList'));
@@ -33,7 +34,15 @@ export default function App() {
   useEffect(() => { trackPageView(loc.pathname); }, [loc.pathname]);
   useEffect(() => { if (!loc.hash) window.scrollTo(0, 0); }, [loc.pathname, loc.hash]);
   return (
-    <>
+    <ErrorBoundary
+      fallback={
+        <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 16, background: '#041A17', color: '#fff', fontFamily: 'Inter, sans-serif', textAlign: 'center', padding: 20 }}>
+          <img src="/brand/mark-white-sm.png" alt="" style={{ width: 120 }} />
+          <p style={{ margin: 0, fontSize: 18, fontWeight: 700 }}>Something went wrong — a quick refresh fixes it.</p>
+          <button onClick={() => window.location.reload()} style={{ background: '#FF5A36', color: '#041A17', fontWeight: 700, border: 'none', borderRadius: 999, padding: '12px 28px', fontSize: 14, cursor: 'pointer' }}>Refresh</button>
+        </div>
+      }
+    >
       <Nav />
       <Suspense fallback={null}>
         <Routes>
@@ -44,6 +53,6 @@ export default function App() {
           <Route path="*" element={<Landing />} />
         </Routes>
       </Suspense>
-    </>
+    </ErrorBoundary>
   );
 }

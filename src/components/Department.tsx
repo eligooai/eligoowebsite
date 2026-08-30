@@ -4,6 +4,8 @@ import { X, Cloud, ArrowRight, Compass, Hammer, PackageCheck, Gauge, ShieldCheck
 import { Eyebrow, Reveal, Button, Words, EASE, BOOK_URL } from './ui';
 import { EMPLOYEES } from '../data/employees';
 import type { Employee } from '../data/employees';
+import ErrorBoundary from './ErrorBoundary';
+
 const ProfileViewer = lazy(() => import('./three/ProfileViewer'));
 
 function Card({ e, onOpen }: { e: Employee; onOpen: () => void }) {
@@ -121,9 +123,11 @@ function Profile({ e, onClose }: { e: Employee; onClose: () => void }) {
         <div className="relative sm:w-[40%] shrink-0 overflow-hidden" style={{ backgroundColor: '#041A17', minHeight: 300 }}>
           <div className="absolute inset-0 dots opacity-50" />
           <div className="absolute inset-0" style={{ background: 'radial-gradient(circle at 50% 100%, rgba(255,90,54,0.4), transparent 60%)' }} />
-          <Suspense fallback={<img src={e.image} alt={e.name} width={e.imgW} height={e.imgH} className="absolute left-1/2 bottom-6" style={{ height: '70%', width: 'auto', transform: 'translateX(-50%)' }} />}>
-            <ProfileViewer model={e.model} />
-          </Suspense>
+          <ErrorBoundary fallback={<img src={e.image} alt={e.name} width={e.imgW} height={e.imgH} className="absolute left-1/2 bottom-6" style={{ height: '70%', width: 'auto', transform: 'translateX(-50%)' }} />}>
+            <Suspense fallback={<img src={e.image} alt={e.name} width={e.imgW} height={e.imgH} className="absolute left-1/2 bottom-6" style={{ height: '70%', width: 'auto', transform: 'translateX(-50%)' }} />}>
+              <ProfileViewer model={e.model} />
+            </Suspense>
+          </ErrorBoundary>
           <p className="absolute bottom-3 inset-x-0 text-center eyebrow m-0 pointer-events-none" style={{ color: 'rgba(255,255,255,0.45)', fontSize: 9 }}>Drag to rotate</p>
         </div>
 
