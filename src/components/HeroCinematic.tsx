@@ -5,7 +5,6 @@ import FrameScrubber from './FrameScrubber';
 import { Button, BOOK_URL } from './ui';
 
 const COUNT = 90;
-const EASE = [0.4, 0, 0.2, 1] as const;
 const landscape = (i: number) => `/frames/team/frame_${String(i).padStart(3, '0')}.webp`;
 const portrait = (i: number) => `/frames/team-m/frame_${String(i).padStart(3, '0')}.webp`;
 
@@ -16,13 +15,8 @@ function Act1() {
         AI Employees. Work From Cloud.
       </p>
       <h1 className="font-display m-0 mt-4 text-white" style={{ fontSize: 'clamp(38px, 5.6vw, 80px)', lineHeight: 0.98, fontWeight: 900 }}>
-        {['Hire AI Employees.', 'Build Your AI Workforce.'].map((line, li) => (
-          <span key={line} className="block overflow-hidden">
-            <motion.span className="block" style={{ color: li === 1 ? '#FF5A36' : '#fff' }} initial={{ y: '105%' }} animate={{ y: 0 }} transition={{ delay: 0.3 + li * 0.12, duration: 0.9, ease: EASE }}>
-              {line}
-            </motion.span>
-          </span>
-        ))}
+        Hire AI Employees.
+        <span className="block" style={{ color: '#FF5A36' }}>Build Your AI Workforce.</span>
       </h1>
       <p className="m-0 mt-4 text-base sm:text-lg" style={{ color: 'rgba(255,255,255,0.74)', lineHeight: 1.6, maxWidth: 620 }}>
         Seven AI employees for strategy, content, creative, pipeline, outbound and revenue — led by Atlas, your AI COO.

@@ -274,7 +274,8 @@ app.post('/eapi/v1/posts', apiKeyAuth, (req, res) => {
 let indexCache = { html: '', at: 0 };
 async function siteIndex() {
   if (indexCache.html && Date.now() - indexCache.at < 60_000) return indexCache.html;
-  const r = await fetch(WEBSITE_ORIGIN + '/index.html');
+  let r = await fetch(WEBSITE_ORIGIN + '/app.html');
+  if (!r.ok) r = await fetch(WEBSITE_ORIGIN + '/index.html');
   indexCache = { html: await r.text(), at: Date.now() };
   return indexCache.html;
 }

@@ -25,7 +25,7 @@
           s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=G-01M6JWL434';
           document.head.appendChild(s);
         }
-        window.addEventListener('load', function(){ setTimeout(loadGtag, 3000); });
+        window.addEventListener('load', function(){ setTimeout(loadGtag, 10000); });
         ['scroll','pointerdown','touchstart','keydown'].forEach(function(e){
           window.addEventListener(e, loadGtag, { once: true, passive: true });
         });

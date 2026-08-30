@@ -1,6 +1,6 @@
 import { useScrollProgress } from './ui';
 import { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence, useSpring } from 'framer-motion';
 import { Menu, X, ArrowRight } from 'lucide-react';
 
@@ -17,8 +17,6 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [overHero, setOverHero] = useState(true);
   const [open, setOpen] = useState(false);
-  const { pathname } = useLocation();
-  const isLanding = pathname === '/';
   const scrollYProgress = useScrollProgress({});
   const bar = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });
 
@@ -39,13 +37,7 @@ export default function Nav() {
 
   return (
     <>
-      <motion.header
-        className="fixed top-0 inset-x-0"
-        style={{ zIndex: 90 }}
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: isLanding ? 0.5 : 0.1, duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
-      >
+      <header className="fixed top-0 inset-x-0" style={{ zIndex: 90 }}>
         <div
           className="mx-auto mt-3 sm:mt-4 flex items-center justify-between rounded-full px-4 sm:px-5 py-2.5 transition-all duration-500"
           style={{
@@ -97,7 +89,7 @@ export default function Nav() {
           </div>
         </div>
         <motion.div className="fixed top-0 left-0 h-[3px] origin-left" style={{ width: '100%', scaleX: bar, backgroundColor: '#FF5A36', zIndex: 95 }} />
-      </motion.header>
+      </header>
 
       <AnimatePresence>
         {open && (

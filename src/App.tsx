@@ -1,6 +1,5 @@
 import { Suspense, lazy, useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
-import Loader from './components/Loader';
 import Nav from './components/Nav';
 import HeroCinematic from './components/HeroCinematic';
 import { trackPageView } from './lib/track';
@@ -18,7 +17,6 @@ function Landing() {
   useEffect(() => setReady(true), []);
   return (
     <>
-      <Loader />
       <main>
         <HeroCinematic />
         {ready && (
