@@ -33,8 +33,10 @@ function Card({ e, onOpen }: { e: Employee; onOpen: () => void }) {
         />
         <div className="absolute left-1/2 -translate-x-1/2 rounded-full" style={{ bottom: 18, width: '48%', height: 14, background: 'radial-gradient(ellipse, rgba(4,26,23,0.28), transparent 70%)', filter: 'blur(4px)' }} />
         <motion.img
-          src={e.image}
+          src={e.image.replace('.webp', '-sm.webp')}
           alt={e.name}
+          width={e.imgW}
+          height={e.imgH}
           draggable={false}
           className="absolute left-1/2 bottom-5"
           style={{ height: 232, width: 'auto', x: '-50%', transformOrigin: 'bottom center', filter: 'drop-shadow(0 12px 18px rgba(4,26,23,0.2))' }}

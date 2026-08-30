@@ -1,0 +1,28 @@
+# Eligoo — AI Employees. Work From Cloud.
+
+> Eligoo provides role-based AI employees for growth: strategy, content, creative,
+> prospect intelligence, outbound and revenue operations — led by Atlas, an AI
+> growth operations manager. Businesses hire AI employees with defined decisions,
+> deliverables, KPIs and approval boundaries instead of buying software seats.
+
+## Pages
+
+- [Home](https://eligoo.in/): Hire AI employees and build an AI workforce that works from the cloud.
+- [Blog](https://eligoo.in/blog): Playbooks and product updates on AI employees and growth operations.
+- [Terms & Conditions](https://eligoo.in/p/terms-and-conditions): Terms of service.
+- [Privacy Policy](https://eligoo.in/p/privacy-policy): Privacy policy.
+- [Sitemap](https://eligoo.in/sitemap.xml): Full list of indexable pages.
+
+## The AI employees
+
+- Atlas — AI Growth Operations Manager: turns business objectives into operating plans and coordinates the workforce.
+- Maven — Market, Brand & Campaign Strategist: positioning, messaging and campaign strategy.
+- Sage — Content & Organic Growth Manager: plans, writes and publishes content.
+- Pixel — Creative Production Agent: images, video and ad creatives.
+- Radar — Prospect Intelligence Agent: finds and verifies ideal-fit prospects.
+- Hook — Outbound & Meeting Agent: personalised outreach, replies and meeting booking.
+- Ledger — CRM & Revenue Intelligence Analyst: clean CRM, attribution and forecasts.
+
+## Contact
+
+- [Book a 30-minute call](https://calendly.com/eligooai/30min): Talk to the Eligoo team.

@@ -81,13 +81,18 @@ export default function FrameScrubber({ src, count, length = 3, fit = 'contain',
       keys.push(count - 1);
       await pool(keys, 4);
       if (!alive) return;
-      // remaining frames: wait for full page load + idle so they never compete
-      // with critical resources
+      // remaining frames wait for real intent (first scroll) or a long idle —
+      // they never compete with the initial load
       await new Promise<void>((r) => {
         if (document.readyState === 'complete') r();
         else window.addEventListener('load', () => r(), { once: true });
       });
-      await new Promise((r) => setTimeout(r, 800));
+      await new Promise<void>((r) => {
+        let done = false;
+        const go = () => { if (!done) { done = true; window.removeEventListener('scroll', go); r(); } };
+        window.addEventListener('scroll', go, { once: true, passive: true });
+        setTimeout(go, 15000);
+      });
       const rest: number[] = [];
       for (let i = 0; i < count; i++) if (!imgs[i]) rest.push(i);
       await pool(rest, 3);
