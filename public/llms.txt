@@ -1,28 +1,162 @@
-# Eligoo — AI Employees. Work From Cloud.
+# Eligoo — AI Workforce Platform
 
-> Eligoo provides role-based AI employees for growth: strategy, content, creative,
-> prospect intelligence, outbound and revenue operations — led by Atlas, an AI
-> growth operations manager. Businesses hire AI employees with defined decisions,
-> deliverables, KPIs and approval boundaries instead of buying software seats.
+> Eligoo is an AI workforce platform. Businesses hire AI employees — Atlas, Maven, Sage, Pixel, Radar, Hook, Ledger and Boost — that market,
+> sell, call, prospect, create and automate business operations using the customer’s own AI provider accounts. Each employee has a defined
+> role, KPI and approval boundary; actions that reach the outside world wait for human approval.
 
-## Pages
+Sitemap: https://eligoo.in/sitemap.xml
 
-- [Home](https://eligoo.in/): Hire AI employees and build an AI workforce that works from the cloud.
-- [Blog](https://eligoo.in/blog): Playbooks and product updates on AI employees and growth operations.
-- [Terms & Conditions](https://eligoo.in/p/terms-and-conditions): Terms of service.
-- [Privacy Policy](https://eligoo.in/p/privacy-policy): Privacy policy.
-- [Sitemap](https://eligoo.in/sitemap.xml): Full list of indexable pages.
+## Core
 
-## The AI employees
+- [Build Your AI Workforce](https://eligoo.in/): Eligoo is an AI workforce platform. Deploy AI employees that market, sell, call, prospect, create and automate business operations — using your own AI accounts, with human approval built in.
+- [AI Employees for Business](https://eligoo.in/ai-employees/): An AI employee is an AI system given a business role, tools, deliverables, a KPI and an approval boundary. Meet Eligoo’s eight AI employees and learn what they can automate.
+- [AI Agents for Business](https://eligoo.in/ai-agents/): An AI agent is software that pursues a goal by reasoning, using tools and taking actions. Learn what AI agents do for businesses, how they differ from chatbots, and how Eligoo runs them as a coordinated workforce.
+- [AI Workforce: Multiple AI Employees Coordinated Around Your Objectives](https://eligoo.in/ai-workforce/): An AI workforce is multiple persistent AI employees coordinated around business objectives. Learn how an AI workforce differs from a single assistant, how it is managed, and how Eligoo runs one.
+- [AI Business Automation](https://eligoo.in/ai-automation/): AI business automation uses AI agents to run processes that need judgement — research, outreach, calls, content, reporting — with human approval at the steps that matter. See what Eligoo automates and how.
+- [Pricing](https://eligoo.in/pricing/): Eligoo plans are priced per workspace and include a monthly credit allowance. Model usage runs on your own AI accounts. See live plans, what credits cover, top-up packs and the free trial.
+- [Security and Data Handling](https://eligoo.in/security/): How Eligoo handles your data: bring-your-own AI keys stored server-side, per-workspace isolation, approval gates on outside-world actions, encrypted disks, nightly backups and deletion on request.
+- [About Eligoo](https://eligoo.in/about/): Eligoo builds AI employees that work from the cloud: role-based AI agents with a KPI and an approval boundary, coordinated by Atlas, running on your own AI accounts.
+- [The Eligoo Blog](https://eligoo.in/resources/blog/): Articles and product updates on AI employees, AI workforces, voice agents, AI SDRs, outbound sales and business automation from the Eligoo team.
 
-- Atlas — AI Growth Operations Manager: turns business objectives into operating plans and coordinates the workforce.
-- Maven — Market, Brand & Campaign Strategist: positioning, messaging and campaign strategy.
-- Sage — Content & Organic Growth Manager: plans, writes and publishes content.
-- Pixel — Creative Production Agent: images, video and ad creatives.
-- Radar — Prospect Intelligence Agent: finds and verifies ideal-fit prospects.
-- Hook — Outbound & Meeting Agent: personalised outreach, replies and meeting booking.
-- Ledger — CRM & Revenue Intelligence Analyst: clean CRM, attribution and forecasts.
+## Solutions
+
+- [Solutions](https://eligoo.in/solutions/): How Eligoo’s AI employees are organised around business outcomes: marketing, sales, voice, outbound, lead generation, customer support, operations and revenue intelligence.
+- [AI Marketing Automation](https://eligoo.in/solutions/marketing/): Eligoo automates marketing with an AI marketing team: Maven sets strategy, Sage plans, writes and publishes content, Pixel produces creative, Boost plans paid campaigns — within a calendar you approve.
+- [AI Sales Agent](https://eligoo.in/solutions/sales/): Eligoo’s AI sales agent, Hook, runs approved email sequences from your mailbox, makes AI phone calls, classifies replies, qualifies prospects and books meetings — with Radar supplying verified leads.
+- [AI Voice Agent for Business](https://eligoo.in/solutions/voice/): Eligoo’s AI voice agent makes and receives phone calls, qualifies prospects, books appointments and logs every call — on your own phone numbers, with human approval before any campaign starts.
+- [AI Outbound Sales](https://eligoo.in/solutions/outbound/): Eligoo runs outbound as one workflow: research → find prospects → enrich → personalise → email → call → qualify → book meeting → CRM, with AI employees owning each stage and approvals before anything goes out.
+- [AI Lead Generation](https://eligoo.in/solutions/lead-generation/): Eligoo’s AI lead generation agent, Radar, finds accounts and contacts that fit your ICP, enriches and verifies them, scores fit and hands verified prospects to Hook for outreach and qualification.
+- [AI Customer Support Agent](https://eligoo.in/solutions/customer-support/): Eligoo’s AI customer support agent answers inbound phone calls on your number, handles routine email replies from your mailbox and escalates everything non-routine to a person. Here is exactly what it does and does not do.
+- [AI Operations Automation](https://eligoo.in/solutions/operations/): Eligoo’s AI operations layer, run by Atlas, turns business objectives into task queues for AI employees, manages hand-offs and exceptions, runs scheduled automations and reports a weekly plan.
+- [AI Revenue Intelligence](https://eligoo.in/solutions/revenue/): Eligoo’s AI revenue intelligence employee, Ledger, cleans and reconciles CRM data, reports attribution and funnel metrics, forecasts pipeline and flags leakage — with an audit trail and no deletions.
+
+## AI employees
+
+- [Atlas — AI Business Operations Manager](https://eligoo.in/ai-employees/atlas/): Atlas is Eligoo’s AI operations employee: it turns your objectives into an operating plan, assigns tasks to the other AI employees, manages hand-offs and exceptions, and reports a weekly plan.
+- [Maven — AI Marketing Strategist](https://eligoo.in/ai-employees/maven/): Maven is Eligoo’s AI marketing strategist: it researches your market and competitors, builds positioning and messaging frameworks, writes campaign briefs and channel plans, and hands them to Sage, Pixel and Hook.
+- [Sage — AI Content & SEO Employee](https://eligoo.in/ai-employees/sage/): Sage is Eligoo’s AI content and SEO employee: it builds the content calendar, writes copy, does keyword research and briefs, publishes approved posts to your channels and reports organic performance.
+- [Pixel — AI Creative Production Agent](https://eligoo.in/ai-employees/pixel/): Pixel is Eligoo’s AI creative production employee: it generates and edits images and video with fal.ai and ffmpeg, produces ad variants, thumbnails and channel-specific sizes, and never publishes on its own.
+- [Radar — AI Prospect Intelligence Agent](https://eligoo.in/ai-employees/radar/): Radar is Eligoo’s AI prospecting employee: it finds accounts and decision-makers that fit your ICP, enriches and verifies their details, removes duplicates, scores fit and hands verified lists to Hook — and never contacts anyone.
+- [Hook — AI Sales & Voice Agent](https://eligoo.in/ai-employees/hook/): Hook is Eligoo’s AI sales and voice employee: it personalises approved email sequences, makes AI phone calls, classifies replies, qualifies prospects and books meetings — inside the limits you set.
+- [Ledger — AI Revenue Intelligence Agent](https://eligoo.in/ai-employees/ledger/): Ledger is Eligoo’s AI revenue intelligence employee: it cleans and reconciles CRM data with an audit trail, calculates funnel metrics, reports attribution, forecasts pipeline and flags leakage — and never deletes a record.
+- [Boost — AI Paid Acquisition Specialist](https://eligoo.in/ai-employees/boost/): Boost is Eligoo’s optional AI paid-acquisition employee: it plans campaigns, audiences, tests and budgets, prepares approval packages, and manages approved Meta Ads campaigns within stop rules. Nothing launches or spends without approval.
+
+## Industries
+
+- [AI for Industrial and B2B Companies](https://eligoo.in/industries/): How Eligoo’s AI employees work for manufacturing, packaging, solar, freight forwarding and industrial automation companies: prospecting, outreach, calling, content, creative, CRM and reporting in one team.
+- [AI for Manufacturing Companies](https://eligoo.in/industries/manufacturing/): Eligoo gives manufacturers eight AI employees that find OEM and distributor buyers, run outreach, call and qualify prospects, follow up on RFQs, produce content and keep the CRM honest.
+- [AI for Packaging Companies](https://eligoo.in/industries/packaging/): Eligoo’s AI employees help packaging manufacturers and converters find brand owners and co-packers, qualify by SKU and volume, follow up on samples and quotes, and produce content that sells the line.
+- [AI for Solar Companies](https://eligoo.in/industries/solar/): Eligoo’s AI employees help solar EPCs, installers and module distributors find commercial rooftop owners and industrial buyers, qualify site and load on the phone, follow up on proposals and tenders, and report the pipeline.
+- [AI for Freight Forwarding Companies](https://eligoo.in/industries/freight-forwarding/): Eligoo’s AI employees help freight forwarders and NVOCCs find importers and exporters, qualify them by lane, mode and volume on the phone, follow up on rate quotes and keep the shipper pipeline in order.
+- [AI for Industrial Automation Companies](https://eligoo.in/industries/industrial-automation/): Eligoo’s AI employees help automation vendors, system integrators and control-panel builders find plant managers, OEMs and integrators, qualify projects on the phone, follow up on proposals and keep the pipeline clean.
+
+## Integrations
+
+- [Eligoo Integrations](https://eligoo.in/integrations/): Every tool Eligoo’s AI employees connect to: your own OpenAI, Anthropic, Gemini, Groq or OpenRouter keys, Twilio and SIP trunks, Meta Ads, LinkedIn, YouTube, Apollo, Google Workspace and your mailbox.
+- [Google Workspace Integration for AI Employees](https://eligoo.in/integrations/google-workspace/): Connect Google Workspace over OAuth and Eligoo’s AI employees can read and write Docs and Sheets, file work in Drive, use Gmail and book meetings on Google Calendar with a Meet link.
+- [Meta Ads Integration — AI Paid Acquisition](https://eligoo.in/integrations/meta-ads/): Connect your Meta ad account and let Boost read campaigns and insights, prepare approval packages and — only after approval — pause, activate, change budgets or launch. Every spend change waits for a person.
+- [Facebook Pages Integration — AI Social Publishing](https://eligoo.in/integrations/facebook-pages/): Connect your Facebook Page over OAuth and let Sage publish approved posts on schedule, with creative from Pixel. Posts outside the approved calendar wait for a person; Eligoo never posts on its own.
+- [Instagram Integration — AI Social Publishing](https://eligoo.in/integrations/instagram/): Connect a professional Instagram account and let Sage publish approved image and video posts from your content calendar, with creative produced by Pixel. Direct OAuth connection, human approval first.
+- [LinkedIn Integration — AI Content Publishing](https://eligoo.in/integrations/linkedin/): Connect LinkedIn over OAuth and let Sage publish approved posts to your profile or company page on schedule. B2B content written by an AI employee, reviewed by you, published directly to LinkedIn.
+- [YouTube Integration — AI Video Publishing](https://eligoo.in/integrations/youtube/): Connect your YouTube channel over Google OAuth and let Sage upload approved videos with title, description, privacy setting and an optional thumbnail. Pixel edits the video; a person approves before upload.
+- [Threads Integration — AI Social Publishing](https://eligoo.in/integrations/threads/): Connect your Threads account and let Sage publish approved text and media posts from your content calendar. Direct OAuth connection to Threads, creative from Pixel, approval before anything goes out.
+- [Apollo Integration — AI Prospecting and Enrichment](https://eligoo.in/integrations/apollo/): Connect your Apollo API key and Radar searches for accounts and contacts that match your ICP, de-duplicates them into the CRM and enriches the ones worth pursuing. Search is free of Apollo credits; enrichment uses them.
+- [Serper Integration — Web Research for AI Employees](https://eligoo.in/integrations/serper/): Connect a Serper.dev API key and give Maven, Sage, Radar and Boost live Google search results for market research, SEO research, prospect research and competitor checks. Billed by Serper to you.
+- [fal.ai Integration — AI Image and Video Generation](https://eligoo.in/integrations/fal-ai/): Connect your fal.ai key and Pixel generates images and video for posts, ads and thumbnails, then edits them with ffmpeg inside your workspace. fal.ai bills you per generation; a person reviews before anything is published.
+- [Deepgram Integration — Speech-to-Text for AI Voice Agents](https://eligoo.in/integrations/deepgram/): Deepgram nova-3 is the default transcription behind Eligoo’s AI voice agent, and Deepgram voices are an option for speech. Connect your own key; Deepgram bills you directly for audio.
+- [ElevenLabs Integration — AI Voice Agent Voices](https://eligoo.in/integrations/elevenlabs/): Use ElevenLabs voices for Eligoo’s AI voice agent on outbound and inbound calls. Connect your own ElevenLabs key, pick a voice, test it from the browser; ElevenLabs bills you for the audio generated.
+- [OpenAI Integration — Bring Your Own OpenAI Account](https://eligoo.in/integrations/openai/): Connect your OpenAI API key to Eligoo and run any AI employee on GPT models, billed by OpenAI to you. Workspace default model, per-employee assignment, and OpenAI voices for AI phone calls.
+- [Anthropic Integration — Claude Models for AI Employees](https://eligoo.in/integrations/anthropic/): Connect your Anthropic API key and run Eligoo’s AI employees on Claude. Set a workspace default, assign Claude to the employees that plan and write, and pay Anthropic directly for usage.
+- [Google Gemini Integration — Gemini Models for AI Employees](https://eligoo.in/integrations/google-gemini/): Connect a Google AI API key and run Eligoo’s AI employees on Gemini models. Workspace default, per-employee assignment, keys stored server-side, usage billed by Google to your own account.
+- [Groq Integration — Fast Inference for AI Employees](https://eligoo.in/integrations/groq/): Connect a Groq API key and give Eligoo’s AI employees fast inference on open-weight models — useful for live AI phone calls and high-volume classification. Billed by Groq to your account.
+- [OpenRouter Integration — Any Model Through One Key](https://eligoo.in/integrations/openrouter/): Connect one OpenRouter key and give Eligoo’s AI employees access to models from many providers. Assign different models per employee without managing several accounts; OpenRouter bills you directly.
+- [Twilio Integration — Phone Numbers for AI Voice Agents](https://eligoo.in/integrations/twilio/): Connect Twilio to Eligoo with your Account SID, Auth Token and a number; Eligoo creates the Elastic SIP trunk automatically and Hook makes and receives AI calls on your own Twilio number.
+- [Telnyx Integration — SIP Trunking for AI Calling](https://eligoo.in/integrations/telnyx/): Bring a Telnyx SIP trunk to Eligoo and let Hook make and receive AI phone calls on your Telnyx numbers. Enter the trunk credentials, verify, test from the browser; Telnyx bills you for minutes.
+- [Plivo Integration — SIP Trunking for AI Calling](https://eligoo.in/integrations/plivo/): Connect a Plivo Zentrunk SIP trunk to Eligoo and let the AI voice agent call and answer on your Plivo numbers. Enter the trunk credentials, verify, test; Plivo bills you for minutes.
+- [Vobiz Integration — SIP Trunking for AI Calling in India](https://eligoo.in/integrations/vobiz/): Use a Vobiz SIP trunk with Eligoo to run AI phone calls on Indian numbers. Enter your trunk credentials, verify, test from the browser, and let Hook call and answer; Vobiz bills you for minutes.
+- [SMTP/IMAP Mailbox Integration — Outreach From Your Own Email](https://eligoo.in/integrations/email-mailbox/): Connect any mailbox over SMTP and IMAP and Hook sends approved email sequences from your address, reads the replies in your inbox, records opt-outs and books meetings. Verified on connect; no shared sending domain.
+- [LiveKit — The Self-Hosted Voice Stack Behind Eligoo’s AI Calls](https://eligoo.in/integrations/livekit/): Eligoo runs its own LiveKit server, SIP gateway, recording pipeline and agents worker for AI voice calls. You do not need a LiveKit account — here is what it does and how your trunk and providers plug in.
+
+## Use cases
+
+- [AI Employee Use Cases](https://eligoo.in/use-cases/): Eleven things businesses hire Eligoo’s AI employees to do, from lead generation and cold calling to social media, SEO, customer support and business automation, each with the employees and workflow involved.
+- [AI Lead Generation with AI Employees](https://eligoo.in/use-cases/lead-generation/): AI lead generation with Eligoo: Radar finds and verifies accounts and contacts that fit your ICP, Hook contacts and qualifies them, Ledger keeps the records clean. Every campaign is approved by a person.
+- [AI Cold Calling with an AI Voice Agent](https://eligoo.in/use-cases/cold-calling/): AI cold calling with Eligoo: Hook dials an approved list on your own number inside a calling window, qualifies each prospect, books meetings and logs a transcript and outcome for every call.
+- [AI Appointment Setting](https://eligoo.in/use-cases/appointment-setting/): AI appointment setting with Eligoo: Hook qualifies prospects by email and phone, offers a time, creates the calendar event with a meeting link and sends a brief to whoever attends.
+- [AI Social Media Automation](https://eligoo.in/use-cases/social-media/): AI social media automation with Eligoo: Sage plans and writes the calendar, Pixel produces the visuals, and approved posts publish to LinkedIn, Instagram, Facebook Pages, Threads and YouTube from one workspace.
+- [AI Content Creation](https://eligoo.in/use-cases/content-creation/): AI content creation with Eligoo: Sage writes website copy, social posts, newsletters and scripts from your material, Pixel produces the images and video, and Maven keeps it on message.
+- [AI SEO Automation](https://eligoo.in/use-cases/seo/): AI SEO automation with Eligoo: Sage researches keywords, writes content briefs and optimised pages, and reports organic performance; Maven keeps the topics tied to what you sell.
+- [AI Outbound Sales](https://eligoo.in/use-cases/outbound-sales/): AI outbound sales with Eligoo: Radar builds the list, Maven and Sage write the sequence, Hook sends, calls and books, Ledger reports. Every enrolment and campaign is approved by a person.
+- [AI Customer Support](https://eligoo.in/use-cases/customer-support/): Eligoo’s AI customer support is deliberately limited: Hook answers and logs inbound calls, replies to routine emails from your mailbox and escalates anything non-routine to a person. No ticketing system, no chat widget.
+- [AI Marketing Automation](https://eligoo.in/use-cases/marketing-automation/): AI marketing automation with Eligoo: Maven sets the strategy, Sage writes and publishes, Pixel produces creative, Boost plans paid campaigns, and Ledger reports attribution. Every launch is approved by a person.
+- [AI Sales Automation](https://eligoo.in/use-cases/sales-automation/): AI sales automation with Eligoo: Radar finds prospects, Hook runs sequences, calls, follow-ups and bookings, Ledger keeps the CRM and forecast honest. Salespeople keep the conversations that need them.
+- [AI Business Automation](https://eligoo.in/use-cases/business-automation/): AI business automation with Eligoo: Atlas turns objectives into an operating plan, assigns work to seven specialist AI employees, runs scheduled automations and keeps an approvals queue and activity log.
+
+## Comparisons
+
+- [Comparisons: AI Employees, Agents, Chatbots and Humans](https://eligoo.in/compare/): Balanced comparisons of AI employees, AI agents, chatbots, ChatGPT, Claude, Grok, SDRs and agencies — where each wins, where it doesn’t, and how Eligoo fits.
+- [AI Employee vs AI Agent: What’s the Difference?](https://eligoo.in/compare/ai-employee-vs-ai-agent/): An AI agent is software that plans and acts with tools; an AI employee is an agent given a standing role, a KPI and an approval boundary. Where each fits, side by side.
+- [AI Agent vs Chatbot](https://eligoo.in/compare/ai-agent-vs-chatbot/): A chatbot answers within a conversation; an AI agent takes a goal and acts on it with tools. A balanced comparison of scope, cost, risk and when each is the right choice.
+- [AI Employee vs Human Employee](https://eligoo.in/compare/ai-employee-vs-human/): Where an AI employee genuinely beats a person, where a person wins by a mile — judgement, relationships, negotiation, accountability — and how to divide the work between them.
+- [AI Sales Agent vs SDR](https://eligoo.in/compare/ai-sales-agent-vs-sdr/): An AI sales agent runs prospecting, outreach, reply handling and booking inside set limits; an SDR brings judgement, rapport and objection handling. A candid comparison.
+- [AI Voice Agent vs Human SDR](https://eligoo.in/compare/ai-voice-agent-vs-human-sdr/): An AI voice agent makes consistent calls in any window and logs everything; a human SDR reads tone, handles hard objections and builds rapport. When each should be on the phone.
+- [AI Marketing Agent vs Marketing Agency](https://eligoo.in/compare/ai-marketing-agent-vs-agency/): An AI marketing agent runs research, content, creative and paid execution inside your workspace; an agency brings senior strategy, taste and accountability. When to pick each.
+- [ChatGPT vs AI Agents](https://eligoo.in/compare/chatgpt-vs-ai-agents/): ChatGPT is an assistant you converse with; an AI agent is software that acts on tasks with tools, unattended. How they differ, when each is right, and how OpenAI models power Eligoo’s agents.
+- [Claude vs AI Agents](https://eligoo.in/compare/claude-vs-ai-agents/): Claude is Anthropic’s assistant and family of models; an AI agent is software that acts on tasks with tools. How they relate, when to use each, and how Claude models power Eligoo’s AI employees.
+- [Grok vs AI Agents](https://eligoo.in/compare/grok-vs-ai-agents/): Grok is xAI’s conversational assistant and model family; an AI agent is software that acts on tasks with tools. How they differ, when each fits, and where Grok stands with Eligoo today.
+
+## Resources
+
+- [Resources](https://eligoo.in/resources/): Guides, a glossary, workflow templates, research and the blog — written to answer the questions people ask about AI employees, voice agents, outbound sales and automation, with definitions first.
+
+## Guides
+
+- [Guides to AI Employees, Voice Agents and Automation](https://eligoo.in/resources/guides/): Long-form, practical guides: what an AI employee is, how to build an AI workforce, how AI voice agents work, what an AI SDR does, and how to automate business processes with AI.
+- [What Is an AI Employee? A Practical Guide](https://eligoo.in/resources/guides/what-is-an-ai-employee/): A plain guide to AI employees: how they differ from AI agents and assistants, how a role is defined, what they can automate, where they fail, and how to brief one well.
+- [How to Build an AI Workforce](https://eligoo.in/resources/guides/how-to-build-an-ai-workforce/): What an AI workforce is, how it differs from a team of people or a pile of automations, and a step-by-step method to build one: roles, boundaries, coordination, measurement.
+- [How AI Voice Agents Work](https://eligoo.in/resources/guides/how-ai-voice-agents-work/): The components of an AI voice agent — speech-to-text, a language model, text-to-speech and telephony — how turn-taking and interruptions are handled, where latency comes from, and how sales teams use them.
+- [What Is an AI SDR and How Does It Work?](https://eligoo.in/resources/guides/what-is-an-ai-sdr/): A practical guide to AI SDRs: what they do, how prospecting agents and appointment setters fit together, how the hand-off to account executives works, and where they fall short.
+- [How to Automate Business Processes With AI](https://eligoo.in/resources/guides/how-to-automate-business-processes-with-ai/): A method for automating business processes with AI: map the process, separate rules from judgement, choose workflow automation or AI agents, set approval boundaries, measure outcomes.
+
+## Glossary
+
+- [AI Workforce Glossary](https://eligoo.in/resources/glossary/): Plain definitions of the terms used around AI employees and AI agents: AI workforce, AI SDR, AI voice agent, AI cold calling, agentic AI, multi-agent systems, AI orchestration and more.
+- [What Is an AI Agent?](https://eligoo.in/resources/glossary/ai-agent/): An AI agent is software that uses an AI model to pursue a goal on its own — reading inputs, choosing actions, calling tools and checking results. Definition, components, examples, benefits and limitations.
+- [What Is an AI Employee?](https://eligoo.in/resources/glossary/ai-employee/): An AI employee is an AI agent with a named role, a defined scope of work, its own tools, a KPI and an approval boundary. How AI employees work, what they are made of, examples, benefits and limits.
+- [What Is an AI Workforce?](https://eligoo.in/resources/glossary/ai-workforce/): An AI workforce is a set of AI employees working together in one workspace under shared goals, coordination and approvals. How it works, what it is made of, examples, benefits and limitations.
+- [What Is an AI SDR?](https://eligoo.in/resources/glossary/ai-sdr/): An AI SDR is an AI agent that does the top-of-funnel work of a sales development representative: research, outreach, replies, qualification and booking. How it works, components, examples, benefits and limits.
+- [What Is an AI Voice Agent?](https://eligoo.in/resources/glossary/ai-voice-agent/): An AI voice agent is software that conducts phone conversations autonomously using speech recognition, an AI model and text-to-speech. How it works, its components, examples, benefits and limitations.
+- [What Is AI Cold Calling?](https://eligoo.in/resources/glossary/ai-cold-calling/): AI cold calling is the use of an AI voice agent to place first-contact phone calls to prospects, deliver an opening, handle the response and record an outcome. How it works, components, benefits and limitations.
+- [What Is AI Outbound Sales?](https://eligoo.in/resources/glossary/ai-outbound-sales/): AI outbound sales is the use of AI agents to run the proactive side of selling — finding prospects, contacting them by email and phone, following up and booking meetings. Definition, components, benefits and limits.
+- [What Is Agentic AI?](https://eligoo.in/resources/glossary/agentic-ai/): Agentic AI is the class of AI systems that plan and take actions to achieve goals with limited supervision, rather than returning one answer to one prompt. How it works, components, examples, benefits and limits.
+- [What Is a Multi-Agent System?](https://eligoo.in/resources/glossary/multi-agent-system/): A multi-agent system is a set of AI agents with distinct roles that hand work to each other, usually with one coordinating, to complete what none could alone. How it works, components, examples and limits.
+- [What Is AI Automation?](https://eligoo.in/resources/glossary/ai-automation/): AI automation is the use of AI models to carry out business tasks that previously needed a person to read, judge or write, combined with rule-based automation for the predictable parts. Definition, components and limits.
+- [What Is AI Orchestration?](https://eligoo.in/resources/glossary/ai-orchestration/): AI orchestration is the coordination of multiple AI agents, models and tools so that work flows between them in the right order with shared context, hand-offs, approvals and reporting. Definition, components, limits.
+- [What Is AI Revenue Operations (AI RevOps)?](https://eligoo.in/resources/glossary/ai-revenue-operations/): AI revenue operations (AI RevOps) is the use of AI agents to maintain and analyse the data behind the revenue process — CRM hygiene, funnel metrics, attribution and forecasting. How it works, components, benefits and limits.
+
+## Research
+
+- [Eligoo Research](https://eligoo.in/resources/research/): Eligoo publishes original research from anonymised, aggregated platform data and controlled experiments. Reports in progress, the questions they will answer, and how to get early access.
+- [Research Methodology](https://eligoo.in/resources/research/methodology/): How Eligoo research is produced: aggregated telemetry from consenting workspaces and controlled experiments, anonymisation, minimum sample thresholds, metric definitions, limitations and corrections.
+
+## Workflow templates
+
+- [AI Workflow Templates](https://eligoo.in/resources/templates/): Seven ready-to-copy AI workflow templates that map a business process onto Eligoo’s AI employees, with each stage’s owner, the setup steps and the points where a person approves.
+- [AI Sales Workflow Template](https://eligoo.in/resources/templates/ai-sales-workflow/): A copyable AI sales workflow: Maven defines the segment, Radar builds the list, Hook runs the approved sequence and calls, Ledger reports. Setup steps in Eligoo, approval points, inputs and KPI.
+- [AI Cold Calling Workflow Template](https://eligoo.in/resources/templates/ai-cold-calling-workflow/): A copyable AI cold calling workflow: Radar verifies the list, Hook makes the calls inside an approved window, outcomes are logged and Ledger reports. Setup steps, approval points, inputs and KPI.
+- [Lead Generation Workflow Template](https://eligoo.in/resources/templates/lead-generation-workflow/): A copyable AI lead generation workflow: Maven defines the profile, Radar finds, enriches, verifies, de-duplicates and scores contacts, Ledger keeps the CRM clean. Setup steps, inputs, outputs and KPI.
+- [AI Marketing Workflow Template](https://eligoo.in/resources/templates/ai-marketing-workflow/): A copyable AI marketing workflow: Maven researches and positions, Sage plans and writes the calendar, Pixel produces the creative, Sage publishes approved posts and reports. Setup steps, approvals and KPI.
+- [Appointment Setting Workflow Template](https://eligoo.in/resources/templates/appointment-setting-workflow/): A copyable AI appointment setting workflow: Hook works a verified list by email and phone, qualifies, books a calendar event with a meeting link and writes a brief for whoever attends. Setup, approvals and KPI.
+- [AI Follow-Up Workflow Template](https://eligoo.in/resources/templates/ai-follow-up-workflow/): A copyable AI follow-up workflow: Hook classifies every reply, answers the routine ones, re-contacts no-shows and old quotes on an approved cadence, and Ledger keeps every touch on the record. Setup and KPI.
+- [AI CRM Workflow Template](https://eligoo.in/resources/templates/ai-crm-workflow/): A copyable AI CRM workflow: Ledger reconciles email, call and calendar activity against records, fixes them with an audit trail, queues exceptions and reports funnel, attribution and forecast on a schedule.
+
+## Legal
+
+- [Terms of Service](https://eligoo.in/p/terms)
+- [Privacy Policy](https://eligoo.in/p/privacy)
+- [Refund Policy](https://eligoo.in/p/refunds)
 
 ## Contact
 
 - [Book a 30-minute call](https://calendly.com/eligooai/30min): Talk to the Eligoo team.
+- [Start a free trial](https://eligoo.in/app/sign-up?plan=plan_trial)

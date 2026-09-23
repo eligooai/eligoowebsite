@@ -1,4 +1,17 @@
+# eligoo.in — crawl everything except the API. Search and AI-search crawlers are explicitly allowed.
 User-agent: *
+Allow: /
+Disallow: /eapi/
+
+User-agent: Googlebot
+Allow: /
+Disallow: /eapi/
+
+User-agent: Bingbot
+Allow: /
+Disallow: /eapi/
+
+User-agent: OAI-SearchBot
 Allow: /
 Disallow: /eapi/
 

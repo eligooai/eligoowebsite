@@ -109,24 +109,6 @@ body {
   text-transform: uppercase;
 }
 
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-.marquee-track {
-  display: flex;
-  width: max-content;
-  animation: marquee 40s linear infinite;
-}
-.marquee-track.reverse {
-  animation-direction: reverse;
-}
-
-@keyframes floaty {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
 .grain {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
   background-size: 200px 200px;
@@ -139,10 +121,6 @@ body {
 .dots-dark {
   background-image: radial-gradient(rgba(4,26,23,0.12) 1px, transparent 1px);
   background-size: 28px 28px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track { animation: none; }
 }
 
 /* blog / page content */
@@ -165,3 +143,28 @@ body {
 .prose-eligoo table { width: 100%; border-collapse: collapse; margin: 22px 0; font-size: 14px; }
 .prose-eligoo th, .prose-eligoo td { border: 1px solid #E1E8E5; padding: 10px 14px; text-align: left; }
 .prose-eligoo th { background: #F3F6F4; font-weight: 700; }
+
+/* ---------- revamp: navigation, disclosure widgets, mobile safety ---------- */
+html, body { overflow-x: hidden; }
+img, video, svg { max-width: 100%; }
+.font-body { font-family: 'Inter', 'Inter Fallback', sans-serif; letter-spacing: 0; }
+
+/* desktop mega menu: hover / keyboard focus */
+.mega { visibility: hidden; opacity: 0; transform: translateY(6px); transition: opacity .15s ease, transform .15s ease, visibility 0s linear .15s; z-index: 95; }
+.group:hover > .mega, .group:focus-within > .mega { visibility: visible; opacity: 1; transform: translateY(0); transition-delay: 0s; }
+
+/* native <details> used for FAQ and the mobile menu */
+details > summary::-webkit-details-marker { display: none; }
+details.faq[open] .chev { transform: rotate(45deg); }
+details.faq .chev { display: inline-block; font-size: 22px; line-height: 1; transition: transform .2s ease; }
+details.mobile-group[open] .chev { transform: rotate(180deg); }
+details.mobile-group .chev { transition: transform .2s ease; }
+
+.btn { transition: transform .15s ease, opacity .15s ease; }
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: scale(.98); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .mega, .btn, details .chev { transition: none; }
+}

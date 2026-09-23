@@ -1,14 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, LogIn } from 'lucide-react';
-import { Mark, BOOK_URL, SIGN_IN_URL } from './ui';
+import { Mark, TRIAL_URL, SIGN_IN_URL, Container } from './ui';
+import { FOOTER_COLUMNS } from '../content/nav';
 import { get } from '../lib/api';
 
-const NAV_LINKS = [
-  { label: 'AI Employees', href: '/#team' }, { label: 'How It Works', href: '/#how' },
-  { label: 'Atlas', href: '/#atlas' }, { label: 'WFC', href: '/#wfc' },
-  { label: 'Plans', href: '/#plans' }, { label: 'Blog', href: '/blog' },
-];
 // always linked, even before the pages API answers (the API seeds these three)
 const LEGAL_LINKS = [
   { title: 'Terms of Service', slug: 'terms' },
@@ -29,71 +25,70 @@ export default function Footer() {
   const [pages, setPages] = useState<{ title: string; slug: string }[]>([]);
   const [social, setSocial] = useState<Record<string, string>>({});
   useEffect(() => {
-    get<{ title: string; slug: string }[]>('/eapi/pages').then(setPages).catch(() => {});
-    get<Record<string, string>>('/eapi/social').then(setSocial).catch(() => {});
+    get<{ title: string; slug: string }[]>('/eapi/pages').then((p) => Array.isArray(p) && setPages(p)).catch(() => {});
+    get<Record<string, string>>('/eapi/social').then((s) => s && typeof s === 'object' && setSocial(s)).catch(() => {});
   }, []);
   const socials = Object.entries(social).filter(([, url]) => url);
   const legal = [...LEGAL_LINKS, ...pages.filter((p) => !LEGAL_LINKS.some((l) => l.slug === p.slug))];
+  const linkStyle = { color: 'rgba(255,255,255,0.72)', minHeight: 44, minWidth: 44 } as const;
 
   return (
     <footer className="relative" style={{ borderTop: '1px solid rgba(255,255,255,0.1)', backgroundColor: '#03140F' }}>
-      <div className="mx-auto px-5 sm:px-10 py-12 grid grid-cols-1 md:grid-cols-12 gap-8" style={{ maxWidth: 1100 }}>
-        <div className="md:col-span-5">
-          <img src="/brand/logo-white.svg" alt="Eligoo" width={82} height={34} style={{ height: 34, width: 'auto' }} />
-          <p className="m-0 mt-4 text-sm" style={{ color: 'rgba(255,255,255,0.68)', lineHeight: 1.7, maxWidth: 360 }}>
-            AI Employees. Work From Cloud. Role-based AI systems configured around your business — transparently AI, resourced like a team.
-          </p>
-          <div className="mt-5 flex items-center gap-2" style={{ color: 'rgba(255,255,255,0.5)' }}>
-            <Mark size={34} variant="white" style={{ opacity: 0.6 }} />
-            <span className="eyebrow">WFC · Work From Cloud</span>
-          </div>
-          {socials.length > 0 && (
-            <div className="mt-5 flex items-center gap-2">
-              {socials.map(([k, url]) => (
-                <a key={k} href={url} target="_blank" rel="noopener noreferrer" aria-label={k}
-                  className="w-9 h-9 rounded-full flex items-center justify-center transition-colors"
-                  style={{ border: '1px solid rgba(255,255,255,0.2)', color: 'rgba(255,255,255,0.7)' }}
-                  onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#FF5A36'; e.currentTarget.style.color = '#fff'; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = 'rgba(255,255,255,0.7)'; }}>
-                  <SocialIcon name={k} />
-                </a>
-              ))}
+      <Container className="pt-14 pb-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+          <div className="lg:col-span-4">
+            <img src="/brand/logo-white.svg" alt="Eligoo" width={82} height={34} style={{ height: 34, width: 'auto' }} loading="lazy" />
+            <p className="m-0 mt-4 text-sm" style={{ color: 'rgba(255,255,255,0.68)', lineHeight: 1.7, maxWidth: 360 }}>
+              Eligoo is an AI workforce platform. AI employees that market, sell, call, prospect, create and automate business operations — using your own AI accounts, inside the limits you approve.
+            </p>
+            <div className="mt-5 flex items-center gap-2" style={{ color: 'rgba(255,255,255,0.5)' }}>
+              <Mark size={34} variant="white" style={{ opacity: 0.6 }} />
+              <span className="eyebrow">Work From Cloud</span>
             </div>
-          )}
-        </div>
-        <div className="md:col-span-4">
-          <p className="eyebrow m-0" style={{ color: 'rgba(255,255,255,0.65)' }}>Eligoo</p>
-          <ul className="m-0 mt-4 p-0 grid grid-cols-2 gap-x-6 gap-y-2.5" style={{ listStyle: 'none' }}>
-            {NAV_LINKS.map((l) => (
-              <li key={l.label}>
-                {l.href.startsWith('/#')
-                  ? <a href={l.href} className="text-sm no-underline" style={{ color: 'rgba(255,255,255,0.75)' }}>{l.label}</a>
-                  : <Link to={l.href} className="text-sm no-underline" style={{ color: 'rgba(255,255,255,0.75)' }}>{l.label}</Link>}
-              </li>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a href={TRIAL_URL} className="inline-flex items-center gap-2 no-underline rounded-full px-5 text-sm font-semibold" style={{ backgroundColor: '#FF5A36', color: '#041A17', fontWeight: 700, minHeight: 44 }}>
+                Start free trial <ArrowRight size={15} strokeWidth={2.5} aria-hidden />
+              </a>
+              <a href={SIGN_IN_URL} className="inline-flex items-center gap-1.5 no-underline rounded-full px-5 text-sm font-semibold" style={{ color: '#fff', border: '1px solid rgba(255,255,255,0.25)', minHeight: 44 }}><LogIn size={14} aria-hidden /> Sign in</a>
+            </div>
+            {socials.length > 0 && (
+              <div className="mt-6 flex items-center gap-2">
+                {socials.map(([k, url]) => (
+                  <a key={k} href={url} target="_blank" rel="noopener noreferrer" aria-label={k}
+                    className="rounded-full flex items-center justify-center" style={{ width: 44, height: 44, border: '1px solid rgba(255,255,255,0.2)', color: 'rgba(255,255,255,0.7)' }}>
+                    <SocialIcon name={k} />
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+          <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-x-6 gap-y-8">
+            {FOOTER_COLUMNS.map((col) => (
+              <div key={col.label}>
+                <p className="eyebrow m-0" style={{ color: 'rgba(255,255,255,0.6)' }}>{col.label}</p>
+                <ul className="m-0 mt-3 p-0 flex flex-col" style={{ listStyle: 'none' }}>
+                  {col.links.map((l) => (
+                    <li key={l.href}><Link to={l.href} className="inline-flex items-center text-[13.5px] no-underline" style={linkStyle}>{l.label}</Link></li>
+                  ))}
+                </ul>
+              </div>
             ))}
-          </ul>
-          <p className="eyebrow m-0 mt-6" style={{ color: 'rgba(255,255,255,0.65)' }}>Legal</p>
-          <ul className="m-0 mt-3 p-0 flex flex-col gap-2" style={{ listStyle: 'none' }}>
-            {legal.map((p) => (
-              <li key={p.slug}>
-                <Link to={`/p/${p.slug}`} className="text-sm no-underline" style={{ color: 'rgba(255,255,255,0.6)' }}>{p.title}</Link>
-              </li>
-            ))}
-            <li>
-              <a href={SIGN_IN_URL} className="inline-flex items-center gap-1.5 text-sm no-underline" style={{ color: 'rgba(255,255,255,0.6)' }}><LogIn size={13} /> Sign in</a>
-            </li>
-          </ul>
+            <div>
+              <p className="eyebrow m-0" style={{ color: 'rgba(255,255,255,0.6)' }}>Legal</p>
+              <ul className="m-0 mt-3 p-0 flex flex-col" style={{ listStyle: 'none' }}>
+                {legal.map((p) => (
+                  <li key={p.slug}><Link to={`/p/${p.slug}`} className="inline-flex items-center text-[13.5px] no-underline" style={linkStyle}>{p.title}</Link></li>
+                ))}
+                <li><a href={SIGN_IN_URL} className="inline-flex items-center gap-1.5 text-[13.5px] no-underline" style={linkStyle}><LogIn size={13} aria-hidden /> Sign in</a></li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <div className="md:col-span-3 flex flex-col items-start md:items-end">
-          <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 no-underline rounded-full px-5 py-3 text-sm font-semibold" style={{ backgroundColor: '#FF5A36', color: '#041A17', fontWeight: 700 }}>
-            Build Your AI Team <ArrowRight size={15} strokeWidth={2.5} />
-          </a>
+        <div className="mt-12 pt-6 flex flex-col sm:flex-row justify-between gap-2 text-xs" style={{ borderTop: '1px solid rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.55)' }}>
+          <span>© {new Date().getFullYear()} Eligoo. All rights reserved.</span>
+          <span>Every Eligoo employee is an AI system — transparently.</span>
         </div>
-      </div>
-      <div className="mx-auto px-5 sm:px-10 pb-8 flex flex-col sm:flex-row justify-between gap-2 text-xs" style={{ maxWidth: 1100, color: 'rgba(255,255,255,0.6)' }}>
-        <span>© {new Date().getFullYear()} Eligoo. All rights reserved.</span>
-        <span>Every Eligoo employee is an AI system — transparently.</span>
-      </div>
+      </Container>
     </footer>
   );
 }

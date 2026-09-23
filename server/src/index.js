@@ -284,17 +284,22 @@ app.post('/eapi/v1/posts', apiKeyAuth, (req, res) => {
     String(title).slice(0, 200), finalSlug, String(html), String(excerpt).slice(0, 300), String(topic).slice(0, 60),
     Array.isArray(tags) ? tags.join(',') : String(tags), coverUrl, String(seo_title).slice(0, 200), String(seo_description).slice(0, 300),
     String(canonical).slice(0, 300), status, publish ? new Date().toISOString() : null);
-  res.json({ ok: true, id: r.lastInsertRowid, slug: finalSlug, url: `${SITE_URL}/blog/${finalSlug}`, status });
+  res.json({ ok: true, id: r.lastInsertRowid, slug: finalSlug, url: `${SITE_URL}/resources/blog/${finalSlug}/`, status });
 });
 
-/* ---------------- SEO meta-injection for /blog pages ---------------- */
-let indexCache = { html: '', at: 0 };
-async function siteIndex() {
-  if (indexCache.html && Date.now() - indexCache.at < 60_000) return indexCache.html;
+/* ---------------- SEO meta-injection for blog pages ----------------
+ * The static site is prerendered; only blog posts (editable in the admin) are rendered here so
+ * each one ships with its own title/description/canonical/JSON-LD. nginx proxies
+ * /resources/blog/<slug> to /render/resources/blog/<slug>; the blog index itself is a
+ * prerendered static file. Legacy /blog URLs 301 to their new home.
+ */
+let shellCache = { html: '', at: 0 };
+async function siteShell() {
+  if (shellCache.html && Date.now() - shellCache.at < 60_000) return shellCache.html;
   let r = await fetch(WEBSITE_ORIGIN + '/app.html');
   if (!r.ok) r = await fetch(WEBSITE_ORIGIN + '/index.html');
-  indexCache = { html: await r.text(), at: Date.now() };
-  return indexCache.html;
+  shellCache = { html: await r.text(), at: Date.now() };
+  return shellCache.html;
 }
 function withMeta(html, m) {
   const meta = `
@@ -305,38 +310,37 @@ function withMeta(html, m) {
 <meta property="og:title" content="${esc(m.title)}" /><meta property="og:description" content="${esc(m.desc)}" />
 <meta property="og:url" content="${esc(m.canonical)}" />${m.image ? `<meta property="og:image" content="${esc(m.image)}" />` : ''}
 <meta name="twitter:card" content="${m.image ? 'summary_large_image' : 'summary'}" />
-${m.jsonld ? `<script type="application/ld+json">${m.jsonld}</script>` : ''}`;
+${m.jsonld ? `<script type="application/ld+json" data-seo>${m.jsonld}</script>` : ''}`;
   return html
     .replace(/<title>[\s\S]*?<\/title>/, '')
     .replace(/<meta name="description"[^>]*>/, '')
     .replace('</head>', meta + '\n</head>');
 }
-app.get(['/render/blog', '/render/blog/'], async (_req, res) => {
+const blogSlugRedirect = (slug) => {
+  const r = db.prepare('SELECT new_slug FROM redirects WHERE old_slug=?').get(slug);
+  return r && db.prepare("SELECT 1 FROM blogs WHERE slug=? AND status='published'").get(r.new_slug) ? r.new_slug : null;
+};
+// legacy URLs (301 → new home); nginx also handles these, this covers direct hits
+app.get(['/blog', '/blog/', '/render/blog', '/render/blog/'], (_req, res) => res.redirect(301, '/resources/blog/'));
+app.get(['/blog/:slug', '/render/blog/:slug'], (req, res) => res.redirect(301, `/resources/blog/${req.params.slug}/`));
+app.get(['/render/resources/blog', '/render/resources/blog/'], (_req, res) => res.redirect(302, '/resources/blog/'));
+app.get(['/render/resources/blog/:slug', '/render/resources/blog/:slug/'], async (req, res) => {
   try {
-    const html = withMeta(await siteIndex(), {
-      title: 'Blog — Eligoo | AI Employees. Work From Cloud.',
-      desc: 'Ideas, playbooks and product updates from Eligoo — hire AI employees that work from the cloud.',
-      canonical: `${SITE_URL}/blog`, type: 'website', image: `${SITE_URL}/employees/atlas.webp`,
-    });
-    res.type('html').send(html);
-  } catch { res.status(503).send('unavailable'); }
-});
-app.get('/render/blog/:slug', async (req, res) => {
-  try {
-    const b = db.prepare("SELECT * FROM blogs WHERE slug=? AND status='published'").get(req.params.slug);
+    const slug = req.params.slug;
+    const b = db.prepare("SELECT * FROM blogs WHERE slug=? AND status='published'").get(slug);
     if (!b) {
-      const r = db.prepare('SELECT new_slug FROM redirects WHERE old_slug=?').get(req.params.slug);
-      if (r && db.prepare("SELECT 1 FROM blogs WHERE slug=? AND status='published'").get(r.new_slug))
-        return res.redirect(301, `/blog/${r.new_slug}`);
+      const moved = blogSlugRedirect(slug);
+      if (moved) return res.redirect(301, `/resources/blog/${moved}/`);
     }
-    const base = await siteIndex();
+    const base = await siteShell();
     if (!b) return res.type('html').status(404).send(base);
     const img = b.cover ? (b.cover.startsWith('http') ? b.cover : SITE_URL + b.cover) : '';
+    const canonical = b.canonical || `${SITE_URL}/resources/blog/${b.slug}/`;
     const html = withMeta(base, {
       title: (b.seo_title || b.title) + ' — Eligoo Blog',
       desc: b.seo_desc || b.excerpt || stripHtml(b.html).slice(0, 160),
-      canonical: b.canonical || `${SITE_URL}/blog/${b.slug}`, type: 'article', image: img,
-      jsonld: JSON.stringify({ '@context': 'https://schema.org', '@type': 'Article', headline: b.title, datePublished: b.published_at, image: img || undefined, author: { '@type': 'Organization', name: 'Eligoo' }, publisher: { '@type': 'Organization', name: 'Eligoo' }, mainEntityOfPage: `${SITE_URL}/blog/${b.slug}` }),
+      canonical, type: 'article', image: img,
+      jsonld: JSON.stringify({ '@context': 'https://schema.org', '@type': 'Article', headline: b.title, datePublished: b.published_at, dateModified: b.updated_at, image: img || undefined, author: { '@type': 'Organization', name: 'Eligoo' }, publisher: { '@type': 'Organization', name: 'Eligoo' }, mainEntityOfPage: canonical }),
     });
     res.type('html').send(html);
   } catch { res.status(503).send('unavailable'); }
@@ -349,25 +353,39 @@ app.get('/render/blog/:slug', async (req, res) => {
  */
 const xmlEsc = (u) => u.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, '&apos;').replace(/"/g, '&quot;');
 const day = (ts) => (ts ? String(ts).slice(0, 10) : null);
+// static routes come from the website build (dist/routes.json, written by scripts/prerender.mjs)
+let routesCache = { list: [], at: 0 };
+async function staticRoutes() {
+  if (routesCache.list.length && Date.now() - routesCache.at < 10 * 60_000) return routesCache.list;
+  try {
+    const r = await fetch(WEBSITE_ORIGIN + '/routes.json');
+    if (r.ok) {
+      const list = await r.json();
+      if (Array.isArray(list) && list.length) routesCache = { list, at: Date.now() };
+    }
+  } catch { /* keep the previous list */ }
+  return routesCache.list;
+}
 const sitemapProviders = [
-  function core() {
-    const latestBlog = db.prepare("SELECT MAX(updated_at) m FROM blogs WHERE status='published' AND indexable=1").get().m;
-    return [{ loc: `${SITE_URL}/` }, { loc: `${SITE_URL}/blog`, lastmod: day(latestBlog) }];
+  async function site() {
+    const list = await staticRoutes();
+    if (!list.length) return [{ loc: `${SITE_URL}/` }, { loc: `${SITE_URL}/resources/blog/` }];
+    return list.map((r) => ({ loc: `${SITE_URL}${r.path}`, lastmod: r.lastmod || null }));
   },
   function blogs() {
     return db.prepare("SELECT slug, updated_at FROM blogs WHERE status='published' AND indexable=1").all()
-      .map((b) => ({ loc: `${SITE_URL}/blog/${b.slug}`, lastmod: day(b.updated_at) }));
+      .map((b) => ({ loc: `${SITE_URL}/resources/blog/${b.slug}/`, lastmod: day(b.updated_at) }));
   },
   function pages() {
     return db.prepare('SELECT slug, updated_at FROM pages WHERE indexable=1').all()
       .map((p) => ({ loc: `${SITE_URL}/p/${p.slug}`, lastmod: day(p.updated_at) }));
   },
 ];
-function sitemapEntries() {
+async function sitemapEntries() {
   const seen = new Set();
   const out = [];
   for (const provider of sitemapProviders) {
-    for (const e of provider()) {
+    for (const e of await provider()) {
       if (!e.loc.startsWith('https://') || seen.has(e.loc)) continue;
       seen.add(e.loc);
       out.push(e);
@@ -375,18 +393,18 @@ function sitemapEntries() {
   }
   return out;
 }
-app.get('/eapi/sitemap.xml', (_req, res) => {
-  const urls = sitemapEntries().map((e) =>
+app.get('/eapi/sitemap.xml', async (_req, res) => {
+  const urls = (await sitemapEntries()).map((e) =>
     `<url><loc>${xmlEsc(e.loc)}</loc>${e.lastmod ? `<lastmod>${e.lastmod}</lastmod>` : ''}</url>`);
   res.type('application/xml').send(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls.join('')}</urlset>`);
 });
-app.get('/eapi/admin/sitemap-report', auth, (_req, res) => {
-  const included = new Set(sitemapEntries().map((e) => e.loc));
+app.get('/eapi/admin/sitemap-report', auth, async (_req, res) => {
+  const included = new Set((await sitemapEntries()).map((e) => e.loc));
   const rows = [];
-  rows.push({ type: 'core', title: 'Home', url: `${SITE_URL}/`, status: 'published', indexable: 1, lastmod: null, included: true });
-  rows.push({ type: 'core', title: 'Blog index', url: `${SITE_URL}/blog`, status: 'published', indexable: 1, lastmod: null, included: true });
+  for (const r of await staticRoutes())
+    rows.push({ type: 'site', title: r.path, url: `${SITE_URL}${r.path}`, status: 'published', indexable: 1, lastmod: r.lastmod || null, included: true });
   for (const b of db.prepare('SELECT title, slug, status, indexable, updated_at FROM blogs ORDER BY updated_at DESC').all())
-    rows.push({ type: 'blog', title: b.title, url: `${SITE_URL}/blog/${b.slug}`, status: b.status, indexable: b.indexable, lastmod: day(b.updated_at), included: included.has(`${SITE_URL}/blog/${b.slug}`) });
+    rows.push({ type: 'blog', title: b.title, url: `${SITE_URL}/resources/blog/${b.slug}/`, status: b.status, indexable: b.indexable, lastmod: day(b.updated_at), included: included.has(`${SITE_URL}/resources/blog/${b.slug}/`) });
   for (const p of db.prepare('SELECT title, slug, indexable, updated_at FROM pages ORDER BY id').all())
     rows.push({ type: 'page', title: p.title, url: `${SITE_URL}/p/${p.slug}`, status: 'published', indexable: p.indexable, lastmod: day(p.updated_at), included: included.has(`${SITE_URL}/p/${p.slug}`) });
   res.json({ count: included.size, rows });

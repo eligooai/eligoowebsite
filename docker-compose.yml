@@ -1,6 +1,9 @@
 services:
   eligoo-website:
-    build: .
+    build:
+      context: .
+      args:
+        - VITE_CLERK_PUBLISHABLE_KEY=${VITE_CLERK_PUBLISHABLE_KEY:-}
     image: eligoo-website:latest
     container_name: eligoo-website
     restart: unless-stopped

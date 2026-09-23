@@ -33,11 +33,10 @@ const app = (
     </BrowserRouter>
   </StrictMode>
 )
-// the prerendered markup is the landing page — only hydrate there;
-// deep links (blog, legal pages) clear it and client-render
-if (rootEl.hasChildNodes() && window.location.pathname === '/') {
+// every registry route is prerendered → hydrate; API-backed pages (blog posts, legal)
+// load the empty shell (app.html) and client-render
+if (rootEl.hasChildNodes()) {
   hydrateRoot(rootEl, app)
 } else {
-  rootEl.innerHTML = ''
   createRoot(rootEl).render(app)
 }
