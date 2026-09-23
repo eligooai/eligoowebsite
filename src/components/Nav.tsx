@@ -2,7 +2,29 @@ import { useScrollProgress } from './ui';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence, useSpring } from 'framer-motion';
-import { Menu, X, ArrowRight } from 'lucide-react';
+import { Menu, X, ArrowRight, LogIn } from 'lucide-react';
+import { SignedIn, SignedOut, SignInButton } from '@clerk/clerk-react';
+
+const APP_URL = '/app/home';
+const HAS_CLERK = !!import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
+
+function AuthButtons({ dark, mobile, onNav }: { dark: boolean; mobile?: boolean; onNav?: () => void }) {
+  if (!HAS_CLERK) return null;
+  const base = mobile ? 'mt-3 inline-flex w-fit items-center gap-2 no-underline rounded-full px-6 py-3.5 text-sm font-semibold' : 'hidden sm:inline-flex items-center gap-2 no-underline rounded-full px-4 py-2.5 text-[13px] font-semibold cursor-pointer border-0';
+  const style = mobile ? { backgroundColor: 'rgba(255,255,255,0.12)', color: '#fff' } : { backgroundColor: dark ? 'rgba(4,26,23,0.06)' : 'rgba(255,255,255,0.14)', color: dark ? '#041A17' : '#fff' };
+  return (
+    <>
+      <SignedOut>
+        <SignInButton mode="redirect" forceRedirectUrl={APP_URL} signUpForceRedirectUrl={APP_URL}>
+          <button type="button" className={base} style={style} onClick={onNav}><LogIn size={14} strokeWidth={2.5} /> Sign in</button>
+        </SignInButton>
+      </SignedOut>
+      <SignedIn>
+        <a href={APP_URL} className={base} style={style} onClick={onNav}>Open my workspace <ArrowRight size={14} strokeWidth={2.5} /></a>
+      </SignedIn>
+    </>
+  );
+}
 
 const LINKS = [
   { label: 'AI Employees', href: '/#team' },
@@ -68,6 +90,7 @@ export default function Nav() {
             ))}
           </nav>
           <div className="flex items-center gap-2">
+            <AuthButtons dark={dark} />
             <a
               href="https://calendly.com/eligooai/30min"
               target="_blank"
@@ -114,6 +137,7 @@ export default function Nav() {
                 {l.label}
               </motion.a>
             ))}
+            <AuthButtons dark mobile onNav={() => setOpen(false)} />
             <a
               href="https://calendly.com/eligooai/30min"
               target="_blank"

@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Megaphone, Mail, Wallet, ShieldAlert, Check, Cloud } from 'lucide-react';
 import { Eyebrow, Reveal, Words, Button, EASE, BOOK_URL } from './ui';
@@ -140,7 +141,34 @@ const PLANS = [
   { name: 'AI Department', line: 'A coordinated workforce managed around business outcomes.', points: ['Full Growth Department', 'Atlas included as AI Growth Manager', 'Outcome-based coordination'], featured: false },
 ];
 
+type ApiPlan = { id: string; name: string; description: string; kind: string; price_cents: number; currency: string; interval: string; trial_days: number; credits_included: number; employee_cap: number; features: Record<string, unknown>; highlight: number; points?: string[] };
+function money(cents: number, currency: string) { try { return new Intl.NumberFormat(undefined, { style: 'currency', currency, maximumFractionDigits: 0 }).format(cents / 100); } catch { return `${currency} ${(cents / 100).toFixed(0)}`; } }
+function useLivePlans() {
+  const [plans, setPlans] = useState<ApiPlan[] | null>(null);
+  useEffect(() => {
+    let alive = true;
+    fetch('/api/public/plans').then((r) => (r.ok ? r.json() : null)).then((d) => { if (alive && d && Array.isArray(d.plans) && d.plans.length) setPlans(d.plans); }).catch(() => null);
+    return () => { alive = false; };
+  }, []);
+  return plans;
+}
+
 export function Plans() {
+  const live = useLivePlans();
+  const cards = live
+    ? live.map((p) => ({
+        name: p.name,
+        line: p.description || (p.kind === 'free_trial' ? `${p.trial_days}-day free trial, no card needed.` : `${money(p.price_cents, p.currency)} per ${p.interval}${p.trial_days ? ` · ${p.trial_days}-day trial` : ''}`),
+        points: (p.points && p.points.length ? p.points : [
+          p.employee_cap >= 7 ? 'All seven AI employees' : `Up to ${p.employee_cap} AI employee${p.employee_cap === 1 ? '' : 's'}`,
+          p.credits_included ? `${p.credits_included.toLocaleString()} credits every ${p.interval}` : 'Pay-as-you-go credits',
+          ...Object.entries(p.features || {}).filter(([, v]) => v === true).map(([k]) => ({ calling: 'AI calling', publishing: 'Social publishing', paid_ads: 'Paid ads specialist', meetings: 'AI joins meetings' } as Record<string, string>)[k] || k),
+        ]),
+        featured: !!p.highlight,
+        href: `/app/sign-up?plan=${encodeURIComponent(p.id)}`,
+        cta: p.kind === 'free_trial' ? `Start ${p.trial_days}-day free trial` : p.price_cents ? `Subscribe · ${money(p.price_cents, p.currency)}/${p.interval === 'year' ? 'yr' : 'mo'}` : 'Get started',
+      }))
+    : PLANS.map((p) => ({ ...p, href: BOOK_URL, cta: 'See AI Employee Plans' }));
   return (
     <section id="plans" className="relative bg-white px-5 sm:px-10" style={{ paddingTop: 'clamp(56px, 9vh, 150px)', paddingBottom: 'clamp(56px, 9vh, 150px)' }}>
       <div className="mx-auto" style={{ maxWidth: 1100 }}>
@@ -157,7 +185,7 @@ export function Plans() {
           </Reveal>
         </div>
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch">
-          {PLANS.map((p, i) => (
+          {cards.map((p, i) => (
             <motion.div
               key={p.name}
               className="relative rounded-[28px] p-7 sm:p-8 flex flex-col overflow-hidden"
@@ -188,7 +216,7 @@ export function Plans() {
                 ))}
               </ul>
               <div className="relative mt-8">
-                <Button href={BOOK_URL} variant={p.featured ? 'coral' : 'ink'} className="w-full justify-center">See AI Employee Plans</Button>
+                <Button href={p.href} variant={p.featured ? 'coral' : 'ink'} className="w-full justify-center">{p.cta}</Button>
               </div>
             </motion.div>
           ))}

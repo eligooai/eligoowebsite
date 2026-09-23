@@ -3,6 +3,14 @@ import { createRoot, hydrateRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import App from './App.tsx'
+import { ClerkProvider } from '@clerk/clerk-react'
+
+const CLERK_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY as string | undefined
+// affiliate landing: ?ref=CODE is remembered for 90 days and sent to the platform at sign-up / checkout
+try {
+  const ref = new URLSearchParams(window.location.search).get('ref')
+  if (ref) document.cookie = `elg_ref=${encodeURIComponent(ref)}; path=/; max-age=${90 * 86400}; samesite=lax; secure`
+} catch { /* ignore */ }
 
 // after a redeploy, previously-loaded pages reference old chunk hashes;
 // reload once instead of crashing when a lazy import 404s
@@ -17,7 +25,11 @@ const rootEl = document.getElementById('root')!
 const app = (
   <StrictMode>
     <BrowserRouter>
-      <App />
+      {CLERK_KEY ? (
+        <ClerkProvider publishableKey={CLERK_KEY} signInUrl="/app/sign-in" signUpUrl="/app/sign-up" signInFallbackRedirectUrl="/app/home" signUpFallbackRedirectUrl="/app/home" afterSignOutUrl="/">
+          <App />
+        </ClerkProvider>
+      ) : <App />}
     </BrowserRouter>
   </StrictMode>
 )
