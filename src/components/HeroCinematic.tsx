@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
 import FrameScrubber from './FrameScrubber';
-import { Button, BOOK_URL } from './ui';
+import { Button, TRIAL_URL, SignupConsent } from './ui';
 
 const COUNT = 90;
 const landscape = (i: number) => `/frames/team/frame_${String(i).padStart(3, '0')}.webp`;
@@ -23,9 +23,10 @@ function Act1() {
         They work from the cloud, use your tools and work toward the goals you give them.
       </p>
       <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-        <Button href={BOOK_URL}>Build Your AI Team</Button>
-        <Button href="#team" variant="ghost">Meet the AI Employees</Button>
+        <Button href={TRIAL_URL}>Start free trial</Button>
+        <Button href="#plans" variant="ghost">See pricing</Button>
       </div>
+      <SignupConsent light className="mt-3" />
     </div>
   );
 }

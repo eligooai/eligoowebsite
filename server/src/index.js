@@ -96,7 +96,12 @@ app.get('/eapi/pages', (_req, res) =>
   res.json(db.prepare('SELECT title, slug FROM pages WHERE show_in_footer=1 ORDER BY id').all()));
 app.get('/eapi/pages/:slug', (req, res) => {
   const p = db.prepare('SELECT title, slug, html, updated_at FROM pages WHERE slug=?').get(req.params.slug);
-  if (!p) return res.status(404).json({ error: 'not found' });
+  if (!p) {
+    // renamed page (legacy slug) → tell the SPA where it moved
+    const r = db.prepare('SELECT new_slug FROM redirects WHERE old_slug=?').get(req.params.slug);
+    if (r && db.prepare('SELECT 1 FROM pages WHERE slug=?').get(r.new_slug)) return res.status(404).json({ error: 'moved', redirectTo: r.new_slug });
+    return res.status(404).json({ error: 'not found' });
+  }
   res.json(p);
 });
 app.get('/eapi/social', (_req, res) => res.json(JSON.parse(getSetting('social') || '{}')));

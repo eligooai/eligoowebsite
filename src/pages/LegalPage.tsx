@@ -1,19 +1,28 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import Footer from '../components/Footer';
-import { get } from '../lib/api';
 
 export default function LegalPage() {
   const { slug } = useParams();
+  const navigate = useNavigate();
   const [page, setPage] = useState<{ title: string; html: string; updated_at: string } | null>(null);
   const [missing, setMissing] = useState(false);
   useEffect(() => {
+    let alive = true;
     setPage(null); setMissing(false);
-    get<{ title: string; html: string; updated_at: string }>(`/eapi/pages/${slug}`)
-      .then((p) => { setPage(p); document.title = `${p.title} — Eligoo`; })
-      .catch(() => setMissing(true));
-  }, [slug]);
+    fetch(`/eapi/pages/${slug}`)
+      .then(async (r) => {
+        const body = await r.json().catch(() => null);
+        if (!alive) return;
+        if (r.ok && body) { setPage(body); document.title = `${body.title} — Eligoo`; return; }
+        // renamed page (e.g. terms-and-conditions → terms): follow the redirect the API reports
+        if (r.status === 404 && body?.redirectTo) { navigate(`/p/${body.redirectTo}`, { replace: true }); return; }
+        setMissing(true);
+      })
+      .catch(() => { if (alive) setMissing(true); });
+    return () => { alive = false; };
+  }, [slug, navigate]);
   return (
     <main style={{ backgroundColor: '#F3F6F4', minHeight: '100vh' }}>
       <section className="relative px-5 sm:px-10" style={{ backgroundColor: '#041A17', paddingTop: 'clamp(110px, 15vh, 150px)', paddingBottom: 48 }}>

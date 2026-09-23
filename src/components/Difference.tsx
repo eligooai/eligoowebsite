@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { motion, useTransform } from 'framer-motion';
 import { ArrowRight, X, Check } from 'lucide-react';
-import { Eyebrow, Reveal, Words, Button, EASE, useScrollProgress, BOOK_URL } from './ui';
+import { Eyebrow, Reveal, Words, Button, EASE, useScrollProgress, TRIAL_URL } from './ui';
 
 /* ---------- 5. Core difference ---------- */
 const ROWS: [string, string][] = [
@@ -110,11 +110,11 @@ export function Difference() {
 
 /* ---------- 6. How it works ---------- */
 const STEPS = [
-  { n: '01', title: 'Choose the role', text: 'Start with the work your business needs done. Content. Lead generation. Outreach. Ads. SEO. Revenue operations. Or an entire Growth Department.' },
-  { n: '02', title: 'Give us the business context', text: 'Your goals. Brand. Customers. Offers. Processes. Rules. Tools. Approval requirements. Eligoo configures your AI Employee around your business.' },
-  { n: '03', title: 'Connect the tools', text: 'Your AI Employees can work with the systems needed for their role. CRM. Email. Advertising. Analytics. Social platforms. Documents. Calendars. Internal systems.' },
-  { n: '04', title: 'Set goals and guardrails', text: 'Define what the employee should achieve and what requires approval. Your business stays in control.' },
-  { n: '05', title: 'Put them to work', text: 'Your AI Employee begins executing assigned responsibilities from the cloud.' },
+  { n: '01', title: 'Sign up', text: 'Create your workspace in a minute. Every account starts with a 7-day free trial — no card needed.' },
+  { n: '02', title: 'Pick a plan', text: 'Hire one AI Employee, a team, or the whole Growth Department. Each plan is a simple monthly salary with credits included; add credit packs whenever you need more.' },
+  { n: '03', title: 'Connect your accounts', text: 'Link the tools your employees will work in. CRM. Email. Advertising. Analytics. Social platforms. Calendars. Documents. Connections take a click, not a project.' },
+  { n: '04', title: 'Set goals and guardrails', text: 'Tell your employees about your business, your customers and your offers. Define what they should achieve and what requires your approval. Your business stays in control.' },
+  { n: '05', title: 'Your employees start working', text: 'Your AI Employees begin executing their responsibilities from the cloud — planning, producing, reaching out and reporting back in one workspace.' },
   { n: '06', title: 'Grow the workforce', text: 'Start with one employee. Add specialists as your needs grow. Eventually, build an AI department that works together.' },
 ];
 
@@ -158,7 +158,7 @@ export function HowItWorks() {
               <Words text="like you build a real team." delay={0.25} accent={['real', 'team']} />
             </h2>
             <Reveal delay={0.3} className="mt-8">
-              <Button href={BOOK_URL}>Build Your AI Team</Button>
+              <Button href={TRIAL_URL}>Start free trial</Button>
             </Reveal>
           </div>
         </div>

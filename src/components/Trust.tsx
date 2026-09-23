@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Megaphone, Mail, Wallet, ShieldAlert, Check, Cloud } from 'lucide-react';
-import { Eyebrow, Reveal, Words, Button, EASE, BOOK_URL } from './ui';
+import { Megaphone, Mail, Wallet, ShieldAlert, Check, Cloud, Sparkles } from 'lucide-react';
+import { Eyebrow, Reveal, Words, Button, EASE, BOOK_URL, SignupConsent } from './ui';
 
 /* ---------- 11. Control & approvals ---------- */
 const RULES = [
@@ -141,34 +141,89 @@ const PLANS = [
   { name: 'AI Department', line: 'A coordinated workforce managed around business outcomes.', points: ['Full Growth Department', 'Atlas included as AI Growth Manager', 'Outcome-based coordination'], featured: false },
 ];
 
-type ApiPlan = { id: string; name: string; description: string; kind: string; price_cents: number; currency: string; interval: string; trial_days: number; credits_included: number; employee_cap: number; features: Record<string, unknown>; highlight: number; points?: string[] };
-function money(cents: number, currency: string) { try { return new Intl.NumberFormat(undefined, { style: 'currency', currency, maximumFractionDigits: 0 }).format(cents / 100); } catch { return `${currency} ${(cents / 100).toFixed(0)}`; } }
-function useLivePlans() {
-  const [plans, setPlans] = useState<ApiPlan[] | null>(null);
+/* Public plan shape served by the platform at /api/public/plans (same origin — eligoo.in/api is proxied to the platform).
+ * There is no `points` field: bullets are derived from employee_cap / credits_included / features. */
+type ApiPlan = {
+  id: string; name: string; description: string;
+  kind: 'paid' | 'free_trial' | 'free' | 'topup' | string;
+  price_cents: number; currency: string; interval: 'month' | 'year' | 'once' | string;
+  trial_days: number; credits_included: number; employee_cap: number; employees_allowed?: string[];
+  features?: { calling?: boolean; publishing?: boolean; paid_ads?: boolean; meetings?: boolean; seats?: number | boolean };
+  highlight?: number | boolean; sort_order?: number;
+};
+type PublicPlans = { plans: ApiPlan[]; packs: ApiPlan[] };
+const TOTAL_EMPLOYEES = 8;
+
+const LOCALE_BY_CURRENCY: Record<string, string> = { INR: 'en-IN', USD: 'en-US', EUR: 'de-DE', GBP: 'en-GB' };
+function money(cents: number, currency: string) {
+  const code = (currency || 'USD').toUpperCase();
+  const amount = (Number(cents) || 0) / 100;
+  const whole = Number.isInteger(amount);
+  try {
+    return new Intl.NumberFormat(LOCALE_BY_CURRENCY[code] || 'en-US', { style: 'currency', currency: code, minimumFractionDigits: whole ? 0 : 2, maximumFractionDigits: whole ? 0 : 2 }).format(amount);
+  } catch {
+    return `${code} ${whole ? amount.toFixed(0) : amount.toFixed(2)}`;
+  }
+}
+const per = (interval: string) => (interval === 'year' ? 'yr' : interval === 'month' ? 'mo' : interval);
+const FEATURE_LABEL: Record<string, string> = { calling: 'AI calling', publishing: 'Social publishing', paid_ads: 'Paid ads specialist', meetings: 'AI joins meetings' };
+
+function planBullets(p: ApiPlan): string[] {
+  const cap = Number(p.employee_cap) || 0;
+  const out: string[] = [];
+  out.push(cap >= TOTAL_EMPLOYEES ? 'All eight AI employees' : cap > 0 ? `Up to ${cap} AI employee${cap === 1 ? '' : 's'}` : 'AI employees of your choice');
+  if (p.credits_included) out.push(`${Number(p.credits_included).toLocaleString('en-US')} credits${p.interval === 'once' ? '' : ` every ${p.interval}`}`);
+  else out.push('Pay-as-you-go credits');
+  const f = p.features || {};
+  for (const k of ['calling', 'publishing', 'paid_ads', 'meetings'] as const) if (f[k] === true) out.push(FEATURE_LABEL[k]);
+  const seats = Number(f.seats);
+  if (seats > 1) out.push(`${seats} team seats`);
+  return out;
+}
+function planLine(p: ApiPlan) {
+  if (p.description) return p.description;
+  if (p.kind === 'free_trial') return `${p.trial_days}-day free trial, no card needed.`;
+  if (p.kind === 'free' || !p.price_cents) return 'Free to start.';
+  return `${money(p.price_cents, p.currency)} per ${p.interval}${p.trial_days ? ` · ${p.trial_days}-day trial` : ''}`;
+}
+function planCta(p: ApiPlan) {
+  if (p.kind === 'free_trial') return `Start ${p.trial_days}-day free trial`;
+  if (p.price_cents) return `Subscribe · ${money(p.price_cents, p.currency)}/${per(p.interval)}`;
+  return 'Get started';
+}
+
+function useLivePlans(): PublicPlans | null {
+  const [data, setData] = useState<PublicPlans | null>(null);
   useEffect(() => {
     let alive = true;
-    fetch('/api/public/plans').then((r) => (r.ok ? r.json() : null)).then((d) => { if (alive && d && Array.isArray(d.plans) && d.plans.length) setPlans(d.plans); }).catch(() => null);
+    fetch('/api/public/plans')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (!alive || !d || !Array.isArray(d.plans) || !d.plans.length) return;
+        const bySort = (a: ApiPlan, b: ApiPlan) => (Number(a.sort_order) || 0) - (Number(b.sort_order) || 0);
+        setData({ plans: [...d.plans].sort(bySort), packs: Array.isArray(d.packs) ? [...d.packs].sort(bySort) : [] });
+      })
+      .catch(() => null);
     return () => { alive = false; };
   }, []);
-  return plans;
+  return data;
 }
 
 export function Plans() {
   const live = useLivePlans();
+  const trial = live?.plans.find((p) => p.kind === 'free_trial') || null;
+  const packs = live?.packs || [];
   const cards = live
-    ? live.map((p) => ({
+    ? live.plans.map((p) => ({
         name: p.name,
-        line: p.description || (p.kind === 'free_trial' ? `${p.trial_days}-day free trial, no card needed.` : `${money(p.price_cents, p.currency)} per ${p.interval}${p.trial_days ? ` · ${p.trial_days}-day trial` : ''}`),
-        points: (p.points && p.points.length ? p.points : [
-          p.employee_cap >= 7 ? 'All seven AI employees' : `Up to ${p.employee_cap} AI employee${p.employee_cap === 1 ? '' : 's'}`,
-          p.credits_included ? `${p.credits_included.toLocaleString()} credits every ${p.interval}` : 'Pay-as-you-go credits',
-          ...Object.entries(p.features || {}).filter(([, v]) => v === true).map(([k]) => ({ calling: 'AI calling', publishing: 'Social publishing', paid_ads: 'Paid ads specialist', meetings: 'AI joins meetings' } as Record<string, string>)[k] || k),
-        ]),
+        line: planLine(p),
+        points: planBullets(p),
         featured: !!p.highlight,
         href: `/app/sign-up?plan=${encodeURIComponent(p.id)}`,
-        cta: p.kind === 'free_trial' ? `Start ${p.trial_days}-day free trial` : p.price_cents ? `Subscribe · ${money(p.price_cents, p.currency)}/${p.interval === 'year' ? 'yr' : 'mo'}` : 'Get started',
+        cta: planCta(p),
       }))
     : PLANS.map((p) => ({ ...p, href: BOOK_URL, cta: 'See AI Employee Plans' }));
+  const cols = cards.length >= 4 ? 'md:grid-cols-2 lg:grid-cols-4' : cards.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3';
   return (
     <section id="plans" className="relative bg-white px-5 sm:px-10" style={{ paddingTop: 'clamp(56px, 9vh, 150px)', paddingBottom: 'clamp(56px, 9vh, 150px)' }}>
       <div className="mx-auto" style={{ maxWidth: 1100 }}>
@@ -183,8 +238,15 @@ export function Plans() {
               runs every time you discuss your workforce. Each AI Employee is resourced around a defined role and scope.
             </p>
           </Reveal>
+          {trial && (
+            <Reveal delay={0.3} className="mt-5 flex justify-center">
+              <span className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-[12px] font-bold uppercase" style={{ letterSpacing: '0.1em', backgroundColor: '#FFF0EB', color: '#D0451B', border: '1px solid #FFD2C6' }}>
+                <Sparkles size={13} strokeWidth={2.5} /> {trial.trial_days}-day free trial, no card
+              </span>
+            </Reveal>
+          )}
         </div>
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch">
+        <div className={`mt-12 grid grid-cols-1 ${cols} gap-5 items-stretch`}>
           {cards.map((p, i) => (
             <motion.div
               key={p.name}
@@ -221,6 +283,24 @@ export function Plans() {
             </motion.div>
           ))}
         </div>
+        {packs.length > 0 && (
+          <Reveal className="mt-8 text-center">
+            <p className="m-0 text-sm" style={{ color: '#5C6B67', lineHeight: 1.7 }}>
+              <span className="font-semibold" style={{ color: '#041A17' }}>Need more credits?</span>{' '}
+              Top up any time — {packs.map((k, i) => (
+                <span key={k.id}>
+                  {i > 0 && (i === packs.length - 1 ? ' or ' : ', ')}
+                  {Number(k.credits_included).toLocaleString('en-US')} credits for {money(k.price_cents, k.currency)}
+                </span>
+              ))}. Packs never expire and stack with any plan.
+            </p>
+          </Reveal>
+        )}
+        {live && (
+          <Reveal className="mt-4 flex justify-center">
+            <SignupConsent />
+          </Reveal>
+        )}
       </div>
     </section>
   );

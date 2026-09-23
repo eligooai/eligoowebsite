@@ -84,11 +84,31 @@ if (envEmail && envPw) {
   console.log('[seed] admin user created; initial password written to /data/admin-initial-password.txt');
 }
 
-const pageCount = db.prepare('SELECT COUNT(*) c FROM pages').get().c;
-if (pageCount === 0) {
-  const seed = db.prepare('INSERT INTO pages (title, slug, html) VALUES (?, ?, ?)');
-  seed.run('Terms & Conditions', 'terms-and-conditions', '<h2>Terms &amp; Conditions</h2><p>Edit this page from the admin panel.</p>');
-  seed.run('Privacy Policy', 'privacy-policy', '<h2>Privacy Policy</h2><p>Edit this page from the admin panel.</p>');
+// Legal pages the SaaS needs: Terms of Service, Privacy Policy, Refund Policy.
+// Seeded per slug (idempotent): a missing page is created; a page still carrying the
+// old placeholder slug from the first seed is renamed in place (a redirect keeps the old URL
+// working); a page the admin has already edited is left untouched.
+const LEGAL_PAGES = [
+  { slug: 'terms', legacy: ['terms-and-conditions', 'terms-of-service'], title: 'Terms of Service', file: 'terms.html' },
+  { slug: 'privacy', legacy: ['privacy-policy'], title: 'Privacy Policy', file: 'privacy.html' },
+  { slug: 'refunds', legacy: ['refund-policy', 'refunds-policy'], title: 'Refund Policy', file: 'refunds.html' },
+];
+const SEED_DIR = path.join(path.dirname(new URL(import.meta.url).pathname), 'seed');
+const PLACEHOLDER_RE = /Edit this page from the admin panel/;
+for (const page of LEGAL_PAGES) {
+  const html = fs.readFileSync(path.join(SEED_DIR, page.file), 'utf8').trim();
+  if (db.prepare('SELECT 1 FROM pages WHERE slug=?').get(page.slug)) continue;
+  const legacy = page.legacy.map((l) => db.prepare('SELECT id, slug, html FROM pages WHERE slug=?').get(l)).find(Boolean);
+  if (legacy) {
+    const keepContent = !PLACEHOLDER_RE.test(legacy.html || '');
+    db.prepare("UPDATE pages SET slug=?, title=?, html=?, updated_at=datetime('now') WHERE id=?")
+      .run(page.slug, page.title, keepContent ? legacy.html : html, legacy.id);
+    db.prepare('INSERT INTO redirects (old_slug, new_slug) VALUES (?, ?) ON CONFLICT(old_slug) DO UPDATE SET new_slug=excluded.new_slug').run(legacy.slug, page.slug);
+    console.log(`[seed] page /p/${legacy.slug} renamed to /p/${page.slug}${keepContent ? ' (content kept)' : ''}`);
+  } else {
+    db.prepare('INSERT INTO pages (title, slug, html) VALUES (?, ?, ?)').run(page.title, page.slug, html);
+    console.log(`[seed] page /p/${page.slug} created`);
+  }
 }
 if (!db.prepare('SELECT 1 FROM settings WHERE key=?').get('social')) {
   db.prepare('INSERT INTO settings (key, value) VALUES (?, ?)')

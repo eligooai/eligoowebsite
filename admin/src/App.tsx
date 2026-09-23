@@ -1,5 +1,5 @@
 import { Navigate, NavLink, Route, Routes, useLocation } from 'react-router-dom'
-import { LayoutDashboard, Users, FileText, Inbox, PanelsTopLeft, Settings, LogOut } from 'lucide-react'
+import { LayoutDashboard, Users, FileText, Inbox, PanelsTopLeft, Settings, LogOut, CreditCard } from 'lucide-react'
 import { token } from './api'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
@@ -10,6 +10,9 @@ import Leads from './pages/Leads'
 import Pages from './pages/Pages'
 import PageEditor from './pages/PageEditor'
 import SettingsPage from './pages/Settings'
+
+// the SaaS platform's own admin (users, plans, billing) lives on eligoo.in/app — opened in the same tab
+const SAAS_CONSOLE_URL = 'https://eligoo.in/app/admin'
 
 const NAV = [
   { to: '/', label: 'Dashboard', icon: LayoutDashboard },
@@ -37,6 +40,10 @@ function Shell({ children }: { children: React.ReactNode }) {
             </NavLink>
           ))}
         </nav>
+        <a href={SAAS_CONSOLE_URL} className="mx-4 mb-1 flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-semibold no-underline"
+          style={{ color: '#041A17', background: '#FF7A5C' }}>
+          <CreditCard size={17} /> <span>SaaS console <span className="block text-[11px] font-medium" style={{ opacity: 0.75 }}>users, plans, billing</span></span>
+        </a>
         <button className="m-4 btn btn-ghost !bg-transparent !border-white/15 !text-white/70" onClick={() => { token.clear(); location.href = '/login' }}>
           <LogOut size={15} /> Sign out
         </button>

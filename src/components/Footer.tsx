@@ -1,13 +1,19 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
-import { Mark, BOOK_URL } from './ui';
+import { ArrowRight, LogIn } from 'lucide-react';
+import { Mark, BOOK_URL, SIGN_IN_URL } from './ui';
 import { get } from '../lib/api';
 
 const NAV_LINKS = [
   { label: 'AI Employees', href: '/#team' }, { label: 'How It Works', href: '/#how' },
   { label: 'Atlas', href: '/#atlas' }, { label: 'WFC', href: '/#wfc' },
   { label: 'Plans', href: '/#plans' }, { label: 'Blog', href: '/blog' },
+];
+// always linked, even before the pages API answers (the API seeds these three)
+const LEGAL_LINKS = [
+  { title: 'Terms of Service', slug: 'terms' },
+  { title: 'Privacy Policy', slug: 'privacy' },
+  { title: 'Refund Policy', slug: 'refunds' },
 ];
 const PATHS: Record<string, string> = {
   linkedin: 'M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.4v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.55V9h3.57v11.45z',
@@ -27,6 +33,7 @@ export default function Footer() {
     get<Record<string, string>>('/eapi/social').then(setSocial).catch(() => {});
   }, []);
   const socials = Object.entries(social).filter(([, url]) => url);
+  const legal = [...LEGAL_LINKS, ...pages.filter((p) => !LEGAL_LINKS.some((l) => l.slug === p.slug))];
 
   return (
     <footer className="relative" style={{ borderTop: '1px solid rgba(255,255,255,0.1)', backgroundColor: '#03140F' }}>
@@ -65,18 +72,17 @@ export default function Footer() {
               </li>
             ))}
           </ul>
-          {pages.length > 0 && (
-            <>
-              <p className="eyebrow m-0 mt-6" style={{ color: 'rgba(255,255,255,0.65)' }}>Legal</p>
-              <ul className="m-0 mt-3 p-0 flex flex-col gap-2" style={{ listStyle: 'none' }}>
-                {pages.map((p) => (
-                  <li key={p.slug}>
-                    <Link to={`/p/${p.slug}`} className="text-sm no-underline" style={{ color: 'rgba(255,255,255,0.6)' }}>{p.title}</Link>
-                  </li>
-                ))}
-              </ul>
-            </>
-          )}
+          <p className="eyebrow m-0 mt-6" style={{ color: 'rgba(255,255,255,0.65)' }}>Legal</p>
+          <ul className="m-0 mt-3 p-0 flex flex-col gap-2" style={{ listStyle: 'none' }}>
+            {legal.map((p) => (
+              <li key={p.slug}>
+                <Link to={`/p/${p.slug}`} className="text-sm no-underline" style={{ color: 'rgba(255,255,255,0.6)' }}>{p.title}</Link>
+              </li>
+            ))}
+            <li>
+              <a href={SIGN_IN_URL} className="inline-flex items-center gap-1.5 text-sm no-underline" style={{ color: 'rgba(255,255,255,0.6)' }}><LogIn size={13} /> Sign in</a>
+            </li>
+          </ul>
         </div>
         <div className="md:col-span-3 flex flex-col items-start md:items-end">
           <a href={BOOK_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 no-underline rounded-full px-5 py-3 text-sm font-semibold" style={{ backgroundColor: '#FF5A36', color: '#041A17', fontWeight: 700 }}>

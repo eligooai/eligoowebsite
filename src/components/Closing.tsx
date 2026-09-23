@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, Plus } from 'lucide-react';
-import { Eyebrow, Reveal, Words, Button, EASE, BOOK_URL } from './ui';
+import { Eyebrow, Reveal, Words, Button, EASE, TRIAL_URL, SignupConsent } from './ui';
 import Footer from './Footer';
 import { byId } from '../data/employees';
 
@@ -220,9 +220,10 @@ export function FinalCta() {
           </p>
         </Reveal>
         <Reveal delay={0.4} className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <Button href={BOOK_URL}>Build Your AI Team</Button>
-          <Button href="#team" variant="ghost">Meet the AI Employees</Button>
+          <Button href={TRIAL_URL}>Start free trial</Button>
+          <Button href="#plans" variant="ghost">See pricing</Button>
         </Reveal>
+        <Reveal delay={0.45} className="mt-3 flex justify-center"><SignupConsent light /></Reveal>
         <Reveal delay={0.5} className="mt-5">
           <p className="eyebrow m-0" style={{ color: 'rgba(255,255,255,0.65)' }}>Eligoo — AI Employees. Work From Cloud.</p>
         </Reveal>

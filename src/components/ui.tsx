@@ -2,9 +2,27 @@ import { motion, useScroll, useMotionValue, useMotionValueEvent } from 'framer-m
 import type { MotionValue } from 'framer-motion';
 import type { ReactNode, CSSProperties } from 'react';
 import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export const EASE = [0.4, 0, 0.2, 1] as const;
 export const BOOK_URL = 'https://calendly.com/eligooai/30min';
+/** Self-serve entry points on the platform (eligoo.in/app is the SaaS, proxied on the same origin). */
+export const TRIAL_URL = '/app/sign-up?plan=plan_trial';
+export const SIGN_IN_URL = '/app/sign-in';
+
+/** "By signing up you agree to…" line shown next to every sign-up CTA. */
+export function SignupConsent({ light = false, className = '' }: { light?: boolean; className?: string }) {
+  const c = light ? 'rgba(255,255,255,0.6)' : '#5C6B67';
+  const l = light ? 'rgba(255,255,255,0.9)' : '#041A17';
+  return (
+    <p className={`m-0 text-xs ${className}`} style={{ color: c, lineHeight: 1.6 }}>
+      By signing up you agree to the{' '}
+      <Link to="/p/terms" style={{ color: l, fontWeight: 600 }}>Terms</Link>
+      {' '}and{' '}
+      <Link to="/p/privacy" style={{ color: l, fontWeight: 600 }}>Privacy Policy</Link>.
+    </p>
+  );
+}
 
 /**
  * Scroll progress as a plain MotionValue. framer-motion 13 tries to run
