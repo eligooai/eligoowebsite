@@ -26,8 +26,8 @@ export default function BlogEditor() {
     setBusy(true); setMsg('')
     try {
       const body = JSON.stringify({ ...b, status })
-      if (id) { const r = await api<any>(`/eapi/admin/blogs/${id}`, { method: 'PUT', body }); setB((p: any) => ({ ...p, status, slug: r.slug })); setMsg('Saved ✓') }
-      else { const r = await api<any>('/eapi/admin/blogs', { method: 'POST', body }); nav(`/blogs/${r.id}`, { replace: true }); setMsg('Saved ✓') }
+      if (id) { const r = await api<any>(`/eapi/admin/blogs/${id}`, { method: 'PUT', body }); setB((p: any) => ({ ...p, status, slug: r.slug })); setMsg('Saved') }
+      else { const r = await api<any>('/eapi/admin/blogs', { method: 'POST', body }); nav(`/blogs/${r.id}`, { replace: true }); setMsg('Saved') }
     } catch (e: any) { setMsg(e.message) } finally { setBusy(false) }
   }
   return (
@@ -35,22 +35,22 @@ export default function BlogEditor() {
       <div className="flex items-center justify-between flex-wrap gap-3 mb-5">
         <button className="btn btn-ghost" onClick={() => nav('/blogs')}><ArrowLeft size={15} /> Posts</button>
         <div className="flex items-center gap-2">
-          {msg && <span className="text-sm mr-2" style={{ color: msg.includes('✓') ? '#1D7A3E' : '#D0451B' }}>{msg}</span>}
+          {msg && <span className="text-sm mr-2" style={{ color: msg === 'Saved' ? '#16A34A' : '#DC2626' }}>{msg}</span>}
           <button className="btn btn-ghost" disabled={busy} onClick={() => save('draft')}>Save draft</button>
           <button className="btn btn-coral" disabled={busy} onClick={() => save('published')}>{b.status === 'published' ? 'Update' : 'Publish'}</button>
         </div>
       </div>
       <div className="grid lg:grid-cols-3 gap-5 items-start">
         <div className="lg:col-span-2">
-          <input className="input font-display" style={{ fontSize: 26, fontWeight: 900, padding: '14px 18px' }} placeholder="Post title" value={b.title} onChange={e => set('title', e.target.value)} />
+          <input className="input" style={{ fontSize: 20, fontWeight: 600, height: 48 }} placeholder="Post title" value={b.title} onChange={e => set('title', e.target.value)} />
           <div className="mt-4"><Editor value={b.html} onChange={h => set('html', h)} /></div>
         </div>
         <div className="flex flex-col gap-4">
           <div className="card p-5">
-            <p className="eyebrow m-0" style={{ color: '#9AA8A4' }}>Post settings</p>
+            <p className="eyebrow m-0" style={{ color: '#71717A' }}>Post settings</p>
             <label className="lbl">Slug</label>
             <div className="flex items-center gap-1">
-              <span className="text-xs" style={{ color: '#9AA8A4' }}>/blog/</span>
+              <span className="text-xs" style={{ color: '#71717A' }}>/blog/</span>
               <input className="input" value={b.slug} onChange={e => { setSlugTouched(true); set('slug', slugify(e.target.value) || e.target.value) }} />
             </div>
             <label className="lbl">Topic</label>
@@ -66,22 +66,22 @@ export default function BlogEditor() {
             </label>
           </div>
           <div className="card p-5">
-            <p className="eyebrow m-0" style={{ color: '#9AA8A4' }}>SEO</p>
+            <p className="eyebrow m-0" style={{ color: '#71717A' }}>SEO</p>
             <label className="lbl">SEO title</label>
             <input className="input" placeholder={b.title} value={b.seo_title} onChange={e => set('seo_title', e.target.value)} />
-            <label className="lbl">Meta description <span style={{ color: b.seo_desc.length > 160 ? '#D0451B' : '#9AA8A4' }}>({b.seo_desc.length}/160)</span></label>
+            <label className="lbl">Meta description <span style={{ color: b.seo_desc.length > 160 ? '#DC2626' : '#71717A' }}>({b.seo_desc.length}/160)</span></label>
             <textarea className="input" rows={3} value={b.seo_desc} onChange={e => set('seo_desc', e.target.value)} />
             <label className="flex items-center gap-2 text-sm font-semibold mt-4 cursor-pointer">
               <input type="checkbox" checked={!!b.indexable} onChange={e => set('indexable', e.target.checked ? 1 : 0)} />
               Allow search engine indexing
             </label>
-            <p className="m-0 mt-1 text-[11px]" style={{ color: '#64736F' }}>When off, this post is left out of sitemap.xml.</p>
+            <p className="m-0 mt-1 text-[11px]" style={{ color: '#71717A' }}>When off, this post is left out of sitemap.xml.</p>
             <label className="lbl">Canonical URL (optional)</label>
             <input className="input" placeholder={`https://eligoo.in/blog/${b.slug || '…'}`} value={b.canonical} onChange={e => set('canonical', e.target.value)} />
-            <div className="mt-4 p-3 rounded-xl" style={{ background: '#F8FAF9' }}>
+            <div className="mt-4 p-3 rounded-xl" style={{ background: '#F4F4F5' }}>
               <p className="m-0 text-[13px] font-semibold truncate" style={{ color: '#1a0dab' }}>{b.seo_title || b.title || 'SEO preview'}</p>
-              <p className="m-0 text-[11px] truncate" style={{ color: '#1D7A3E' }}>eligoo.in/blog/{b.slug || '…'}</p>
-              <p className="m-0 text-[12px] mt-0.5" style={{ color: '#5C6B67', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{b.seo_desc || b.excerpt || 'Meta description preview appears here.'}</p>
+              <p className="m-0 text-[11px] truncate" style={{ color: '#16A34A' }}>eligoo.in/blog/{b.slug || '…'}</p>
+              <p className="m-0 text-[12px] mt-0.5" style={{ color: '#71717A', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{b.seo_desc || b.excerpt || 'Meta description preview appears here.'}</p>
             </div>
           </div>
         </div>

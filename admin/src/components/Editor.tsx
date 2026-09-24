@@ -52,12 +52,12 @@ export default function Editor({ value, onChange }: { value: string; onChange: (
   }
   return (
     <div className="card overflow-hidden">
-      <div className="flex flex-wrap items-center gap-0.5 px-3 py-2" style={{ borderBottom: '1px solid #E1E8E5', background: '#FAFBFA' }}>
+      <div className="flex flex-wrap items-center gap-0.5 px-3 py-2" style={{ borderBottom: '1px solid #E4E4E7', background: '#FAFBFA' }}>
         <B title="Bold" on={editor.isActive('bold')} act={() => editor.chain().focus().toggleBold().run()}><Bold size={15} /></B>
         <B title="Italic" on={editor.isActive('italic')} act={() => editor.chain().focus().toggleItalic().run()}><Italic size={15} /></B>
         <B title="Underline" on={editor.isActive('underline')} act={() => editor.chain().focus().toggleUnderline().run()}><UnderlineIcon size={15} /></B>
         <B title="Strike" on={editor.isActive('strike')} act={() => editor.chain().focus().toggleStrike().run()}><Strikethrough size={15} /></B>
-        <span className="w-px h-5 mx-1.5" style={{ background: '#E1E8E5' }} />
+        <span className="w-px h-5 mx-1.5" style={{ background: '#E4E4E7' }} />
         <B title="Heading 2" on={editor.isActive('heading', { level: 2 })} act={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}><Heading2 size={15} /></B>
         <B title="Heading 3" on={editor.isActive('heading', { level: 3 })} act={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}><Heading3 size={15} /></B>
         <B title="Bullet list" on={editor.isActive('bulletList')} act={() => editor.chain().focus().toggleBulletList().run()}><List size={15} /></B>
@@ -65,14 +65,14 @@ export default function Editor({ value, onChange }: { value: string; onChange: (
         <B title="Quote" on={editor.isActive('blockquote')} act={() => editor.chain().focus().toggleBlockquote().run()}><Quote size={15} /></B>
         <B title="Code block" on={editor.isActive('codeBlock')} act={() => editor.chain().focus().toggleCodeBlock().run()}><Code2 size={15} /></B>
         <B title="Divider" act={() => editor.chain().focus().setHorizontalRule().run()}><Minus size={15} /></B>
-        <span className="w-px h-5 mx-1.5" style={{ background: '#E1E8E5' }} />
+        <span className="w-px h-5 mx-1.5" style={{ background: '#E4E4E7' }} />
         <B title="Align left" on={editor.isActive({ textAlign: 'left' })} act={() => editor.chain().focus().setTextAlign('left').run()}><AlignLeft size={15} /></B>
         <B title="Align center" on={editor.isActive({ textAlign: 'center' })} act={() => editor.chain().focus().setTextAlign('center').run()}><AlignCenter size={15} /></B>
         <B title="Align right" on={editor.isActive({ textAlign: 'right' })} act={() => editor.chain().focus().setTextAlign('right').run()}><AlignRight size={15} /></B>
-        <span className="w-px h-5 mx-1.5" style={{ background: '#E1E8E5' }} />
+        <span className="w-px h-5 mx-1.5" style={{ background: '#E4E4E7' }} />
         <B title="Insert image" act={() => fileRef.current?.click()}><ImageIcon size={15} /></B>
         <B title="Link" on={editor.isActive('link')} act={setLink}><Link2 size={15} /></B>
-        <span className="w-px h-5 mx-1.5" style={{ background: '#E1E8E5' }} />
+        <span className="w-px h-5 mx-1.5" style={{ background: '#E4E4E7' }} />
         <B title="Undo" act={() => editor.chain().focus().undo().run()}><Undo2 size={15} /></B>
         <B title="Redo" act={() => editor.chain().focus().redo().run()}><Redo2 size={15} /></B>
         <span className="flex-1" />

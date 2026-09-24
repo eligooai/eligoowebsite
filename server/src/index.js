@@ -410,6 +410,40 @@ app.get('/eapi/admin/sitemap-report', auth, async (_req, res) => {
   res.json({ count: included.size, rows });
 });
 
+/* ---------------- SaaS platform console proxy ----------------
+ * /eapi/platform/<rest> -> ${PLATFORM_API_URL}/api/admin/<rest>, authenticated with the operator service token.
+ * The admin's own email is forwarded so the platform audit log names who did what.
+ */
+const PLATFORM_API_URL = (process.env.PLATFORM_API_URL || 'http://cc-backend:8000').replace(/\/+$/, '');
+app.all('/eapi/platform/*', auth, async (req, res) => {
+  // raw (still-encoded) path and query, so ids with reserved characters survive the hop
+  const qi = req.originalUrl.indexOf('?');
+  const rawPath = qi >= 0 ? req.originalUrl.slice(0, qi) : req.originalUrl;
+  const rest = rawPath.slice(rawPath.indexOf('/eapi/platform/') + '/eapi/platform/'.length);
+  const url = `${PLATFORM_API_URL}/api/admin/${rest}${qi >= 0 ? req.originalUrl.slice(qi) : ''}`;
+  const hasBody = !['GET', 'HEAD'].includes(req.method);
+  try {
+    const r = await fetch(url, {
+      method: req.method,
+      headers: {
+        Accept: 'application/json',
+        ...(hasBody ? { 'Content-Type': 'application/json' } : {}),
+        'X-Operator-Token': process.env.OPERATOR_API_TOKEN || '',
+        'X-Operator-Email': String(req.user?.email || ''),
+      },
+      body: hasBody ? JSON.stringify(req.body ?? {}) : undefined,
+      signal: AbortSignal.timeout(30_000),
+    });
+    const text = await r.text();
+    let data;
+    try { data = text ? JSON.parse(text) : {}; } catch { data = { error: text.slice(0, 500) || `HTTP ${r.status}` }; }
+    res.status(r.status).json(data);
+  } catch (e) {
+    const timedOut = e?.name === 'TimeoutError' || e?.name === 'AbortError';
+    res.status(502).json({ error: timedOut ? 'The platform did not respond within 30 seconds.' : `The platform is unreachable (${PLATFORM_API_URL}).` });
+  }
+});
+
 /* ---------------- admin SPA (admin.eligoo.in) ---------------- */
 const ADMIN_DIST = process.env.ADMIN_DIST || path.resolve('admin-dist');
 if (fs.existsSync(ADMIN_DIST)) {

@@ -19,25 +19,24 @@ export default function Settings() {
 
   return (
     <div className="max-w-3xl">
-      <p className="eyebrow m-0" style={{ color: '#FF5A36' }}>Configuration</p>
-      <h1 className="font-display m-0 mt-1 mb-6" style={{ fontSize: 30, fontWeight: 900 }}>Settings</h1>
+      <h1 className="page-title m-0 mb-6">Settings</h1>
 
       <div className="card p-6 mb-5">
-        <h2 className="font-display m-0" style={{ fontSize: 18, fontWeight: 900 }}>Social media links</h2>
-        <p className="m-0 mt-1 text-sm" style={{ color: '#5C6B67' }}>Shown as icons in the website footer. Leave empty to hide an icon.</p>
+        <h2 className="section-title">Social media links</h2>
+        <p className="m-0 mt-1 text-sm" style={{ color: '#71717A' }}>Shown as icons in the website footer. Leave empty to hide an icon.</p>
         {SOCIALS.map(s => (<div key={s.k}><label className="lbl">{s.label}</label>
           <input className="input" placeholder={`https://${s.k === 'x' ? 'x.com' : s.k + '.com'}/eligoo`} value={social[s.k] || ''} onChange={e => setSocial({ ...social, [s.k]: e.target.value })} /></div>))}
         <div className="flex items-center gap-3 mt-5">
-          <button className="btn btn-coral" onClick={async () => { await api('/eapi/admin/social', { method: 'PUT', body: JSON.stringify(social) }); say('social', 'Saved ✓') }}>Save links</button>
-          {msg.social && <span className="text-sm" style={{ color: '#1D7A3E' }}>{msg.social}</span>}
+          <button className="btn btn-coral" onClick={async () => { await api('/eapi/admin/social', { method: 'PUT', body: JSON.stringify(social) }); say('social', 'Saved') }}>Save links</button>
+          {msg.social && <span className="text-sm" style={{ color: '#16A34A' }}>{msg.social}</span>}
         </div>
       </div>
 
       <div className="card p-6 mb-5">
-        <h2 className="font-display m-0 flex items-center gap-2" style={{ fontSize: 18, fontWeight: 900 }}><KeyRound size={17} /> API keys — external blog posting</h2>
-        <p className="m-0 mt-1 text-sm" style={{ color: '#5C6B67' }}>
-          POST HTML blogs from anywhere: <code style={{ background: '#F3F6F4', padding: '1px 6px', borderRadius: 4 }}>POST https://eligoo.in/eapi/v1/posts</code> with header <code style={{ background: '#F3F6F4', padding: '1px 6px', borderRadius: 4 }}>Authorization: Bearer &lt;key&gt;</code> and JSON
-          {' '}<code style={{ background: '#F3F6F4', padding: '1px 6px', borderRadius: 4 }}>{'{title, html, slug?, topic?, tags?, cover?, image_base64?, seo_title?, seo_description?, publish?}'}</code>
+        <h2 className="section-title flex items-center gap-2"><KeyRound size={17} /> API keys — external blog posting</h2>
+        <p className="m-0 mt-1 text-sm" style={{ color: '#71717A' }}>
+          POST HTML blogs from anywhere: <code style={{ background: '#F4F4F5', padding: '1px 6px', borderRadius: 4 }}>POST https://eligoo.in/eapi/v1/posts</code> with header <code style={{ background: '#F4F4F5', padding: '1px 6px', borderRadius: 4 }}>Authorization: Bearer &lt;key&gt;</code> and JSON
+          {' '}<code style={{ background: '#F4F4F5', padding: '1px 6px', borderRadius: 4 }}>{'{title, html, slug?, topic?, tags?, cover?, image_base64?, seo_title?, seo_description?, publish?}'}</code>
         </p>
         <table className="tbl mt-4">
           <thead><tr><th>Name</th><th>Key</th><th>Created</th><th>Last used</th><th></th></tr></thead>
@@ -46,24 +45,24 @@ export default function Settings() {
               <tr key={k.id}>
                 <td className="font-semibold">{k.name}</td>
                 <td><code className="text-xs">{k.key.slice(0, 10)}…{k.key.slice(-4)}</code>
-                  <button className="tt-btn" title="Copy" onClick={() => { navigator.clipboard.writeText(k.key); say('key', 'Copied ✓') }}><Copy size={13} /></button></td>
+                  <button className="tt-btn" title="Copy" onClick={() => { navigator.clipboard.writeText(k.key); say('key', 'Copied') }}><Copy size={13} /></button></td>
                 <td>{fmtDate(k.created_at)}</td><td>{fmtDate(k.last_used)}</td>
-                <td><button className="tt-btn" style={{ color: '#D0451B' }} onClick={async () => { if (confirm('Revoke this key?')) { await api(`/eapi/admin/api-keys/${k.id}`, { method: 'DELETE' }); loadKeys() } }}><Trash2 size={14} /></button></td>
+                <td><button className="tt-btn" style={{ color: '#DC2626' }} onClick={async () => { if (confirm('Revoke this key?')) { await api(`/eapi/admin/api-keys/${k.id}`, { method: 'DELETE' }); loadKeys() } }}><Trash2 size={14} /></button></td>
               </tr>
             ))}
-            {!keys.length && <tr><td colSpan={5} className="text-center py-6" style={{ color: '#9AA8A4' }}>No keys yet.</td></tr>}
+            {!keys.length && <tr><td colSpan={5} className="text-center py-6" style={{ color: '#71717A' }}>No keys yet.</td></tr>}
           </tbody>
         </table>
         <div className="flex items-center gap-3 mt-4">
           <button className="btn btn-ink" onClick={async () => { const name = prompt('Key name (e.g. n8n, zapier)') || 'default'; await api('/eapi/admin/api-keys', { method: 'POST', body: JSON.stringify({ name }) }); loadKeys() }}><Plus size={15} /> Generate key</button>
-          {msg.key && <span className="text-sm" style={{ color: '#1D7A3E' }}>{msg.key}</span>}
+          {msg.key && <span className="text-sm" style={{ color: '#16A34A' }}>{msg.key}</span>}
         </div>
       </div>
 
       <div className="card p-6 mb-5">
-        <h2 className="font-display m-0" style={{ fontSize: 18, fontWeight: 900 }}>Sitemap</h2>
-        <p className="m-0 mt-1 text-sm" style={{ color: '#5C6B67' }}>
-          <a href="https://eligoo.in/sitemap.xml" target="_blank" rel="noreferrer" style={{ color: '#FF5A36' }}>sitemap.xml</a> regenerates automatically from published, indexable content — {sitemap ? `${sitemap.count} URLs included` : 'loading…'}.
+        <h2 className="section-title">Sitemap</h2>
+        <p className="m-0 mt-1 text-sm" style={{ color: '#71717A' }}>
+          <a href="https://eligoo.in/sitemap.xml" target="_blank" rel="noreferrer" style={{ color: '#F4451E' }}>sitemap.xml</a> regenerates automatically from published, indexable content — {sitemap ? `${sitemap.count} URLs included` : 'loading…'}.
         </p>
         {sitemap && (
           <div className="overflow-x-auto mt-3" style={{ maxHeight: 320, overflowY: 'auto' }}>
@@ -74,13 +73,13 @@ export default function Settings() {
                   <tr key={i}>
                     <td>{r.type}</td>
                     <td className="max-w-[180px] truncate font-semibold">{r.title}</td>
-                    <td className="max-w-[240px] truncate" style={{ color: '#5C6B67' }}>{r.url}</td>
+                    <td className="max-w-[240px] truncate" style={{ color: '#71717A' }}>{r.url}</td>
                     <td>{r.status}</td>
                     <td>{r.indexable ? 'Yes' : 'No'}</td>
                     <td className="whitespace-nowrap">{r.lastmod || '—'}</td>
                     <td>{r.included
-                      ? <span className="text-[11px] font-bold uppercase px-2 py-1 rounded-full" style={{ background: '#E8F5EC', color: '#1D7A3E' }}>Included</span>
-                      : <span className="text-[11px] font-bold uppercase px-2 py-1 rounded-full" style={{ background: '#F3F6F4', color: '#5C6B67' }}>Excluded</span>}</td>
+                      ? <span className="text-[11px] font-bold uppercase px-2 py-1 rounded-full" style={{ background: '#DCFCE7', color: '#16A34A' }}>Included</span>
+                      : <span className="text-[11px] font-bold uppercase px-2 py-1 rounded-full" style={{ background: '#F4F4F5', color: '#71717A' }}>Excluded</span>}</td>
                   </tr>
                 ))}
               </tbody>
@@ -90,17 +89,17 @@ export default function Settings() {
       </div>
 
       <div className="card p-6">
-        <h2 className="font-display m-0" style={{ fontSize: 18, fontWeight: 900 }}>Change password</h2>
+        <h2 className="section-title">Change password</h2>
         <label className="lbl">Current password</label>
         <input className="input" type="password" value={pw.current} onChange={e => setPw({ ...pw, current: e.target.value })} />
         <label className="lbl">New password (min 8 chars)</label>
         <input className="input" type="password" value={pw.next} onChange={e => setPw({ ...pw, next: e.target.value })} />
         <div className="flex items-center gap-3 mt-5">
           <button className="btn btn-coral" onClick={async () => {
-            try { await api('/eapi/admin/password', { method: 'PUT', body: JSON.stringify(pw) }); setPw({ current: '', next: '' }); say('pw', 'Password changed ✓') }
+            try { await api('/eapi/admin/password', { method: 'PUT', body: JSON.stringify(pw) }); setPw({ current: '', next: '' }); say('pw', 'Password changed') }
             catch (e: any) { say('pw', e.message) }
           }}>Update password</button>
-          {msg.pw && <span className="text-sm" style={{ color: msg.pw.includes('✓') ? '#1D7A3E' : '#D0451B' }}>{msg.pw}</span>}
+          {msg.pw && <span className="text-sm" style={{ color: msg.pw === 'Password changed' ? '#16A34A' : '#DC2626' }}>{msg.pw}</span>}
         </div>
       </div>
     </div>

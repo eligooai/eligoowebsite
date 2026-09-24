@@ -15,8 +15,7 @@ export default function Leads() {
     <div>
       <div className="flex items-end justify-between flex-wrap gap-3 mb-6">
         <div>
-          <p className="eyebrow m-0" style={{ color: '#FF5A36' }}>Inbound</p>
-          <h1 className="font-display m-0 mt-1" style={{ fontSize: 30, fontWeight: 900 }}>Leads</h1>
+          <h1 className="page-title m-0">Leads</h1>
         </div>
         <button className="btn btn-ink" onClick={csv}><Download size={15} /> Export CSV</button>
       </div>
@@ -28,14 +27,14 @@ export default function Leads() {
               <tr key={l.id}>
                 <td className="whitespace-nowrap">{fmtDate(l.ts)}</td>
                 <td className="font-semibold">{l.name || '—'}</td>
-                <td><a href={`mailto:${l.email}`} style={{ color: '#FF5A36' }}>{l.email}</a></td>
+                <td><a href={`mailto:${l.email}`} style={{ color: '#F4451E' }}>{l.email}</a></td>
                 <td>{l.company || '—'}</td>
                 <td className="max-w-[320px]">{l.message || '—'}</td>
-                <td style={{ color: '#5C6B67' }}>{l.source_path || '—'}</td>
-                <td><button className="tt-btn" style={{ color: '#D0451B' }} onClick={async () => { if (confirm('Delete lead?')) { await api(`/eapi/admin/leads/${l.id}`, { method: 'DELETE' }); load() } }}><Trash2 size={14} /></button></td>
+                <td style={{ color: '#71717A' }}>{l.source_path || '—'}</td>
+                <td><button className="tt-btn" style={{ color: '#DC2626' }} onClick={async () => { if (confirm('Delete lead?')) { await api(`/eapi/admin/leads/${l.id}`, { method: 'DELETE' }); load() } }}><Trash2 size={14} /></button></td>
               </tr>
             ))}
-            {!items.length && <tr><td colSpan={7} className="text-center py-10" style={{ color: '#9AA8A4' }}>No leads yet.</td></tr>}
+            {!items.length && <tr><td colSpan={7} className="text-center py-10" style={{ color: '#71717A' }}>No leads yet.</td></tr>}
           </tbody>
         </table>
       </div>

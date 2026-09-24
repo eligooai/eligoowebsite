@@ -17,7 +17,7 @@ export default function PageEditor() {
       const body = JSON.stringify(p)
       if (id) await api(`/eapi/admin/pages/${id}`, { method: 'PUT', body })
       else { const r = await api<any>('/eapi/admin/pages', { method: 'POST', body }); nav(`/pages/${r.id}`, { replace: true }) }
-      setMsg('Saved ✓')
+      setMsg('Saved')
     } catch (e: any) { setMsg(e.message) } finally { setBusy(false) }
   }
   return (
@@ -25,7 +25,7 @@ export default function PageEditor() {
       <div className="flex items-center justify-between flex-wrap gap-3 mb-5">
         <button className="btn btn-ghost" onClick={() => nav('/pages')}><ArrowLeft size={15} /> Pages</button>
         <div className="flex items-center gap-3">
-          {msg && <span className="text-sm" style={{ color: msg.includes('✓') ? '#1D7A3E' : '#D0451B' }}>{msg}</span>}
+          {msg && <span className="text-sm" style={{ color: msg === 'Saved' ? '#16A34A' : '#DC2626' }}>{msg}</span>}
           <label className="flex items-center gap-2 text-sm font-semibold cursor-pointer">
             <input type="checkbox" checked={!!p.show_in_footer} onChange={e => setP({ ...p, show_in_footer: e.target.checked ? 1 : 0 })} /> Show in footer
           </label>
@@ -36,8 +36,8 @@ export default function PageEditor() {
         </div>
       </div>
       <div className="grid lg:grid-cols-3 gap-4 mb-4">
-        <input className="input font-display lg:col-span-2" style={{ fontSize: 22, fontWeight: 900 }} placeholder="Page title (e.g. Privacy Policy)" value={p.title} onChange={e => setP({ ...p, title: e.target.value })} />
-        <div className="flex items-center gap-1"><span className="text-xs shrink-0" style={{ color: '#9AA8A4' }}>/p/</span>
+        <input className="input lg:col-span-2" style={{ fontSize: 16, fontWeight: 600, height: 42 }} placeholder="Page title (e.g. Privacy Policy)" value={p.title} onChange={e => setP({ ...p, title: e.target.value })} />
+        <div className="flex items-center gap-1"><span className="text-xs shrink-0" style={{ color: '#71717A' }}>/p/</span>
           <input className="input" placeholder="auto from title" value={p.slug} onChange={e => setP({ ...p, slug: e.target.value })} /></div>
       </div>
       <Editor value={p.html} onChange={h => setP((prev: any) => ({ ...prev, html: h }))} />

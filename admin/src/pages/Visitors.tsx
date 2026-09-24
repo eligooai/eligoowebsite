@@ -7,8 +7,7 @@ export default function Visitors() {
   useEffect(() => { api(`/eapi/admin/analytics/visits?page=${page}`).then(setD).catch(() => {}) }, [page])
   return (
     <div>
-      <p className="eyebrow m-0" style={{ color: '#FF5A36' }}>Analytics</p>
-      <h1 className="font-display m-0 mt-1 mb-6" style={{ fontSize: 30, fontWeight: 900 }}>Visitors</h1>
+      <h1 className="page-title m-0 mb-6">Visitors</h1>
       <div className="card overflow-x-auto">
         <table className="tbl">
           <thead><tr><th>Time</th><th>Location</th><th>Device</th><th>Browser / OS</th><th>Page</th><th>Referrer</th></tr></thead>
@@ -20,10 +19,10 @@ export default function Visitors() {
                 <td className="capitalize">{v.device}</td>
                 <td>{v.browser}{v.os ? ` / ${v.os}` : ''}</td>
                 <td className="max-w-[220px] truncate">{v.path}</td>
-                <td className="max-w-[200px] truncate" style={{ color: '#5C6B67' }}>{v.referrer || '—'}</td>
+                <td className="max-w-[200px] truncate" style={{ color: '#71717A' }}>{v.referrer || '—'}</td>
               </tr>
             ))}
-            {d && !d.items.length && <tr><td colSpan={6} className="text-center py-8" style={{ color: '#9AA8A4' }}>No visits recorded yet.</td></tr>}
+            {d && !d.items.length && <tr><td colSpan={6} className="text-center py-8" style={{ color: '#71717A' }}>No visits recorded yet.</td></tr>}
           </tbody>
         </table>
       </div>
