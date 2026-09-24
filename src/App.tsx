@@ -3,7 +3,7 @@ import { Navigate, Route, Routes, useLocation, useParams } from 'react-router-do
 import Nav from './components/Nav';
 import PageView from './components/page/PageView';
 import NotFound from './pages/NotFound';
-import { normalisePath, sectionFor, sectionPromise } from './content/loader';
+import { normalisePath, prefetchAll, prefetchPath, sectionFor, sectionPromise } from './content/loader';
 import { trackPageView } from './lib/track';
 import ErrorBoundary from './components/ErrorBoundary';
 
@@ -42,6 +42,14 @@ export default function App() {
   const loc = useLocation();
   useEffect(() => { trackPageView(loc.pathname); }, [loc.pathname]);
   useEffect(() => { if (!loc.hash) window.scrollTo(0, 0); }, [loc.pathname, loc.hash]);
+  // content chunks: warm the one under the pointer, then everything once idle — navigation never waits on the network
+  useEffect(() => {
+    const warm = (e: Event) => { const a = (e.target as Element | null)?.closest?.('a[href^="/"]'); if (a) prefetchPath((a as HTMLAnchorElement).getAttribute('href') || ''); };
+    document.addEventListener('pointerover', warm, { passive: true });
+    document.addEventListener('touchstart', warm, { passive: true });
+    prefetchAll();
+    return () => { document.removeEventListener('pointerover', warm); document.removeEventListener('touchstart', warm); };
+  }, []);
   return (
     <ErrorBoundary
       fallback={

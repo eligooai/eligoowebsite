@@ -66,3 +66,19 @@ export function sectionPromise(name: SectionName): Promise<PageContent[]> {
   }
   return p;
 }
+
+/** Warm the chunk a link points at (hover / touch), so the click renders instantly. */
+export function prefetchPath(href: string) {
+  try {
+    const u = new URL(href, location.origin);
+    if (u.origin !== location.origin) return;
+    void sectionPromise(sectionFor(normalisePath(u.pathname)));
+  } catch { /* not a navigable link */ }
+}
+
+/** After hydration and once the browser is idle: pull every section (a few hundred KB in total). */
+export function prefetchAll() {
+  const run = () => { for (const name of Object.keys(LOADERS) as SectionName[]) void sectionPromise(name); };
+  if ('requestIdleCallback' in window) (window as Window & { requestIdleCallback: (cb: () => void, o?: { timeout: number }) => void }).requestIdleCallback(run, { timeout: 4000 });
+  else setTimeout(run, 2500);
+}
