@@ -1,4 +1,4 @@
-import { Suspense, lazy, use, useEffect, useRef, useState } from 'react';
+import { Suspense, lazy, use, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Navigate, Route, Routes, useLocation, useParams } from 'react-router-dom';
 import Nav from './components/Nav';
 import PageView from './components/page/PageView';
@@ -26,6 +26,8 @@ function ContentRoute() {
   const path = normalisePath(useLocation().pathname);
   const pages = use(sectionPromise(sectionFor(path)));
   const page = pages.find((p) => p.slug === path);
+  // the new page is on screen now (not merely requested): put the viewport at its top
+  useLayoutEffect(() => { if (!location.hash) window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior }); }, [path]);
   return page ? <PageView page={page} /> : <NotFound />;
 }
 
@@ -41,6 +43,7 @@ function RouteProgress({ pathname }: { pathname: string }) {
 export default function App() {
   const loc = useLocation();
   useEffect(() => { trackPageView(loc.pathname); }, [loc.pathname]);
+  useEffect(() => { try { history.scrollRestoration = 'manual'; } catch { /* older browsers */ } }, []);
   useEffect(() => { if (!loc.hash) window.scrollTo(0, 0); }, [loc.pathname, loc.hash]);
   // content chunks: warm the one under the pointer, then everything once idle — navigation never waits on the network
   useEffect(() => {
