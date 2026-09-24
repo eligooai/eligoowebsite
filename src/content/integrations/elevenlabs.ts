@@ -60,7 +60,7 @@ const page: PageContent = {
       { q: 'Does Eligoo support ElevenLabs voices for outbound calls?', a: 'Yes. Select ElevenLabs as the text-to-speech provider and pick a voice; Hook uses it on every outbound and inbound call.' },
       { q: 'Can I use a custom or cloned voice from my ElevenLabs account?', a: 'Voices available in your ElevenLabs account can be selected in Eligoo. You are responsible for having the rights to any voice you use on calls.' },
       { q: 'Can ElevenLabs transcribe calls too?', a: 'Eligoo can use ElevenLabs for speech-to-text, but Deepgram nova-3 is the default and the usual choice. You can mix providers — Deepgram for listening, ElevenLabs for speaking.' },
-      { q: 'Who pays for ElevenLabs usage?', a: 'ElevenLabs bills your account for the audio generated. Eligoo credits cover call minutes on the platform side; rates are on the pricing page.' },
+      { q: 'Who pays for ElevenLabs usage?', a: 'ElevenLabs bills your account for the audio generated, at its own rates. Calling is included on Eligoo plans that list it; there is no usage charge from Eligoo. See the pricing page.' },
       { q: 'How do I keep the voice from sounding robotic on the phone?', a: 'Pick a conversational voice, keep Hook’s replies short in the brief, and tune interruption handling so the agent stops when the caller speaks. Browser test calls are the quickest way to iterate.' },
       { q: 'What happens if my ElevenLabs quota runs out mid-campaign?', a: 'Speech synthesis fails, the current call ends and the campaign pauses with an Error status and the reason in the activity log. Top up at ElevenLabs or switch the voice provider and resume.' },
     ]),

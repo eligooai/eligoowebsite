@@ -36,7 +36,7 @@ const page: PageContent = {
         ['Accountability', 'Logs every decision; cannot be held responsible', 'Can be held responsible and can explain intent'],
         ['Consistency', 'Same effort on the thousandth task as the first', 'Varies with workload, mood and time of day'],
         ['Availability', 'Any hour, any calling window, no leave', 'Working hours; needs rest and holidays'],
-        ['Speed on repeatable work', 'Fast once briefed; scales by adding credits', 'Limited by hours in the day'],
+        ['Speed on repeatable work', 'Fast once briefed; scales with model budget on your own AI key', 'Limited by hours in the day'],
         ['Cost structure', 'Platform subscription plus usage and model costs', 'Salary, benefits, management time, hiring and attrition'],
         ['Ramp-up', 'Minutes to brief; days to tune', 'Weeks to months to become productive'],
       ],

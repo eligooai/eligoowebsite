@@ -38,8 +38,8 @@ export const pricingPointer = (subject = 'this'): { kind: 'prose'; heading: stri
   kind: 'prose',
   heading: 'Pricing',
   paragraphs: [
-    `Eligoo is priced per workspace, not per seat. A plan includes a monthly allowance of credits that ${subject} consumes as it works — model tokens, call minutes, generated media and published posts each draw from the same balance — and top-up packs add more when you need them. Model calls run on your own AI provider accounts, so those costs stay on your existing bills.`,
-    'Current plans, trial terms and pack prices are published live on the pricing page.',
+    `Eligoo is a platform subscription priced per workspace, not per seat. A plan includes a set of AI employees, team seats and features; there are no credits or usage charges from Eligoo. ${subject === 'this' ? 'The work' : subject} runs on your own AI provider key (OpenAI, Anthropic, Gemini or OpenRouter), stored in your workspace, and the provider bills you for model usage directly with no markup.`,
+    'Current plans and trial terms are published live on the pricing page.',
   ],
 });
 
@@ -47,7 +47,7 @@ export const pricingPointer = (subject = 'this'): { kind: 'prose'; heading: stri
 export const FACTS = {
   byok: 'Eligoo connects to the AI provider accounts you already have (OpenAI, Anthropic, Google Gemini, Groq or OpenRouter). Keys are stored server-side in your workspace and never sent to the browser.',
   approvals: 'Actions that reach the outside world — sending an outreach sequence, launching or changing ad spend, publishing outside an approved calendar, starting a calling campaign — wait in an approvals queue until a person approves them.',
-  workspace: 'Each customer runs in its own workspace with its own data, connections, credits and settings.',
+  workspace: 'Each customer runs in its own workspace with its own data, connections, AI keys and settings.',
 };
 
 export const LINKS = {

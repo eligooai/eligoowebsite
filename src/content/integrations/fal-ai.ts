@@ -62,7 +62,7 @@ const page: PageContent = {
       { q: 'Can an AI employee create marketing images and videos?', a: 'Yes. Pixel generates them through fal.ai with your key and edits them with ffmpeg in the workspace, then files them for your review.' },
       { q: 'Which models does Pixel use?', a: 'Models available on fal.ai for image and video generation. Eligoo selects appropriate defaults; you can specify a preference in the brief.' },
       { q: 'Will generated images be posted automatically?', a: 'No. Pixel never publishes. Assets go to the assets library for review, and Sage publishes only approved items on an approved calendar.' },
-      { q: 'Who pays for generation?', a: 'fal.ai bills your account per generation. Generated media also draws from your Eligoo credits at the platform rate on the pricing page.' },
+      { q: 'Who pays for generation?', a: 'fal.ai bills your account per generation, at its own rates. Eligoo adds no usage charge; media generation is part of the plan.' },
       { q: 'Can Pixel edit videos I already have without generating anything?', a: 'Yes. Upload footage to the assets library and brief Pixel; ffmpeg edits do not use fal.ai at all.' },
       { q: 'Who owns the generated images?', a: 'Rights to generated output are governed by fal.ai’s terms and the licence of the model used. Review them before commercial use, especially for advertising.' },
     ]),

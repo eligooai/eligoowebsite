@@ -63,7 +63,7 @@ const page: PageContent = {
       { q: 'Does it work with a personal Instagram account?', a: 'No. Instagram’s publishing API is limited to business and creator accounts. Convert the account in Instagram settings first.' },
       { q: 'Will AI-generated images be posted without me seeing them?', a: 'No. Pixel’s creative goes to review and the calendar is approved before publishing. Sage only publishes what is on the approved calendar.' },
       { q: 'Can Eligoo reply to comments or DMs?', a: 'No. The connection is for publishing. Engagement stays with your team.' },
-      { q: 'Does publishing use credits?', a: 'Yes — published posts and generated media each draw from your credit balance, at rates shown on the pricing page.' },
+      { q: 'Does publishing cost extra?', a: 'No. Publishing is included on plans that list it; there are no credits or per-post charges. Model usage for the captions runs on your own AI key and is billed by the provider.' },
     ]),
     related([
       LINKS.marketing, LINKS.sage, LINKS.pixel,

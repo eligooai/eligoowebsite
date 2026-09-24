@@ -27,7 +27,7 @@ const page: PageContent = {
         { title: 'Create a key in the Anthropic console', text: 'Generate an API key in your Anthropic organisation. A separate key for Eligoo keeps its usage visible on its own line.' },
         { title: 'Add Anthropic in workspace settings', text: 'Choose Anthropic as a provider and paste the key. Eligoo sends a test request to verify it, then stores it server-side and shows it masked.' },
         { title: 'Set the default or assign per employee', text: 'Make a Claude model the workspace default, or leave another provider as default and assign Claude to Atlas, Maven and Sage only. Either way the change applies from the next task.' },
-        { title: 'Work runs under your account', text: 'Each task the assigned employees pick up sends its prompt to Anthropic with your key. Output comes back into the workspace, the activity log records the task, and credits are consumed at the platform rate.' },
+        { title: 'Work runs under your account', text: 'Each task the assigned employees pick up sends its prompt to Anthropic with your key. Output comes back into the workspace and the activity log records the task. Anthropic bills the tokens to your account; Eligoo adds nothing.' },
       ],
     },
     {
@@ -64,7 +64,7 @@ const page: PageContent = {
       { q: 'Can I use Claude with AI employees?', a: 'Yes. Connect your Anthropic API key and assign a Claude model to the workspace or to individual employees.' },
       { q: 'Do I need a specific Anthropic plan?', a: 'You need API access in an Anthropic organisation and a key with sufficient rate limits for your workload. Eligoo works with whatever your account allows.' },
       { q: 'Can I mix Claude with other providers in one workspace?', a: 'Yes. A workspace can hold Anthropic, OpenAI, Google Gemini, Groq and OpenRouter at the same time, with one default and per-employee overrides.' },
-      { q: 'Who pays Anthropic?', a: 'You do, directly, on your own account. Eligoo credits are consumed separately for the platform work, at the rate shown on the pricing page.' },
+      { q: 'Who pays Anthropic?', a: 'You do, directly, on your own account at Anthropic’s rates. Eligoo charges a flat platform subscription with no markup on model usage.' },
       { q: 'Is my data used to train Claude?', a: 'That is governed by Anthropic’s API terms for your account, not by Eligoo. Eligoo does not add training rights of its own; see the security page for what Eligoo stores.' },
     ]),
     related([

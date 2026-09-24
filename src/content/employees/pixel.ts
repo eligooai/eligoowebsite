@@ -68,7 +68,7 @@ const page: PageContent = {
     pricingPointer('Pixel'),
     faq([
       { q: 'Does Pixel publish what it makes?', a: 'No. Pixel produces; Sage publishes approved posts and Boost runs approved ads. Pixel never has publishing access.' },
-      { q: 'Which generation models does it use?', a: 'Models available through fal.ai on your own account. Generated media draws credits at the platform rate, and fal.ai bills you directly.' },
+      { q: 'Which generation models does it use?', a: 'Models available through fal.ai on your own account. fal.ai bills you directly per generation; Eligoo adds no usage charge.' },
       { q: 'Can it edit our existing footage and photos?', a: 'Yes. Upload assets to the workspace and Pixel can trim, resize, caption, add audio, convert and produce thumbnails.' },
       { q: 'Can it use a real person’s likeness or a licensed character?', a: 'Not without approval. Creating a real person’s likeness, imitating protected characters and using unlicensed material are outside its boundary.' },
       { q: 'How is Pixel measured?', a: 'First-pass creative approval rate, turnaround time, technical error rate and creative test win rate.' },

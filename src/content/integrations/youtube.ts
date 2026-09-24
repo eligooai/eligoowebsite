@@ -63,7 +63,7 @@ const page: PageContent = {
       { q: 'Does Eligoo make the videos too?', a: 'Pixel generates video through fal.ai and edits footage with ffmpeg. Whether a given video is good enough to publish is your call at review.' },
       { q: 'Can I review before it goes public?', a: 'Yes. Set the privacy to unlisted or private on upload, review the video on YouTube, and approve the switch to public.' },
       { q: 'Is the YouTube connection the same as Google Workspace?', a: 'No. They are separate connections with separate permissions, even if the same Google account is used for both.' },
-      { q: 'Does uploading use credits?', a: 'Published posts and generated media draw from your credit balance; rates are on the pricing page. YouTube itself does not charge for uploads.' },
+      { q: 'Does uploading cost extra?', a: 'No. Publishing is included on plans that list it, with no per-post charges from Eligoo. YouTube itself does not charge for uploads; media generation is billed by fal.ai on your own account.' },
     ]),
     related([
       LINKS.marketing, LINKS.sage, LINKS.pixel,

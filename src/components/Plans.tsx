@@ -3,7 +3,8 @@ import { Check, Sparkles } from 'lucide-react';
 import { Button, BOOK_URL, SignupConsent } from './ui';
 
 /* Public plan shape served by the platform at /api/public/plans (same origin — eligoo.in/api is proxied to the platform).
- * There is no `points` field: bullets are derived from employee_cap / credits_included / features. */
+ * There is no `points` field: bullets are derived from employee_cap / features. Plans are a platform subscription:
+ * `credits_included` is always 0 and ignored, and `packs` is empty — model usage runs on the customer's own AI keys. */
 export type ApiPlan = {
   id: string; name: string; description: string;
   kind: 'paid' | 'free_trial' | 'free' | 'topup' | string;
@@ -33,8 +34,7 @@ export function planBullets(p: ApiPlan): string[] {
   const cap = Number(p.employee_cap) || 0;
   const out: string[] = [];
   out.push(cap >= TOTAL_EMPLOYEES ? 'All eight AI employees' : cap > 0 ? `Up to ${cap} AI employee${cap === 1 ? '' : 's'}` : 'AI employees of your choice');
-  if (p.credits_included) out.push(`${Number(p.credits_included).toLocaleString('en-US')} credits${p.interval === 'once' ? '' : ` every ${p.interval}`}`);
-  else out.push('Pay-as-you-go credits');
+  out.push('Model usage on your own AI keys (OpenAI, Anthropic, Gemini or OpenRouter)');
   const f = p.features || {};
   for (const k of ['calling', 'publishing', 'paid_ads', 'meetings'] as const) if (f[k] === true) out.push(FEATURE_LABEL[k]);
   const seats = Number(f.seats);
@@ -74,7 +74,7 @@ export function useLivePlans(): PublicPlans | null | undefined {
 
 /** Static shape shown while plans load or when the platform API is unreachable. */
 const FALLBACK = [
-  { name: 'One AI employee', line: 'One role with a defined scope, connected to the tools it needs.', points: ['Configured around your business', 'Credits included every month', 'Approvals on every outside-world action'], featured: false },
+  { name: 'One AI employee', line: 'One role with a defined scope, connected to the tools it needs.', points: ['Configured around your business', 'Runs on your own AI keys', 'Approvals on every outside-world action'], featured: false },
   { name: 'AI team', line: 'Several employees working together with shared context.', points: ['Coordinated hand-offs', 'Shared goals and calendar', 'Atlas manages the team'], featured: true },
   { name: 'Full AI workforce', line: 'All eight employees coordinated around your objectives.', points: ['Every role, one workspace', 'Atlas included', 'Calling, publishing and paid ads where enabled'], featured: false },
 ];
@@ -82,7 +82,6 @@ const FALLBACK = [
 export default function Plans() {
   const live = useLivePlans();
   const trial = live?.plans.find((p) => p.kind === 'free_trial') || null;
-  const packs = live?.packs || [];
   const cards = live
     ? live.plans.map((p) => ({ name: p.name, line: planLine(p), points: planBullets(p), featured: !!p.highlight, href: `/app/sign-up?plan=${encodeURIComponent(p.id)}`, cta: planCta(p) }))
     : FALLBACK.map((p) => ({ ...p, href: BOOK_URL, cta: 'Talk to us about plans' }));
@@ -118,17 +117,10 @@ export default function Plans() {
           </div>
         ))}
       </div>
-      {packs.length > 0 && (
-        <p className="m-0 mt-6 text-sm" style={{ color: '#5C6B67', lineHeight: 1.7 }}>
-          <span className="font-semibold" style={{ color: '#041A17' }}>Need more credits?</span>{' '}
-          Top up any time — {packs.map((k, i) => (
-            <span key={k.id}>
-              {i > 0 && (i === packs.length - 1 ? ' or ' : ', ')}
-              {Number(k.credits_included).toLocaleString('en-US')} credits for {money(k.price_cents, k.currency)}
-            </span>
-          ))}. Packs stack with any plan.
-        </p>
-      )}
+      <p className="m-0 mt-6 text-sm" style={{ color: '#5C6B67', lineHeight: 1.7 }}>
+        <span className="font-semibold" style={{ color: '#041A17' }}>Bring your own AI keys.</span>{' '}
+        Every plan runs on your own OpenAI, Anthropic, Gemini or OpenRouter API key, stored in your workspace. The provider bills you for model usage directly — Eligoo adds no markup.
+      </p>
       {live && <div className="mt-4"><SignupConsent /></div>}
     </div>
   );

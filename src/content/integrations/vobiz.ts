@@ -61,7 +61,7 @@ const page: PageContent = {
       { q: 'Why Vobiz rather than Twilio for India?', a: 'Vobiz is set up for Indian numbers and Indian telecom requirements, which is why many Indian customers choose it. Twilio availability in India varies; check both against your needs.' },
       { q: 'Is the Vobiz trunk created automatically?', a: 'No. You obtain the trunk from Vobiz and enter its SIP credentials in Eligoo manually.' },
       { q: 'Does Hook speak Indian languages?', a: 'Language support comes from the speech providers you connect. Set the call language in the voice configuration and confirm on a browser test call.' },
-      { q: 'Who pays for the calls?', a: 'Vobiz bills you for minutes and the number. Eligoo credits cover call minutes on the platform side; rates are on the pricing page.' },
+      { q: 'Who pays for the calls?', a: 'Vobiz bills you for minutes and the number, and your AI provider bills you for the model turns on your own key. Calling is included on Eligoo plans that list it; there is no per-minute charge from Eligoo. See the pricing page.' },
       { q: 'What about DND and consent rules?', a: 'You are responsible for lawful lists and calling hours in India. Eligoo honours suppression lists on every campaign and keeps a transcript and outcome for each call.' },
     ]),
     related([

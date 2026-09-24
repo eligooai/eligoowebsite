@@ -31,7 +31,7 @@ const page: PageContent = {
       ],
     },
     faq([
-      { q: 'What does Eligoo sell?', a: 'A workspace with AI employees — Atlas, Maven, Sage, Pixel, Radar, Hook, Ledger and Boost — priced per workspace with credits included, running on your own AI provider account.' },
+      { q: 'What does Eligoo sell?', a: 'A workspace with AI employees — Atlas, Maven, Sage, Pixel, Radar, Hook, Ledger and Boost — sold as a per-workspace platform subscription and running on your own AI provider key, with model usage billed by the provider directly.' },
       { q: 'Are the employees really AI?', a: 'Yes, every one of them, and we say so. They are AI agents with role definitions, tools and approval boundaries; there are no people pretending to be the employees.' },
       { q: 'Where can I read about security?', a: 'The security page describes key handling, workspace isolation, approvals, encryption, backups and deletion.' },
       { q: 'How do I get in touch?', a: 'Book a 30-minute call from any page, or start a free trial and message the team from your workspace.' },

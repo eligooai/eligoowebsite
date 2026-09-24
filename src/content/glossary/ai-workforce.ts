@@ -27,7 +27,7 @@ const page: PageContent = {
       items: [
         'Several AI employees with non-overlapping roles (strategy, content, creative, prospecting, outreach, revenue, paid media, operations).',
         'A coordinating employee — the one member that delegates and reports back.',
-        'A shared workspace: one set of goals, tasks, connections, credits and data.',
+        'A shared workspace: one set of goals, tasks, connections, AI keys and data.',
         'A task board where every task, its owner and its status are visible.',
         'Goals with periodic review, so the plan is checked against results.',
         'A single approvals queue for all outside-world actions.',
@@ -63,7 +63,7 @@ const page: PageContent = {
         'Hand-offs multiply the effect of an early error — a poorly defined segment leads to a poorly targeted list and wasted outreach.',
         'It still needs a person for approvals, exceptions, relationships and anything commercial or sensitive.',
         'It depends on connected systems. A workforce with no mailbox, phone line or CRM can plan but not act.',
-        'Running several employees consumes more model and credit budget than one; cost has to be watched alongside output.',
+        'Running several employees consumes more model budget than one; provider spend has to be watched alongside output.',
       ],
     },
     related([
@@ -84,7 +84,7 @@ const page: PageContent = {
       kind: 'prose',
       heading: 'How Eligoo uses this',
       paragraphs: [
-        'Eligoo is an AI workforce platform: eight AI employees that work from the cloud in one workspace, coordinated by Atlas, the AI business operations manager and the only employee that delegates. Tasks live on a kanban board, goals are reviewed hourly, delegated task completion triggers Atlas to report back, and every outside-world action waits in the shared approvals queue. Customers hire one employee, a team or the whole workforce, and every employee draws on the same connections, credits and activity log.',
+        'Eligoo is an AI workforce platform: eight AI employees that work from the cloud in one workspace, coordinated by Atlas, the AI business operations manager and the only employee that delegates. Tasks live on a kanban board, goals are reviewed hourly, delegated task completion triggers Atlas to report back, and every outside-world action waits in the shared approvals queue. Customers hire one employee, a team or the whole workforce, and every employee draws on the same connections, AI keys and activity log.',
       ],
     },
     cta('Build an AI workforce, one role at a time', 'Start with the employee that addresses your bottleneck and add the rest when you are ready. Free trial, no seat pricing.'),

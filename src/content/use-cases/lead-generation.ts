@@ -95,7 +95,7 @@ const page: PageContent = {
       { q: 'Are the leads qualified or just names?', a: 'Radar produces scored, verified prospects. A prospect becomes a qualified lead once Hook has contacted them and their answers to your qualification questions clear the bar you set.' },
       { q: 'Can AI generate leads for a niche industry?', a: 'Yes, provided the industry has a definable profile and the companies can be found by search. Radar researches each account with web search, so a niche with few obvious keywords can still be worked from signals such as job posts, product pages and news.' },
       { q: 'How is a bad lead prevented from being contacted?', a: 'Suppression lists and existing customers are excluded before the list reaches you, duplicates are merged, and enrolment into a sequence is an approval. Opt-outs are recorded and honoured on every future send.' },
-      { q: 'What does it cost per lead?', a: 'Eligoo is priced per workspace with a credit allowance, not per lead. Apollo search does not use Apollo credits; enrichment does, on your own Apollo account. Current plans are on the pricing page.' },
+      { q: 'What does it cost per lead?', a: 'Eligoo is a flat per-workspace subscription, not priced per lead. Model usage runs on your own AI key and is billed by the provider. Apollo search does not use Apollo credits; enrichment does, on your own Apollo account. Current plans are on the pricing page.' },
     ]),
     related([
       LINKS.leadGen, LINKS.radar, LINKS.hook, LINKS.outbound, LINKS.sales, LINKS.ucColdCalling, LINKS.ucAppointments, LINKS.ucOutbound,

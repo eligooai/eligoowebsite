@@ -64,7 +64,7 @@ const page: PageContent = {
       { q: 'What exactly needs approval?', a: 'Launching a campaign, pausing or activating anything, changing a budget or bid. Reading insights and preparing proposals do not.' },
       { q: 'Does Eligoo run Google Ads or LinkedIn Ads?', a: 'No. Boost plans those channels but only Meta Ads is connected for execution today.' },
       { q: 'Where does the ad creative come from?', a: 'Pixel generates or edits images and video to Boost’s creative brief; you review them before they are part of an approval package.' },
-      { q: 'Who pays for the ads?', a: 'Meta charges your ad account directly. Eligoo credits cover Boost’s work on the platform side; see the pricing page.' },
+      { q: 'Who pays for the ads?', a: 'Meta charges your ad account directly, and your AI provider bills the model usage on your own key. Boost is included on Eligoo plans that list paid ads; see the pricing page.' },
       { q: 'What happens if an approved change fails to apply?', a: 'The item returns to pending in the approvals queue with the error, and nothing is retried without a person seeing it.' },
     ]),
     related([

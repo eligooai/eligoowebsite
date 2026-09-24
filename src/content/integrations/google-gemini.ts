@@ -27,7 +27,7 @@ const page: PageContent = {
         { title: 'Get an API key from Google AI Studio', text: 'Create a key in Google AI Studio, or use a key from a Google Cloud project with the Gemini API enabled.' },
         { title: 'Add Google Gemini as a provider', text: 'In workspace settings, choose Google Gemini and paste the key. Eligoo verifies it with a test request and stores it server-side, masked in the interface.' },
         { title: 'Select the models', text: 'Set a Gemini model as the workspace default, or assign Gemini to particular employees while another provider stays the default.' },
-        { title: 'Tasks run on your account', text: 'Assigned employees send their prompts to Google under your key; output returns to the workspace and is logged against the task. Credits are consumed at the platform rate.' },
+        { title: 'Tasks run on your account', text: 'Assigned employees send their prompts to Google under your key; output returns to the workspace and is logged against the task. Google bills the tokens to your account; Eligoo adds nothing.' },
       ],
     },
     {
@@ -63,7 +63,7 @@ const page: PageContent = {
     faq([
       { q: 'Can I use Gemini with AI employees?', a: 'Yes. Add a Google AI API key to the workspace and assign a Gemini model as the default or per employee.' },
       { q: 'Is the Gemini connection the same as the Google Workspace connection?', a: 'No. Gemini is an API key for model usage; Google Workspace is an OAuth sign-in for Gmail, Drive, Docs, Sheets and Calendar. You can use either without the other.' },
-      { q: 'Who is billed for Gemini usage?', a: 'Google bills the account the key belongs to. Eligoo credits are consumed separately for the platform work.' },
+      { q: 'Who is billed for Gemini usage?', a: 'Google bills the account the key belongs to. Eligoo charges a flat platform subscription with no markup on model usage.' },
       { q: 'Can I run some employees on Gemini and others on Claude or GPT?', a: 'Yes. Model assignment is per employee, with a workspace default for anyone without an override.' },
       { q: 'What if my key’s quota is exhausted?', a: 'The task fails and returns to pending, and the employee shows an Error status with the reason. Raise the quota or switch the assignment to another provider.' },
     ]),

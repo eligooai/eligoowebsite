@@ -91,7 +91,7 @@ const page: PageContent = {
     },
     faq([
       { q: 'Do I need to connect every integration to use Eligoo?', a: 'No. At minimum you connect one AI model provider so the employees can think. Everything else is added when an employee needs it — a mailbox before Hook sends email, a SIP trunk before it calls, a social channel before Sage publishes.' },
-      { q: 'Can I use my own API keys instead of paying Eligoo for model usage?', a: 'Yes — that is the only way Eligoo works. You connect your own OpenAI, Anthropic, Google Gemini, Groq or OpenRouter account and the provider bills you directly for tokens. Eligoo credits cover the platform side of the work.' },
+      { q: 'Can I use my own API keys instead of paying Eligoo for model usage?', a: 'Yes — that is the only way Eligoo works. You connect your own OpenAI, Anthropic, Google Gemini, Groq or OpenRouter account and the provider bills you directly for tokens, with no markup. Eligoo charges a flat platform subscription for the employees, seats and features.' },
       { q: 'Where are my keys stored?', a: 'Server-side in your workspace, encrypted at rest on the hosting provider’s disks, and shown only as a masked value in the interface once saved. Details are on the security page.' },
       { q: 'Which CRMs does Eligoo integrate with?', a: 'Eligoo has a built-in CRM that Radar, Hook and Ledger work in. There is no third-party CRM connector today; records can be exported from the workspace.' },
       { q: 'What happens to a running task if an integration fails?', a: 'The execution fails, the task returns to a pending state and the employee’s status shows Blocked or Error with the reason in the activity log. Once the connection is fixed the work can be resumed or re-approved.' },

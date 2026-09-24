@@ -68,7 +68,7 @@ const page: PageContent = {
     pricingPointer('an AI employee'),
     faq([
       { q: 'What is an AI employee?', a: 'An AI system given a business role — defined inputs, decisions, actions, deliverables, a KPI and an approval boundary — that works persistently inside your workspace instead of answering one-off prompts.' },
-      { q: 'How much does an AI employee cost?', a: 'Eligoo plans are priced per workspace and include a monthly credit allowance; model usage runs on your own AI provider account. Current plans, trial terms and top-up packs are on the pricing page.' },
+      { q: 'How much does an AI employee cost?', a: 'Eligoo plans are a per-workspace platform subscription covering employees, seats and features; model usage runs on your own AI provider key and is billed by the provider with no markup. Current plans and trial terms are on the pricing page.' },
       { q: 'What business tasks can AI employees automate?', a: 'Market research and campaign strategy, content and SEO, creative production, prospect research, email outreach and AI phone calls, qualification and booking, CRM hygiene and revenue reporting, and paid-campaign planning and management.' },
       { q: 'Can AI employees use my existing software?', a: 'They use the integrations you connect: your AI provider accounts, mailbox, telephony trunk, Google Workspace, social channels, Meta Ads, Apollo, Serper and fal.ai. The integrations directory lists what each one does.' },
       { q: 'Are AI employees suitable for a small business?', a: 'Yes — you can hire a single role and add others as the work justifies it. A small team often starts with Radar and Hook for pipeline, or Sage for content, with Atlas coordinating.' },

@@ -89,7 +89,7 @@ const page: PageContent = {
       { q: 'How many AI employees do I need to start?', a: 'One chain. For most businesses that is prospecting to booked meeting: a finder, a contactor and something to keep the records honest. Add roles when the first chain is producing.' },
       { q: 'Can an AI workforce replace my team?', a: 'It can take the repeatable, specifiable work in each function. Judgement, relationships, negotiation and accountability stay with people. Most businesses end up with a smaller team spending its time on those.' },
       { q: 'How do the employees coordinate?', a: 'Through a coordinating role and a shared task board. In Eligoo, Atlas assigns tasks and reports back when delegated work completes; hand-offs between employees are recorded in the workspace.' },
-      { q: 'What does it cost to run an AI workforce?', a: 'Eligoo is priced per workspace with a credit allowance that usage consumes; model costs are billed by your own AI provider. Current plans and a free trial are on the pricing page.' },
+      { q: 'What does it cost to run an AI workforce?', a: 'Eligoo is a flat platform subscription priced per workspace; model usage runs on your own AI key and is billed by the provider with no markup. Current plans and a free trial are on the pricing page.' },
       { q: 'Is an AI workforce suitable for a small business?', a: 'It is often most useful there, because the functions are unstaffed rather than understaffed. Start with the one whose absence costs the most revenue, usually follow-up and prospecting.' },
     ]),
     related([

@@ -28,7 +28,7 @@ const page: PageContent = {
         { title: 'Add Groq as a provider', text: 'In workspace settings choose Groq and paste the key. Eligoo verifies it with a test request and stores it server-side, masked in the interface.' },
         { title: 'Assign Groq models', text: 'Pick a Groq model as the default, or assign it to specific employees — typically Hook for calls and Radar for scoring.' },
         { title: 'Test on a call', text: 'If Hook is on Groq, make a browser test call and listen to the turn-taking. Adjust the turn-detection and interruption settings alongside the model choice.' },
-        { title: 'Work runs under your account', text: 'Prompts go to Groq with your key, responses come back into the workspace, and credits are consumed at the platform rate.' },
+        { title: 'Work runs under your account', text: 'Prompts go to Groq with your key, and responses come back into the workspace. Groq bills the tokens to your account; Eligoo adds nothing.' },
       ],
     },
     {
@@ -63,7 +63,7 @@ const page: PageContent = {
       { q: 'Can I use Groq for an AI voice agent?', a: 'Yes. Assign a Groq model to Hook and it becomes the language model behind live calls. Speech-to-text and text-to-speech remain on Deepgram, ElevenLabs or OpenAI.' },
       { q: 'Which models does Groq offer?', a: 'Groq serves a set of open-weight models; Eligoo lists the ones your key can reach when you connect it. The list changes as Groq adds models.' },
       { q: 'Is Groq good enough for writing tasks?', a: 'Open-weight models on Groq handle short drafts and classification well; for long-form content and planning many teams prefer a frontier model. Assign per employee and compare.' },
-      { q: 'Who bills me for Groq usage?', a: 'Groq, directly on your account. Eligoo credits are consumed separately for the platform work.' },
+      { q: 'Who bills me for Groq usage?', a: 'Groq, directly on your account. Eligoo charges a flat platform subscription with no markup on model usage.' },
       { q: 'What happens if Groq rate-limits my key?', a: 'The affected task fails and returns to pending with the reason in the activity log. On a calling campaign the current call ends gracefully and the campaign pauses until the model responds again.' },
     ]),
     related([

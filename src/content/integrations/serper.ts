@@ -60,7 +60,7 @@ const page: PageContent = {
     faq([
       { q: 'Do AI employees need web search?', a: 'For research tasks, yes — otherwise they rely on training data that may be stale. Serper provides Google results as an API so research is current and cited.' },
       { q: 'Is Serper required?', a: 'Employees work without it, but Maven, Sage, Radar and Boost produce noticeably better research with it connected. It is inexpensive relative to the work it improves.' },
-      { q: 'Who pays for searches?', a: 'Serper bills your account per search. Eligoo credits are consumed separately for the platform work.' },
+      { q: 'Who pays for searches?', a: 'Serper bills your account per search. Eligoo adds no usage charge; the platform subscription covers the employees’ work.' },
       { q: 'Can I see what the employees searched for?', a: 'Yes. Queries and the sources used appear in the task’s activity log and the research output.' },
       { q: 'Does Serper replace Apollo for prospecting?', a: 'No. Apollo supplies contact and company records; Serper supplies research about them. Radar uses both.' },
     ]),

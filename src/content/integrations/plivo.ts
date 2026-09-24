@@ -59,7 +59,7 @@ const page: PageContent = {
       { q: 'Can an AI voice agent use Plivo Zentrunk?', a: 'Yes. Create a Zentrunk trunk in Plivo, enter its credentials in Eligoo, and Hook calls and answers on the assigned number.' },
       { q: 'Is the Plivo trunk created automatically?', a: 'No. Automatic trunk creation is only available for Twilio. For Plivo you create the trunk in the Plivo console and paste the credentials.' },
       { q: 'Do I need a Plivo API key?', a: 'No. Eligoo uses the trunk’s SIP credentials only.' },
-      { q: 'Who pays for the calls?', a: 'Plivo bills your account for minutes and numbers. Eligoo credits cover call minutes on the platform side; see the pricing page.' },
+      { q: 'Who pays for the calls?', a: 'Plivo bills your account for minutes and numbers, and your AI provider bills the model turns on your own key. Calling is included on Eligoo plans that list it, with no per-minute charge from Eligoo; see the pricing page.' },
       { q: 'Can I switch from Plivo to another provider later?', a: 'Yes. Connect the new trunk, select its number on new campaigns and remove the old one when you are ready. Nothing else in the workspace changes.' },
     ]),
     related([

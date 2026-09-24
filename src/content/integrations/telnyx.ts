@@ -60,7 +60,7 @@ const page: PageContent = {
       { q: 'Can an AI voice agent use a Telnyx SIP trunk?', a: 'Yes. Create a SIP connection in Telnyx, enter its credentials in Eligoo, and Hook calls and answers on the assigned number.' },
       { q: 'Does Eligoo create the Telnyx trunk automatically like it does for Twilio?', a: 'No. For Telnyx you create the SIP connection in the Telnyx portal and enter the credentials manually.' },
       { q: 'What do I need from Telnyx?', a: 'A voice-capable number, a credential-based SIP connection with a username and password, and — for inbound — the connection routed to Eligoo’s SIP gateway.' },
-      { q: 'Who pays for the calls?', a: 'Telnyx bills your account for minutes and numbers. Eligoo credits cover call minutes on the platform side; rates are on the pricing page.' },
+      { q: 'Who pays for the calls?', a: 'Telnyx bills your account for minutes and numbers, and your AI provider bills the model turns on your own key. Calling is included on Eligoo plans that list it, with no per-minute charge from Eligoo; see the pricing page.' },
       { q: 'Can I connect more than one trunk?', a: 'You can connect trunks from several providers to a workspace and choose which number a campaign uses.' },
     ]),
     related([

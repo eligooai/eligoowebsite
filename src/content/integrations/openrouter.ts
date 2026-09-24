@@ -28,7 +28,7 @@ const page: PageContent = {
         { title: 'Add OpenRouter as a provider', text: 'In workspace settings choose OpenRouter and paste the key. Eligoo verifies it with a test request and stores it server-side, masked in the interface.' },
         { title: 'Choose models by name', text: 'Pick any model in OpenRouter’s catalogue as the workspace default, and override per employee where a different model fits the role better.' },
         { title: 'Compare and settle', text: 'Change an employee’s model, review the next few outputs in the activity log, and keep the one that works. Assignments take effect on the next task.' },
-        { title: 'Work runs under your account', text: 'Prompts go to OpenRouter with your key and are routed to the chosen model; output returns to the workspace and credits are consumed at the platform rate.' },
+        { title: 'Work runs under your account', text: 'Prompts go to OpenRouter with your key and are routed to the chosen model; output returns to the workspace. OpenRouter bills the tokens to your account; Eligoo adds nothing.' },
       ],
     },
     {
@@ -63,7 +63,7 @@ const page: PageContent = {
       { q: 'Can I use OpenRouter with AI employees?', a: 'Yes. Add an OpenRouter key to the workspace and assign any of its models as the default or per employee.' },
       { q: 'Do I still need OpenAI or Anthropic accounts if I use OpenRouter?', a: 'No. OpenRouter routes to those providers on your behalf. You can also connect them directly and use both.' },
       { q: 'Does OpenRouter work for the AI voice agent?', a: 'It can. Assign an OpenRouter model to Hook and make a browser test call; the extra routing hop adds some latency, so compare it with a direct provider before running a campaign.' },
-      { q: 'Who bills me?', a: 'OpenRouter, on your own account, at its listed rates for the model used. Eligoo credits are consumed separately for the platform work.' },
+      { q: 'Who bills me?', a: 'OpenRouter, on your own account, at its listed rates for the model used. Eligoo charges a flat platform subscription with no markup on model usage.' },
       { q: 'Can I limit which providers OpenRouter routes to?', a: 'That is configured in your OpenRouter account, not in Eligoo. Eligoo sends the model name you chose; OpenRouter applies your routing preferences.' },
     ]),
     related([

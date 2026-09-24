@@ -106,7 +106,7 @@ const page: PageContent = {
       { q: 'Does it use my phone number?', a: 'Yes. You connect a SIP trunk from your telephony provider, so calls come from numbers you own and control.' },
       { q: 'What happens when the caller asks something the agent should not answer?', a: 'Pricing negotiation, contractual promises, legal and security questions and serious complaints are outside Hook’s approval boundary. The agent says a colleague will follow up and the call is flagged for a person.' },
       { q: 'Is every call recorded?', a: 'Recording is optional. When enabled, audio is stored in your workspace alongside the transcript. Check consent requirements for recording in your jurisdiction.' },
-      { q: 'How is calling billed?', a: 'Call minutes draw from your plan’s credit balance; telephony and speech providers bill you directly on your own accounts. Current rates are on the pricing page.' },
+      { q: 'How is calling billed?', a: 'Calling is included on plans that list it; Eligoo does not meter minutes. Telephony, speech and AI providers bill you directly on your own accounts. Current plans are on the pricing page.' },
     ]),
     related([
       LINKS.sales, LINKS.ucColdCalling, LINKS.ucAppointments, LINKS.hook, LINKS.leadGen, LINKS.outbound,

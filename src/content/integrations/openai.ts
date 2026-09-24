@@ -28,7 +28,7 @@ const page: PageContent = {
         { title: 'Paste it into Eligoo', text: 'In your workspace settings, add OpenAI as a model provider and paste the key. Eligoo makes a test request to verify the key before it is saved.' },
         { title: 'Choose models', text: 'Pick a workspace default model. Then, for any employee, override the default with the model you prefer for that role. Changing an assignment takes effect on the employee’s next task.' },
         { title: 'Optionally pick an OpenAI voice', text: 'In the voice agent configuration, select OpenAI as the text-to-speech provider and choose a voice. Make a browser test call to hear it before any campaign starts.' },
-        { title: 'The employees get to work', text: 'From then on every task, chat message, call turn and report the employees produce runs through your OpenAI account. Token usage also draws from your Eligoo credits at the platform rate.' },
+        { title: 'The employees get to work', text: 'From then on every task, chat message, call turn and report the employees produce runs through your OpenAI account. OpenAI bills the tokens to you directly; Eligoo adds no markup.' },
       ],
     },
     {
@@ -37,7 +37,7 @@ const page: PageContent = {
       items: [
         'Sent to OpenAI: the prompts each employee builds for a task — its role instructions, the relevant workspace context (a brief, a prospect record, a reply to classify, a call transcript so far) and any documents the task attached. On calls, the text to be spoken when OpenAI is the voice provider.',
         'Received from OpenAI: the model’s text output, and audio when OpenAI voices are used.',
-        'Not sent: your other integrations’ keys, your credit balance, or data from other workspaces.',
+        'Not sent: your other integrations’ keys, your billing details, or data from other workspaces.',
         'Your API key stays server-side in your workspace, is masked in the interface after saving, and is never returned to the browser.',
         'Because the traffic runs under your own OpenAI account, OpenAI’s data-usage and retention terms for API customers apply to it. Check those terms if you handle regulated data.',
       ],
@@ -63,7 +63,7 @@ const page: PageContent = {
     faq([
       { q: 'Can I use my own OpenAI key with AI employees?', a: 'Yes. That is how Eligoo works: you connect your own OpenAI account and OpenAI bills you for tokens. Eligoo does not provide a shared key.' },
       { q: 'Which OpenAI models can I choose?', a: 'The chat models available to your OpenAI account. Eligoo lists the models your key can reach when you connect it; you set one as the workspace default and can assign others per employee.' },
-      { q: 'Does Eligoo mark up my OpenAI usage?', a: 'OpenAI charges your account directly at its own rates. Separately, model tokens draw from your Eligoo credits at the platform rate shown on the pricing page. You see both.' },
+      { q: 'Does Eligoo mark up my OpenAI usage?', a: 'No. OpenAI charges your account directly at its own rates, and that is the only bill for model usage. Eligoo is a flat platform subscription; see the pricing page.' },
       { q: 'Can different employees use different models?', a: 'Yes. A workspace default applies to everyone unless an employee has its own assignment — for example a fast model for Radar and a stronger one for Atlas.' },
       { q: 'Can the AI voice agent use OpenAI voices?', a: 'Yes. Select OpenAI as the text-to-speech provider in the voice configuration. Transcription still runs on Deepgram by default.' },
       { q: 'What happens if my OpenAI key hits its spending limit?', a: 'Requests fail, the running task returns to pending and the employee shows an Error status with the reason. Raise the limit or assign another provider and the work resumes.' },

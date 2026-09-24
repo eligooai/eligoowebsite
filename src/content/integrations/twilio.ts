@@ -60,7 +60,7 @@ const page: PageContent = {
       { q: 'Can an AI agent make calls from my Twilio number?', a: 'Yes. Connect Twilio with your Account SID, Auth Token and the number, and Hook calls out and answers on it.' },
       { q: 'Do I have to set up the SIP trunk myself?', a: 'No. Eligoo creates the Elastic SIP trunk in your Twilio account automatically and attaches your number. You can inspect it in the Twilio console.' },
       { q: 'Which Twilio permissions does Eligoo need?', a: 'The Account SID and Auth Token of the account (or subaccount) that owns the number, so it can create the trunk and place calls. A dedicated subaccount keeps Eligoo’s access and billing separate.' },
-      { q: 'Who pays for the calls?', a: 'Twilio bills your account for minutes and the number at its own rates. Eligoo credits cover call minutes on the platform side; see the pricing page.' },
+      { q: 'Who pays for the calls?', a: 'Twilio bills your account for minutes and the number at its own rates, and your AI provider bills the model turns on your own key. Calling is included on Eligoo plans that list it, with no per-minute charge from Eligoo; see the pricing page.' },
       { q: 'Can I use Twilio for Indian numbers?', a: 'That depends on Twilio’s number availability and regulatory requirements in India, which change. Many Indian customers use Vobiz instead; see the Vobiz integration page.' },
       { q: 'What happens if I delete the trunk in Twilio?', a: 'Calls stop. Any running campaign pauses with a Blocked status, and re-connecting Twilio in Eligoo recreates the trunk.' },
     ]),

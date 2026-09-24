@@ -60,7 +60,7 @@ const page: PageContent = {
       { q: 'Does Eligoo use Deepgram for AI phone calls?', a: 'Yes. Deepgram nova-3 is the default speech-to-text for the AI voice agent. You connect your own Deepgram key.' },
       { q: 'Do I have to use Deepgram?', a: 'It is the default and the recommended choice for transcription. For speech output you can pick Deepgram, ElevenLabs or OpenAI independently.' },
       { q: 'Can Deepgram transcribe Indian languages on calls?', a: 'Deepgram supports several Indian languages; set the call language in the voice configuration and confirm recognition on a browser test call before running a campaign.' },
-      { q: 'Who pays for Deepgram usage?', a: 'Deepgram bills your account for the audio processed. Eligoo credits cover call minutes on the platform side; see the pricing page for rates.' },
+      { q: 'Who pays for Deepgram usage?', a: 'Deepgram bills your account for the audio processed, at its own rates. Calling is included on Eligoo plans that list it; there is no usage charge from Eligoo. See the pricing page.' },
       { q: 'Are call recordings made by Deepgram?', a: 'No. Recordings, when enabled, are produced by Eligoo’s self-hosted voice stack and stored in your workspace. Deepgram returns text, and audio only when used for voices.' },
     ]),
     related([

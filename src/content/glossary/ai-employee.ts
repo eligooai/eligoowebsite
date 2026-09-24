@@ -78,13 +78,13 @@ const page: PageContent = {
       { q: 'What is the difference between an AI employee and an AI agent?', a: 'An AI agent is the technology: a model with tools in a loop. An AI employee is an agent packaged into a job — a role, a scope, a KPI and an approval boundary. Every AI employee is an agent; not every agent is an employee.' },
       { q: 'Can an AI employee replace a human employee?', a: 'For a defined, repeatable slice of a role — prospect research, first-touch outreach, CRM hygiene — it can do the work. For the parts that need relationships, negotiation or accountability, it cannot, and a sensible deployment keeps a person on those.' },
       { q: 'How do you “hire” an AI employee?', a: 'On a platform like Eligoo you pick the role, connect the tools it needs (a mailbox, a calendar, a contact database, an AI provider account), set its approval boundary and assign it tasks. There is no recruitment; there is configuration.' },
-      { q: 'What does an AI employee cost?', a: 'It depends on the platform and the work volume. Eligoo prices per workspace with a credit allowance that employees consume as they work; model calls run on your own AI provider accounts. Current plans are on the pricing page.' },
+      { q: 'What does an AI employee cost?', a: 'It depends on the platform and the work volume. Eligoo charges a flat per-workspace subscription for employees, seats and features; model usage runs on your own AI provider key and is billed by the provider. Current plans are on the pricing page.' },
     ], 'FAQs'),
     {
       kind: 'prose',
       heading: 'How Eligoo uses this',
       paragraphs: [
-        'Eligoo is built on this definition. It provides eight AI employees — Atlas, Maven, Sage, Pixel, Radar, Hook, Ledger and Boost — each with a public role, a fixed Input → Decide → Act → Output → KPI → Approval boundary, a status on the team board, a chat channel and an entry in the activity log. A customer can hire one employee, a team or the whole workforce, and every employee works from the same workspace, credits and connections.',
+        'Eligoo is built on this definition. It provides eight AI employees — Atlas, Maven, Sage, Pixel, Radar, Hook, Ledger and Boost — each with a public role, a fixed Input → Decide → Act → Output → KPI → Approval boundary, a status on the team board, a chat channel and an entry in the activity log. A customer can hire one employee, a team or the whole workforce, and every employee works from the same workspace, AI keys and connections.',
       ],
     },
     cta('Hire your first AI employee', 'Pick a role, connect its tools and assign a task. Start with a free trial and see how the approval boundary works in practice.'),

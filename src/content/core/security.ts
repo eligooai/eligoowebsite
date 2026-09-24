@@ -17,7 +17,7 @@ const page: PageContent = {
       heading: 'How your data is handled',
       items: [
         { title: 'Bring your own keys', text: 'You connect your OpenAI, Anthropic, Google Gemini, Groq or OpenRouter account. Keys are stored server-side in your workspace, masked in the interface and never returned to the browser.', icon: 'key' },
-        { title: 'Per-workspace data', text: 'Each customer has its own workspace with its own data, connections, credits and settings. Employees only see the workspace they belong to.', icon: 'lock' },
+        { title: 'Per-workspace data', text: 'Each customer has its own workspace with its own data, connections, AI keys and settings. Employees only see the workspace they belong to.', icon: 'lock' },
         { title: 'Approvals on outside-world actions', text: 'Sending a sequence, starting a calling campaign, publishing outside the approved calendar and any ad launch or spend change wait for a person. Decisions are logged.', icon: 'shield' },
         { title: 'Least-privilege roles', text: 'Each employee has access only to the integrations its role needs. Disconnecting an integration stops the employees that rely on it.', icon: 'users' },
         { title: 'Encryption at rest', text: 'Workspace data is stored on encrypted disks at our hosting provider. Connections to your providers use TLS.', icon: 'database' },
