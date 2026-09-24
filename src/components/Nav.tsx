@@ -68,7 +68,7 @@ function Dropdown({ group }: { group: NavGroup }) {
 export default function Nav() {
   const [open, setOpen] = useState(false);
   const loc = useLocation();
-  useEffect(() => { setOpen(false); }, [loc.pathname]);
+  useEffect(() => { setOpen(false); (document.activeElement as HTMLElement | null)?.blur?.(); }, [loc.pathname]);
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };

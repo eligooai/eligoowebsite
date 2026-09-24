@@ -9,10 +9,10 @@ const ProfileViewer = lazy(() => import('../three/ProfileViewer'));
  * prerendered HTML, phones and reduced-motion users get); on a ≥768px viewport with
  * motion allowed and WebGL available, the 3D model loads lazily after mount.
  */
-export default function CharacterStage({ employee, priority = false }: { employee: Employee; priority?: boolean }) {
+export default function CharacterStage({ employee, priority = false, still = false }: { employee: Employee; priority?: boolean; still?: boolean }) {
   const [three, setThree] = useState(false);
   useEffect(() => {
-    if (!employee.model) return;
+    if (!employee.model || still) return;
     const ok = () => {
       if (window.innerWidth < 768) return false;
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
@@ -20,7 +20,7 @@ export default function CharacterStage({ employee, priority = false }: { employe
     };
     const t = setTimeout(() => setThree(ok()), 300);
     return () => clearTimeout(t);
-  }, [employee.model]);
+  }, [employee.model, still]);
 
   const isMark = !employee.model;
   return (

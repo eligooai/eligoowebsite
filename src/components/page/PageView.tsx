@@ -6,6 +6,20 @@ import { headFor } from '../../lib/seo';
 import { Seo } from '../../lib/head';
 import { Button, Container, Eyebrow, SignupConsent, TRIAL_URL, BOOK_URL } from '../ui';
 import CharacterStage from './CharacterStage';
+
+/** Which employee illustrates a page that has no character of its own: the one who does that work. */
+function defaultCharacter(slug: string): 'atlas' | 'maven' | 'sage' | 'pixel' | 'radar' | 'hook' | 'ledger' {
+  const s = slug;
+  const has = (...k: string[]) => k.some((x) => s.includes(x));
+  if (s === '/' || has('/ai-automation/', '/security/', '/solutions/operations/', '/resources/templates/', '/use-cases/business-automation/', '/integrations/openai', '/integrations/anthropic', '/integrations/gemini', '/integrations/groq', '/integrations/openrouter')) return 'atlas';
+  if (has('/solutions/voice/', '/solutions/sales/', '/solutions/customer-support/', 'cold-calling', 'appointment', 'outbound-sales', 'sales-automation', 'customer-support', 'voice', 'sdr', '/integrations/deepgram', '/integrations/elevenlabs', '/integrations/twilio', '/integrations/telnyx', '/integrations/plivo', '/integrations/vobiz', '/integrations/livekit', '/integrations/google', '/integrations/smtp', '/integrations/mailbox')) return 'hook';
+  if (has('/solutions/outbound/', 'lead-generation', 'prospect', '/industries/', '/integrations/apollo', '/integrations/serper')) return 'radar';
+  if (has('/solutions/marketing/', 'marketing', '/ai-workforce/', '/about/', '/compare/', '/resources/glossary/')) return 'maven';
+  if (has('content', 'seo', 'social', '/resources/blog/', '/resources/', '/resources/guides/', '/integrations/linkedin', '/integrations/instagram', '/integrations/facebook', '/integrations/youtube', '/integrations/threads', '/integrations/meta')) return 'sage';
+  if (has('/solutions/revenue/', '/pricing/', '/resources/research/', 'revenue', 'analytics')) return 'ledger';
+  if (has('/integrations/', '/ai-agents/', 'creative', 'fal')) return 'pixel';
+  return 'atlas';
+}
 import { RenderSection } from './Sections';
 import Footer from '../Footer';
 
@@ -28,7 +42,8 @@ function Breadcrumbs({ page }: { page: PageContent }) {
 
 export default function PageView({ page }: { page: PageContent }) {
   const head = headFor(page);
-  const character = page.character ? byId(page.character) : null;
+  const character = byId(page.character ?? defaultCharacter(page.slug));
+  const still = !page.character;
   const home = page.slug === '/';
   const primary = page.hero?.primary || { label: 'Start free trial', href: TRIAL_URL };
   const secondary = page.hero?.secondary || { label: 'Talk to us', href: BOOK_URL };
@@ -57,7 +72,7 @@ export default function PageView({ page }: { page: PageContent }) {
               </div>
               {character && (
                 <div className="md:col-span-5 lg:col-span-5 flex justify-center md:justify-end">
-                  <CharacterStage employee={character} priority />
+                  <CharacterStage employee={character} priority still={still} />
                 </div>
               )}
             </div>

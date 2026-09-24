@@ -151,7 +151,8 @@ img, video, svg { max-width: 100%; }
 
 /* desktop mega menu: hover / keyboard focus */
 .mega { visibility: hidden; opacity: 0; transform: translateY(6px); transition: opacity .15s ease, transform .15s ease, visibility 0s linear .15s; z-index: 95; }
-.group:hover > .mega, .group:focus-within > .mega { visibility: visible; opacity: 1; transform: translateY(0); transition-delay: 0s; }
+.group:hover > .mega, .group:has(:focus-visible) > .mega { visibility: visible; opacity: 1; transform: translateY(0); transition-delay: 0s; }
+.group:has(:focus-visible) ~ .group > .mega { visibility: hidden; opacity: 0; }
 
 /* native <details> used for FAQ and the mobile menu */
 details > summary::-webkit-details-marker { display: none; }

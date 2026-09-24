@@ -1,18 +1,54 @@
-# eligoo.in — crawl everything except the API. Search and AI-search crawlers are explicitly allowed.
+# eligoo.in — the whole marketing site is crawlable by search engines and AI search agents.
+# The signed-in platform (/app/) and its API (/api/, /eapi/) are private.
 User-agent: *
 Allow: /
+Disallow: /app/
+Disallow: /api/
 Disallow: /eapi/
 
 User-agent: Googlebot
 Allow: /
+Disallow: /app/
+Disallow: /api/
 Disallow: /eapi/
 
 User-agent: Bingbot
 Allow: /
+Disallow: /app/
+Disallow: /api/
 Disallow: /eapi/
 
 User-agent: OAI-SearchBot
 Allow: /
+Disallow: /app/
+Disallow: /api/
 Disallow: /eapi/
+
+User-agent: GPTBot
+Allow: /
+Disallow: /app/
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /app/
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /app/
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
 
 Sitemap: https://eligoo.in/sitemap.xml
