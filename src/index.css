@@ -168,3 +168,10 @@ details.mobile-group .chev { transition: transform .2s ease; }
   html { scroll-behavior: auto; }
   .mega, .btn, details .chev { transition: none; }
 }
+
+/* route change feedback */
+.route-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: #FF5A36; z-index: 120; animation: routeBar .7s ease-out forwards; }
+@keyframes routeBar { 0% { width: 0; opacity: 1; } 70% { width: 100%; opacity: 1; } 100% { width: 100%; opacity: 0; } }
+.page-enter { animation: pageIn .28s ease-out; }
+@keyframes pageIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .route-bar, .page-enter { animation: none; } }

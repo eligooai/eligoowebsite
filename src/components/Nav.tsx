@@ -37,9 +37,11 @@ function SignIn({ mobile = false, onNav }: { mobile?: boolean; onNav?: () => voi
 
 function Dropdown({ group }: { group: NavGroup }) {
   const wide = group.links.some((l) => l.text);
+  const path = useLocation().pathname;
+  const active = path === group.href || path.startsWith(group.href) || group.links.some((l) => path === l.href || path.startsWith(l.href));
   return (
     <div className="relative group">
-      <Link to={group.href} className="inline-flex items-center gap-1 text-[13px] font-semibold no-underline px-3 rounded-full" style={{ color: 'rgba(255,255,255,0.88)', minHeight: 44 }} aria-haspopup="true">
+      <Link to={group.href} className="inline-flex items-center gap-1 text-[13px] font-semibold no-underline px-3 rounded-full" style={{ color: active ? '#fff' : 'rgba(255,255,255,0.88)', backgroundColor: active ? 'rgba(255,255,255,0.12)' : 'transparent', minHeight: 44 }} aria-haspopup="true" aria-current={active ? 'page' : undefined}>
         {group.label} <ChevronDown size={13} strokeWidth={2.5} aria-hidden />
       </Link>
       <div className="mega absolute left-0 top-full pt-2" style={{ minWidth: wide ? 560 : 240 }}>

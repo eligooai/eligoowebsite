@@ -1,4 +1,4 @@
-import { Suspense, lazy, use, useEffect } from 'react';
+import { Suspense, lazy, use, useEffect, useRef, useState } from 'react';
 import { Navigate, Route, Routes, useLocation, useParams } from 'react-router-dom';
 import Nav from './components/Nav';
 import PageView from './components/page/PageView';
@@ -29,6 +29,15 @@ function ContentRoute() {
   return page ? <PageView page={page} /> : <NotFound />;
 }
 
+/** Thin accent bar at the top on every client-side navigation, so a click is visibly acknowledged. */
+function RouteProgress({ pathname }: { pathname: string }) {
+  const [tick, setTick] = useState(0);
+  const first = useRef(true);
+  useEffect(() => { if (first.current) { first.current = false; return; } setTick((t) => t + 1); }, [pathname]);
+  if (!tick) return null;
+  return <div key={tick} className="route-bar" aria-hidden />;
+}
+
 export default function App() {
   const loc = useLocation();
   useEffect(() => { trackPageView(loc.pathname); }, [loc.pathname]);
@@ -44,7 +53,9 @@ export default function App() {
       }
     >
       <Nav />
+      <RouteProgress pathname={loc.pathname} />
       <Suspense fallback={<main style={{ minHeight: '100vh', backgroundColor: '#041A17' }} />}>
+        <div key={loc.pathname} className="page-enter">
         <Routes>
           <Route path="/resources/blog/:slug" element={<BlogPost />} />
           <Route path="/blog" element={<Navigate to="/resources/blog/" replace />} />
@@ -52,6 +63,7 @@ export default function App() {
           <Route path="/p/:slug" element={<LegalPage />} />
           <Route path="*" element={<ContentRoute />} />
         </Routes>
+        </div>
       </Suspense>
     </ErrorBoundary>
   );

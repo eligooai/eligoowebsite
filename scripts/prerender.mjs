@@ -54,7 +54,7 @@ let bytes = 0;
 for (const r of list) {
   const file = r.path === '/' ? path.join(dist, 'index.html') : path.join(dist, r.path, 'index.html');
   fs.mkdirSync(path.dirname(file), { recursive: true });
-  const html = document(r.path, { bootOnInteraction: r.path === '/' });
+  const html = document(r.path);
   bytes += html.length;
   fs.writeFileSync(file, html);
 }
